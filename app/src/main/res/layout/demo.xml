@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/con"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="28dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:elevation="10dp"
+        android:src="@drawable/jbl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/colorSecondary"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="120dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/endsintext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ends in:"
+                android:layout_marginTop="10sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/hr1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/timer_bg"
+                android:padding="4dp"
+                android:gravity="center"
+                android:fontFamily="@font/digitaldismay"
+                android:textSize="20sp"
+                android:text="1"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/hr2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/hr1"
+                android:background="@drawable/timer_bg"
+                android:padding="4dp"
+                android:gravity="center"
+                android:fontFamily="@font/digitaldismay"
+                android:textSize="20sp"
+                android:text="2"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/colan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_toRightOf="@id/hr2"
+                android:layout_alignTop="@id/hr1"
+                android:layout_alignBottom="@id/hr1"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/min1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:fontFamily="@font/digitaldismay"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/colan1"
+                android:background="@drawable/timer_bg"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/min2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:fontFamily="@font/digitaldismay"
+                android:textSize="20sp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/min1"
+                android:background="@drawable/timer_bg"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/colan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@id/min2"
+                android:layout_alignTop="@id/hr1"
+                android:layout_alignBottom="@id/hr1"
+                android:textColor="@color/colorPrimary"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/sec1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:fontFamily="@font/digitaldismay"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/colan2"
+                android:background="@drawable/timer_bg"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/sec2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/digitaldismay"
+                android:textSize="20sp"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/sec1"
+                android:background="@drawable/timer_bg"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/hrtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hr1"
+                android:layout_alignLeft="@id/hr1"
+                android:textColor="@color/colorPrimary"
+                android:text="hr"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/min1"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignLeft="@id/min1"
+                android:text="min"
+                android:textSize="10sp"
+                android:layout_alignStart="@id/min1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sec1"
+                android:layout_alignLeft="@id/sec1"
+                android:text="sec"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:layout_alignStart="@id/sec1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/hr1"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="@dimen/product_img_width"
+                    android:layout_height="@dimen/product_img_height"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/border"
+                    android:src="@drawable/jblboombox" />
+
+                <ImageView
+                    android:layout_width="@dimen/product_img_width"
+                    android:layout_height="@dimen/product_img_height"
+                    android:background="@drawable/border"
+                    android:src="@drawable/jblboombox" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hrtext"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/bitter"
+                android:text="JBL Boombox"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/bitter"
+                android:text="BluetoothSpeaker"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/mrp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sub"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/bitter"
+                android:text="MRP : Rs.3000"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/entercontest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bidnowbtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/bitter"
+                android:text="Enter contest for 25B"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/bidnowbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/dialog_bg"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:fontFamily="@font/bitter"
+                android:gravity="center"
+                android:text="BID NOW"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bidbad"
+                android:fontFamily="@font/bitter"
+                android:textColor="#80FFFFFF"
+                android:rotation="-90"
+                android:layout_marginBottom="32sp"
+                android:layout_marginRight="-40dp"
+                android:layout_alignParentRight="true"
+                android:layout_above="@id/entercontest"
+                android:textSize="32sp"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

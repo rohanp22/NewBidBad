@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">BidBadNew</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="results">Results</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_username">Enter username</string>
+    <string name="button_next">Next</string>
+    <string name="button_cancel">Cancel</string>
+</resources>
