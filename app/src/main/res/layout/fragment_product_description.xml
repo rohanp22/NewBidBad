@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginBottom="-56dp"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -123,7 +122,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/productMrp"
                 app:layout_constraintStart_toStartOf="@+id/detailPriceText"
                 app:layout_constraintTop_toBottomOf="@id/detailProductTitle"
-                app:strokeColor="#f2f2f2"
+                app:strokeColor="@color/colorSecondary"
                 app:strokeWidth="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -249,8 +248,7 @@
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textStyle="bold"
-            app:backgroundTint="#f8c430"
-            app:elevation="16dp" />
+            app:backgroundTint="#f8c430" />
 
     </RelativeLayout>
 

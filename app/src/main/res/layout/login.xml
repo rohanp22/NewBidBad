@@ -21,7 +21,8 @@
             android:layout_marginTop="48dp"
             android:layout_marginBottom="16dp"
             app:srcCompat="@drawable/ic_bid_coins"
-            tools:ignore="VectorDrawableCompat" />
+            tools:ignore="VectorDrawableCompat"
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:layout_width="wrap_content"

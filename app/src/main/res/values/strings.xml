@@ -11,4 +11,6 @@
     <string name="hint_username">Enter username</string>
     <string name="button_next">Next</string>
     <string name="button_cancel">Cancel</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="your_bid_amount">Your bid amount</string>
 </resources>

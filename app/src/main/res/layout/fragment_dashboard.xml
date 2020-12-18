@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginBottom="?actionBarSize"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -13,7 +14,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:paddingLeft="20dp"
             android:paddingRight="0dp"
             app:title="Results"
@@ -33,8 +34,10 @@
             android:layout_width="match_parent"
             app:tabTextAppearance="@style/MineCustomTabText"
             android:elevation="2dp"
+            app:tabIndicatorColor="@color/colorSecondary"
+            app:tabIndicatorHeight="4dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.bidbadnew.Adapter.AllBidsAdapter;
 import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.Others.SharedPrefManager;
@@ -46,8 +47,7 @@ public class AllBidsFragment extends Fragment {
 
     ArrayList<PastProducts> cartItems;
     RecyclerView cartList;
-    ProgressBar progressBar;
-    BidHistoryAdapterAll adapterall;
+    AllBidsAdapter adapterall;
 
 
     @Override
@@ -65,7 +65,6 @@ public class AllBidsFragment extends Fragment {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         cartList.addItemDecoration(dividerItemDecoration);
         cartItems = new ArrayList<>();
-        progressBar = view.findViewById(R.id.allbidsprogress);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/pastproducts.php",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -95,7 +94,7 @@ public class AllBidsFragment extends Fragment {
                                 cartItems.add(c);
                             }
                             cartItems.sort(new sortTime());
-                            adapterall = new BidHistoryAdapterAll(view.getContext(), cartItems);
+                            adapterall = new AllBidsAdapter(view.getContext(), cartItems);
                             cartList.setAdapter(adapterall);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -128,81 +127,6 @@ public class AllBidsFragment extends Fragment {
                 e.printStackTrace();
             }
             return b1.compareTo(a1);
-        }
-    }
-
-    class BidHistoryAdapterAll extends RecyclerView.Adapter<BidHistoryAdapterAll.BidHistoryViewHolder> {
-
-        Context context;
-        ArrayList<PastProducts> heroList;
-
-        BidHistoryAdapterAll(Context context, ArrayList<PastProducts> heroList) {
-            this.context = context;
-            this.heroList = heroList;
-        }
-
-        @NonNull
-        @Override
-        public BidHistoryAdapterAll.BidHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new BidHistoryAdapterAll.BidHistoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bid_history, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull BidHistoryViewHolder holder, int position) {
-            if (getItemCount() == 0) {
-                progressBar.setVisibility(View.GONE);
-            }
-            if (SharedPrefManager.getInstance(context).getUser().getId() == Integer.parseInt(heroList.get(position).getWinnerid())) {
-                holder.bidHistoryRank.setText("You won");
-                holder.bidHistoryRank.setTextColor(getResources().getColor(R.color.colorPrimary));
-            } else {
-                holder.bidHistoryRank.setText(heroList.get(position).getWinner());
-                holder.bidHistoryRank.setTextColor(getResources().getColor(R.color.colorPrimary));
-            }
-            progressBar.setVisibility(View.GONE);
-            holder.bidHistoryTitle.setText(heroList.get(position).getTitle());
-            String pattern = "dd MMM yyyy HH:mm";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
-            Date date = null;
-            try {
-                date = simpleDateFormat2.parse(heroList.get(position).getEnd_date());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            System.out.println(date);
-            String dt = simpleDateFormat.format(date);
-            holder.bidHistoryStartDate.setText(dt);
-            holder.bidHistoryAmount.setText("Rs. "+ heroList.get(position).getBidamount());
-            Glide.with(context)
-                    .load(heroList.get(position).getImage_url())
-                    .into(holder.bidHistoryImage);
-        }
-
-        @Override
-        public int getItemCount() {
-            if(cartItems.size() == 0){
-                progressBar.setVisibility(View.GONE);
-            }
-            Log.d("Size", cartItems.size()+"");
-            return cartItems.size();
-        }
-
-        class BidHistoryViewHolder extends RecyclerView.ViewHolder {
-            ImageView bidHistoryImage;
-            TextView bidHistoryTitle;
-            TextView bidHistoryStartDate;
-            TextView bidHistoryAmount;
-            TextView bidHistoryRank;
-
-            BidHistoryViewHolder(View itemView) {
-                super(itemView);
-                bidHistoryImage = itemView.findViewById(R.id.bidHistoryImage);
-                bidHistoryAmount = itemView.findViewById(R.id.bidHistoryAmount);
-                bidHistoryTitle = itemView.findViewById(R.id.bidHistoryTitle);
-                bidHistoryStartDate = itemView.findViewById(R.id.bidHistoryStartDate);
-                bidHistoryRank = itemView.findViewById(R.id.bidHistoryRank);
-            }
         }
     }
 }

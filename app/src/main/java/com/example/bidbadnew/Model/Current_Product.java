@@ -3,7 +3,9 @@ package com.example.bidbadnew.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Current_Product {
+import java.io.Serializable;
+
+public class Current_Product implements Serializable {
 
     @SerializedName("currentid")
     @Expose
@@ -35,6 +37,20 @@ public class Current_Product {
     @SerializedName("start_date")
     @Expose
     private String startDate;
+    @SerializedName("subtitle")
+    @Expose
+    private String subtitle;
+    @SerializedName("category")
+    @Expose
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
 
     public String getCurrentid() {
         return currentid;

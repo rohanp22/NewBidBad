@@ -6,16 +6,26 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.example.bidbadnew.ActionBottomDialogFragment;
 import com.example.bidbadnew.Model.Current_Product;
+import com.example.bidbadnew.Others.Symbol;
+import com.example.bidbadnew.ProductDescriptionDirections;
 import com.example.bidbadnew.R;
+import com.example.bidbadnew.ui.home.HomeFragmentDirections;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,28 +38,31 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
     List<Current_Product> heroList;
     Date startDate1;
     ViewPager2 viewPager2;
+    FragmentManager fragmentManager;
+    RecyclerView recyclerView;
 
-    public ProductAdapter1(Context context, List<Current_Product> heroList, ViewPager2 viewPager2) {
+    public ProductAdapter1(Context context, List<Current_Product> heroList, FragmentManager fragmentManager) {
         this.context = context;
         this.heroList = heroList;
-        this.viewPager2 = viewPager2;
+        this.fragmentManager = fragmentManager;
+    }
+
+    public void updateList(List<Current_Product> list){
+        this.heroList = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public ProductAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductAdapterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.demo, parent, false));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_layout, parent, false);
+        return new ProductAdapterViewHolder(view);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull final ProductAdapter1.ProductAdapterViewHolder holder, final int position) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
-        if(position == viewPager2.getCurrentItem()){
-            holder.constraintLayout.setBackgroundTintList(context.getResources().getColorStateList(R.color.tintcolor));
-        } else {
-            holder.constraintLayout.setBackgroundTintList(context.getResources().getColorStateList(R.color.tintcolor1));
-        }
         long diff = 0;
         try {
             startDate1 = simpleDateFormat.parse(heroList.get(position).getEndtime());
@@ -57,6 +70,33 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        holder.bidnow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionBottomDialogFragment addPhotoBottomDialogFragment =
+                        ActionBottomDialogFragment.newInstance(heroList.get(position).getCurrentid(), heroList.get(position).getImageUrl(), heroList.get(position).getTitle(), heroList.get(position).getSp(), fragmentManager, position);
+                addPhotoBottomDialogFragment.show(fragmentManager,
+                        ActionBottomDialogFragment.TAG);
+            }
+        });
+
+        Glide.with(context)
+                .load(heroList.get(position).getImageUrl())
+                .into(holder.imageView);
+
+        Glide.with(context)
+                .load(heroList.get(position).getImageUrl2())
+                .into(holder.imageView2);
+
+        Glide.with(context)
+                .load(heroList.get(position).getImageUrl3())
+                .into(holder.imageView3);
+
+        holder.subtitle.setText(heroList.get(position).getCategory());
+        holder.mrp.setText("MRP "+ Symbol.rupee + heroList.get(position).getMrp());
+        holder.entry.setText("Enter contest for "+heroList.get(position).getSp());
+        holder.title.setText(heroList.get(position).getTitle());
 
         final long secondsInMilli = 1000;
         final long minutesInMilli = secondsInMilli * 60;
@@ -130,18 +170,35 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
 
     public class ProductAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        TextView hr1, hr2, min1, min2, sec1, sec2;
+        TextView hr1, hr2, min1, min2, sec1, sec2, bidnow, subtitle, mrp, entry, title;
+        ImageView imageView, imageView2, imageView3;
         ConstraintLayout constraintLayout;
 
         ProductAdapterViewHolder(View itemView) {
             super(itemView);
             constraintLayout = itemView.findViewById(R.id.con);
+            imageView = itemView.findViewById(R.id.image);
             hr1 = itemView.findViewById(R.id.hr1);
             hr2 = itemView.findViewById(R.id.hr2);
+            imageView2 = itemView.findViewById(R.id.img2);
+            imageView3 = itemView.findViewById(R.id.img3);
             min1 = itemView.findViewById(R.id.min1);
+            title = itemView.findViewById(R.id.title);
             min2 = itemView.findViewById(R.id.min2);
             sec1 = itemView.findViewById(R.id.sec1);
             sec2 = itemView.findViewById(R.id.sec2);
+            bidnow = itemView.findViewById(R.id.bidnowbtn);
+            subtitle = itemView.findViewById(R.id.sub);
+            mrp = itemView.findViewById(R.id.mrp);
+            entry = itemView.findViewById(R.id.entercontest);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavController navController = Navigation.findNavController((AppCompatActivity) context, R.id.nav_host_fragment);
+                    navController.navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDescription(heroList.get(getAdapterPosition())));
+                }
+            });
         }
     }
 }

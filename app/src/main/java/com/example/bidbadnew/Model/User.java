@@ -1,45 +1,60 @@
 package com.example.bidbadnew.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
-    private int id;
-    private String email, firstname, lastname, address, pincode, mobile;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("firstname")
+    @Expose
+    private String firstname;
+    @SerializedName("mobile")
+    @Expose
+    private String mobile;
 
-    public User(int id, String email, String firstname, String lastname, String address, String pincode, String mobile) {
+    public User(int id, String email, String firstname, String mobile) {
         this.id = id;
         this.email = email;
         this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
-        this.pincode = pincode;
         this.mobile = mobile;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getAddress() {
-        return address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstname() {
         return firstname;
     }
 
-    public String getLastname() {
-        return lastname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getMobile() {
         return mobile;
     }
 
-    public String getPincode() {
-        return pincode;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
+
 }

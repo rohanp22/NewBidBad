@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.bidbadnew.Model.OngoingItems;
+import com.example.bidbadnew.Others.Symbol;
 import com.example.bidbadnew.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,14 +37,12 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ongoing_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-
-        Log.d("Onbind", "onbind");
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,15 +51,9 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
             }
         });
 
-        holder.amount.setText("Rs. " + cartList.get(position).getBidamount());
+        holder.yourbid.setText(Symbol.rupee + cartList.get(position).getBidamount());
 
         holder.title.setText(cartList.get(position).getTitle());
-
-        holder.startDate.setText(cartList.get(position).getStartDate());
-
-        holder.bidEntry.setText(cartList.get(position).getSp());
-
-        holder.mrp.setText("MRP: " + "Rs." + cartList.get(position).getMrp());
 
         long diff = 0;
 
@@ -108,7 +102,7 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
 
                     final long elapsedSeconds = different / secondsInMilli;
 
-                    String curtime = elapsedHours + "hr " + String.format("%02d", elapsedMinutes) + "m " + String.format("%02d", elapsedSeconds) + "s";
+                    String curtime = elapsedHours + ":" + String.format("%02d", elapsedMinutes) + ":" + String.format("%02d", elapsedSeconds);
 
                     holder.date.setText(curtime);
 
@@ -137,21 +131,15 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
 
         ImageView image;
         TextView title;
-        TextView amount;
         TextView date;
-        TextView startDate;
-        TextView bidEntry;
-        TextView mrp;
+        TextView yourbid;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.ticket_product_title);
-            amount = (TextView) itemView.findViewById(R.id.ticket_bid_amount);
-            image = (ImageView) itemView.findViewById(R.id.ticket_image);
-            date = (TextView) itemView.findViewById(R.id.ticket_timer);
-            startDate = (TextView) itemView.findViewById(R.id.ticket_start_date);
-            bidEntry = (TextView) itemView.findViewById(R.id.ticket_bid_entry);
-            mrp = (TextView) itemView.findViewById(R.id.ticket_mrp);
+            yourbid = (TextView) itemView.findViewById(R.id.yourbid);
+            title = (TextView) itemView.findViewById(R.id.title);
+            image = (ImageView) itemView.findViewById(R.id.imageview);
+            date = (TextView) itemView.findViewById(R.id.endsin);
         }
     }
 }

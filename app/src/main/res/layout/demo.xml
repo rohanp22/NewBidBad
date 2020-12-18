@@ -206,6 +206,7 @@
                     android:src="@drawable/jblboombox" />
 
                 <ImageView
+                    android:id="@+id/img3"
                     android:layout_width="@dimen/product_img_width"
                     android:layout_height="@dimen/product_img_height"
                     android:background="@drawable/border"
@@ -218,11 +219,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/hrtext"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="14dp"
                 android:fontFamily="@font/bitter"
                 android:text="JBL Boombox"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -231,6 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
                 android:layout_marginTop="4dp"
+                android:textSize="12sp"
                 android:fontFamily="@font/bitter"
                 android:text="BluetoothSpeaker"
                 android:textColor="@color/colorPrimaryDark" />
@@ -244,7 +246,7 @@
                 android:fontFamily="@font/bitter"
                 android:text="MRP : Rs.3000"
                 android:textColor="@color/colorPrimaryLight"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/entercontest"
@@ -252,11 +254,23 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/bidnowbtn"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
                 android:fontFamily="@font/bitter"
-                android:text="Enter contest for 25B"
+                android:layout_marginBottom="2dp"
+                android:text="Enter contest for "
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 50"
+                android:layout_toRightOf="@+id/entercontest"
+                android:layout_above="@id/bidnowbtn"
+                android:fontFamily="@font/bitterbold"
+                android:paddingBottom="0dp"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                />
 
             <TextView
                 android:id="@+id/bidnowbtn"
@@ -283,10 +297,10 @@
                 android:textColor="#80FFFFFF"
                 android:rotation="-90"
                 android:layout_marginBottom="32sp"
-                android:layout_marginRight="-40dp"
+                android:layout_marginRight="-20dp"
                 android:layout_alignParentRight="true"
                 android:layout_above="@id/entercontest"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 />
 
         </RelativeLayout>

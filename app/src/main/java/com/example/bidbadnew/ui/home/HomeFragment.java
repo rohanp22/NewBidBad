@@ -1,185 +1,177 @@
 package com.example.bidbadnew.ui.home;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.bidbadnew.Adapter.CategoriesAdapter;
+import com.example.bidbadnew.ActionBottomDialogFragment;
 import com.example.bidbadnew.Adapter.ProductAdapter1;
-import com.example.bidbadnew.Adapter.ProductsAdapter;
+import com.example.bidbadnew.Fragments.AccessoriesFragment;
+import com.example.bidbadnew.Fragments.ApparelFragment;
+import com.example.bidbadnew.Fragments.ApplicancesFragment;
+import com.example.bidbadnew.Fragments.ElectronicsFragment;
+import com.example.bidbadnew.Fragments.FitnessFragment;
+import com.example.bidbadnew.Fragments.HomeFurnitureFragment;
+import com.example.bidbadnew.Fragments.OthersFragment;
+import com.example.bidbadnew.Fragments.PersonalCareFragment;
 import com.example.bidbadnew.Model.Current_Product;
+import com.example.bidbadnew.Others.CustomViewPager;
 import com.example.bidbadnew.R;
+import com.google.android.material.tabs.TabLayout;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ActionBottomDialogFragment.ItemClickListener {
 
     private HomeViewModel homeViewModel;
-    public ViewPager2 viewPager2;
-    RecyclerView recyclerView, explore;
-    ProductsAdapter adapter;
+    ViewPager viewPager;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        recyclerView = view.findViewById(R.id.recyclerView);
-        explore = view.findViewById(R.id.explore);
-
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add("Kitchen");
-        categories.add("Electronics");
-        categories.add("Home");
-        categories.add("Sports");
-        categories.add("Kitchen");
-        categories.add("Electronics");
-        categories.add("Home");
-        categories.add("Sports");
-
-        viewPager2 = view.findViewById(R.id.viewPager);
-
-        CategoriesAdapter adapter1 = new CategoriesAdapter(categories, view.getContext());
-        explore.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        explore.setAdapter(adapter1);
-
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @SuppressLint("UseCompatLoadingForColorStateLists")
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.home_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.d("Itemclicked", item.getItemId() + "");
+                switch (item.getItemId()) {
+                    case R.id.navigation_wallet:
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_walletFragment);
+                        return true;
 
-                View v = snapHelper.findSnapView(linearLayoutManager);
-                assert v != null;
-                int pos = linearLayoutManager.getPosition(v);
-
-                RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(pos);
-                assert viewHolder != null;
-                ConstraintLayout rl1 = viewHolder.itemView.findViewById(R.id.con);
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    rl1.animate().setDuration(10).scaleX(1).scaleY(1).setInterpolator(new AccelerateInterpolator()).start();
-                    rl1.findViewById(R.id.cardview).setBackgroundTintList(getResources().getColorStateList(R.color.tintcolor));
-                } else {
-                    rl1.animate().setDuration(10).scaleX(0.9f).scaleY(0.9f).setInterpolator(new AccelerateInterpolator()).start();
-                    rl1.findViewById(R.id.cardview).setBackgroundTintList(getResources().getColorStateList(R.color.tintcolor1));
+                    default:
+                        break;
                 }
-            }
 
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+                return true;
             }
         });
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPagerCategories);
 
-        homeViewModel.init();
-        homeViewModel.getCurrent_productsmutable().observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-            @SuppressLint("UseCompatLoadingForColorStateLists")
-            @RequiresApi(api = Build.VERSION_CODES.N)
+        tabLayout.addTab(tabLayout.newTab().setText("Electronics"));
+        tabLayout.addTab(tabLayout.newTab().setText("Appliances"));
+        tabLayout.addTab(tabLayout.newTab().setText("Accessories"));
+        tabLayout.addTab(tabLayout.newTab().setText("Personal Care"));
+        tabLayout.addTab(tabLayout.newTab().setText("Home & Furniture"));
+        tabLayout.addTab(tabLayout.newTab().setText("Fitness"));
+        tabLayout.addTab(tabLayout.newTab().setText("Others"));
+        tabLayout.addTab(tabLayout.newTab().setText("Apparel"));
+
+        MyAdapter adapter = new MyAdapter(view.getContext(), getChildFragmentManager(), tabLayout.getTabCount());
+        Log.d("Tabcount: ", tabLayout.getTabCount()+"");
+        viewPager.setAdapter(adapter);
+        viewPager.requestDisallowInterceptTouchEvent(false);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onChanged(List<Current_Product> current_products) {
-                current_products.sort(new sortTime());
-                if (adapter == null) {
-                    viewPager2.setClipChildren(false);
-                    viewPager2.setClipToPadding(false);
-                    viewPager2.setOffscreenPageLimit(3);
-                    viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.d("TabSelected", tab.getPosition() + "");
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-                    viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                        @Override
-                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                            super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                        }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-                        @Override
-                        public void onPageSelected(int position) {
-                            super.onPageSelected(position);
-                        }
+            }
 
-                        @Override
-                        public void onPageScrollStateChanged(int state) {
-                            super.onPageScrollStateChanged(state);
-                        }
-                    });
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-                    CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-                    compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-
-                    compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-                        @Override
-                        public void transformPage(@NonNull View page, float position) {
-                            float r = 1 - Math.abs(position);
-                            page.setScaleY(0.85f + r * 0.15f);
-                        }
-                    });
-                    viewPager2.setPageTransformer(compositePageTransformer);
-
-                    viewPager2.setAdapter(new ProductAdapter1(view.getContext(), current_products, viewPager2));
-//                    recyclerView.setAdapter(new ProductAdapter1(view.getContext(), current_products));
-//                    recyclerView.setLayoutManager(linearLayoutManager);
-//                    recyclerView.setPadding(90, 0, 90, 0);
-
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(0);
-//                            ConstraintLayout rl1 = viewHolder.itemView.findViewById(R.id.con);
-//                            rl1.animate().scaleY(1).scaleX(1).setDuration(10).setInterpolator(new AccelerateInterpolator()).start();
-//                            rl1.findViewById(R.id.cardview).setBackgroundTintList(getResources().getColorStateList(R.color.tintcolor));
-//                        }
-//                    }, 100);
-
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(0);
-//                            ConstraintLayout rl1 = viewHolder.itemView.findViewById(R.id.con);
-//                            rl1.animate().scaleY(1).scaleX(1).setDuration(10).setInterpolator(new AccelerateInterpolator()).start();
-//                            rl1.findViewById(R.id.cardview).setBackgroundTintList(getResources().getColorStateList(R.color.tintcolor));
-//                        }
-//                    }, 100);
-                } else {
-                    adapter.notifyDataSetChanged();
-                }
             }
         });
 
     }
 
+    View view;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         getActivity().findViewById(R.id.bar).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.fabhome).setVisibility(View.VISIBLE);
+        setHasOptionsMenu(true);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        return root;
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
+    }
+
+    class MyAdapter extends FragmentPagerAdapter {
+
+        int totalTabs;
+
+        public MyAdapter(Context context, FragmentManager fm, int totalTabs) {
+            super(fm);
+            this.totalTabs = totalTabs;
+        }
+
+        // this is for fragment tabs
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new ElectronicsFragment();
+
+                case 1:
+                    return new ApplicancesFragment();
+
+                case 2:
+                    return new AccessoriesFragment();
+
+                case 3:
+                    return new ElectronicsFragment();
+//
+//                case 4:
+//                    return new HomeFurnitureFragment();
+//
+//                case 5:
+//                    return new FitnessFragment();
+//
+//                case 6:
+//                    return new OthersFragment();
+//
+//                case 7:
+//                    return new ApparelFragment();
+
+                default:
+                    return null;
+            }
+        }
+        // this counts total number of tabs
+        @Override
+        public int getCount() {
+            return totalTabs;
+        }
+    }
+
+    @Override
+    public void onItemClick(String item) {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     class sortTime implements Comparator<Current_Product> {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.bidbadnew.ActionBottomDialogFragment;
 import com.example.bidbadnew.R;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,7 +14,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ActionBottomDialogFragment.ItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,4 +51,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onItemClick(String item) {
+
+    }
 }

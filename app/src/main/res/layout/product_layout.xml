@@ -1,88 +1,372 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/con"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="28dp">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="-50dp"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
         android:elevation="10dp"
         android:src="@drawable/jbl"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:backgroundTint="@color/colorPrimaryLight"
-        android:id="@+id/cardview"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/colorSecondary"
+        android:paddingBottom="20dp"
         app:cardCornerRadius="20dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="120dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/endsintext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:text="ends in:"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hr1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/timer_bg"
+                android:fontFamily="@font/digitaldismay"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/hr2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/endsintext" />
+
+            <TextView
+                android:id="@+id/hr2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/hr1"
+                android:background="@drawable/timer_bg"
+                android:fontFamily="@font/digitaldismay"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/colan1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/hr1"
+                app:layout_constraintTop_toTopOf="@+id/hr1" />
+
+            <TextView
+                android:id="@+id/colan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/endsintext"
+                android:layout_alignTop="@id/hr1"
+                android:layout_alignBottom="@id/hr1"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@id/hr2"
+                android:text=":"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/min1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/hr2"
+                app:layout_constraintTop_toTopOf="@id/hr1" />
+
+            <TextView
+                android:id="@+id/min1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/colan1"
+                android:background="@drawable/timer_bg"
+                android:fontFamily="@font/digitaldismay"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/min2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/colan1"
+                app:layout_constraintTop_toTopOf="@id/hr1" />
+
+            <TextView
+                android:id="@+id/min2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/min1"
+                android:background="@drawable/timer_bg"
+                android:fontFamily="@font/digitaldismay"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/colan2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/min1"
+                app:layout_constraintTop_toTopOf="@id/hr2" />
+
+            <TextView
+                android:id="@+id/colan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/endsintext"
+                android:layout_alignTop="@id/hr1"
+                android:layout_alignBottom="@id/hr1"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@id/min2"
+                android:text=":"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/sec1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/min2"
+                app:layout_constraintTop_toTopOf="@+id/hr1" />
+
+            <TextView
+                android:id="@+id/sec1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/colan2"
+                android:background="@drawable/timer_bg"
+                android:fontFamily="@font/digitaldismay"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/sec2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/colan2"
+                app:layout_constraintTop_toTopOf="@id/hr1" />
+
+            <TextView
+                android:id="@+id/sec2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endsintext"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_toRightOf="@+id/sec1"
+                android:background="@drawable/timer_bg"
+                android:fontFamily="@font/digitaldismay"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/img2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/sec1"
+                app:layout_constraintTop_toTopOf="@id/hr1" />
+
+            <TextView
+                android:id="@+id/hrtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hr1"
+                android:layout_alignLeft="@id/hr1"
+                android:text="hr"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@id/hr1"
+                app:layout_constraintTop_toBottomOf="@id/hr1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/min1"
+                android:layout_alignStart="@id/min1"
+                android:layout_alignLeft="@id/min1"
+                android:text="min"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@id/min1"
+                app:layout_constraintTop_toBottomOf="@id/min1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sec1"
+                android:layout_alignStart="@id/sec1"
+                android:layout_alignLeft="@id/sec1"
+                android:text="sec"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@id/sec1"
+                app:layout_constraintTop_toBottomOf="@id/sec1" />
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="@dimen/product_img_width"
+                android:layout_height="@dimen/product_img_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/border"
+                android:src="@drawable/jblboombox"
+                app:layout_constraintEnd_toStartOf="@+id/img3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/sec2"
+                app:layout_constraintTop_toTopOf="@id/endsintext"
+                tools:layout_editor_absoluteY="120dp" />
+
+            <ImageView
+                android:id="@+id/img3"
+                android:layout_width="@dimen/product_img_width"
+                android:layout_height="@dimen/product_img_height"
+                android:background="@drawable/border"
+                android:src="@drawable/jblboombox"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/img2"
+                app:layout_constraintTop_toTopOf="@id/endsintext" />
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="150dp"
-                android:text="JBl Extra bass Speakers"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_below="@id/hrtext"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/bitter"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="14sp"
+                android:autoSizeMaxTextSize="28sp"
+                android:text="JBL Boombox"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hr1" />
 
             <TextView
-                android:id="@+id/desc"
+                android:id="@+id/sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="16dp"
-                android:drawablePadding="10dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="MRP : ₹5999" />
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/bitter"
+                android:text="BluetoothSpeaker"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/mrp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title" />
 
             <TextView
-                android:id="@+id/endingin"
+                android:id="@+id/mrp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/desc"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="10dp"
-                android:text="Contest ends in : 05:04" />
+                android:layout_below="@id/sub"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/bitter"
+                android:text="MRP : Rs.3000"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/entercontest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sub" />
 
             <TextView
-                android:id="@+id/entryprice"
+                android:id="@+id/entercontest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/endingin"
-                android:layout_marginLeft="16dp"
-                android:text="Enter contest for ₹50 only" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/entryprice"
-                android:layout_marginLeft="16dp"
+                android:layout_above="@+id/bidnowbtn"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="16dp"
-                android:text="Enter contest"
-                android:textAllCaps="false"
-                android:textColor="@color/colorSecondary"
-                android:textSize="16dp" />
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/bitter"
+                android:text="Enter contest for "
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/bidnowbtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mrp" />
 
-        </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/entercontest"
+                android:fontFamily="@font/bitterbold"
+                android:paddingBottom="0dp"
+                android:text=" 50"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/entercontest"
+                app:layout_constraintStart_toEndOf="@id/entercontest" />
+
+            <TextView
+                android:id="@+id/bidnowbtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/dialog_bg"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:fontFamily="@font/bitter"
+                android:gravity="center"
+                android:text="BID NOW"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/entercontest" />
+
+            <!--                        <TextView-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="Bidbad"-->
+            <!--                            android:fontFamily="@font/bitter"-->
+            <!--                            android:textColor="#80FFFFFF"-->
+            <!--                            android:rotation="-90"-->
+            <!--                            app:layout_constraintBottom_toTopOf="@id/bidnowbtn"-->
+            <!--                            android:layout_marginBottom="32sp"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/bidnowbtn"-->
+            <!--                            android:layout_marginRight="0dp"-->
+            <!--                            android:layout_marginLeft="-20dp"-->
+            <!--                            android:layout_above="@id/entercontest"-->
+            <!--                            android:textSize="24sp"-->
+            <!--                            />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

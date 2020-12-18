@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/loginFragment">
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.bidbadnew.Fragments.SignupFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_nav_login_to_nav_otp"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:destination="@id/nav_otp" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_otp"
+        android:name="com.example.bidbadnew.Fragments.OtpFragment"
+        android:label="Enter otp"
+        tools:layout="@layout/fragment_otp" >
+        <argument
+            android:name="mobileno"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_otp_to_signupForm"
+            app:destination="@id/signupForm" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.bidbadnew.Fragments.LoginFragment"
+        tools:layout="@layout/login_fragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_nav_login"
+            app:destination="@id/nav_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupForm"
+        tools:layout="@layout/signup_form_fragment"
+        android:name="com.example.bidbadnew.Fragments.SignupForm"
+        android:label="SignupForm" >
+        <argument
+            android:name="mobile"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

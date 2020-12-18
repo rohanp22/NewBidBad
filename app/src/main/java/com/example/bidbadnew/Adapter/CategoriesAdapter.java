@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bidbadnew.R;
+import com.example.bidbadnew.ui.home.HomeViewModel;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     ArrayList<String> categories;
     Context context;
 
-    public CategoriesAdapter(ArrayList<String> categories, Context context){
+    public CategoriesAdapter(ArrayList<String> categories, Context context, HomeViewModel homeViewModel){
         this.categories = categories;
         this.context = context;
     }
@@ -36,9 +39,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolderCategories holder, int position) {
         if(position == 0) {
-            holder.t.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.dialog_bg));
-            holder.t.setBackgroundTintList(context.getResources().getColorStateList(R.color.tintcolor));
-            holder.t.setTextColor(Color.parseColor("#ffffff"));
+            holder.view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.categories_bg));
+            holder.t.setTextColor(context.getResources().getColor(R.color.colorSecondary));
         }
         holder.t.setText(categories.get(position));
     }
@@ -51,10 +53,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     public static class ViewHolderCategories extends RecyclerView.ViewHolder {
 
         public TextView t;
+        View view;
 
         ViewHolderCategories(View itemView){
             super(itemView);
             t = itemView.findViewById(R.id.text);
+            view = itemView.findViewById(R.id.view);
         }
 
     }

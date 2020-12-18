@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp">
 
     <ImageView
@@ -21,12 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="Play Station 4"
+        tools:text="Play Station 4"
         android:textColor="?android:textColorPrimary"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/bidHistoryImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/bidHistoryStartDate"
@@ -43,6 +45,7 @@
         android:id="@+id/clockimage"
         android:layout_width="16dp"
         android:layout_height="16dp"
+        android:src="@drawable/ic_baseline_access_time_24"
         app:layout_constraintTop_toTopOf="@id/bidHistoryStartDate"
         app:layout_constraintStart_toStartOf="@id/bidHistoryTitle"
         app:layout_constraintBottom_toBottomOf="@id/bidHistoryStartDate"
@@ -59,15 +62,14 @@
     <TextView
         android:id="@+id/bidHistoryRank"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:paddingStart="8dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
         android:paddingTop="4dp"
         android:paddingEnd="8dp"
         android:gravity="center_vertical"
-        android:drawableTint="@color/colorPrimary"
         android:textSize="12sp"
         android:paddingBottom="4dp"
-        android:textColor="@color/colorPrimary"
-        android:text="#324"
+        android:textColor="@color/colorSecondary"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/bidHistoryAmount"
