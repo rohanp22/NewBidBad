@@ -71,4 +71,10 @@ public class CenterZoomLayoutManager extends LinearLayoutManager {
         }
 
     }
+
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        super.onLayoutChildren(recycler, state);
+        scrollHorizontallyBy(0, recycler, state);
+    }
 }

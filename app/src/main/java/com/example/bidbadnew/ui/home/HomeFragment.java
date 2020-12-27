@@ -59,6 +59,10 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
                         Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_walletFragment);
                         return true;
 
+                    case R.id.navigation_notification:
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_notificationsFragment);
+                        return true;
+
                     default:
                         break;
                 }
@@ -140,18 +144,18 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
 
                 case 3:
                     return new ElectronicsFragment();
-//
-//                case 4:
-//                    return new HomeFurnitureFragment();
-//
-//                case 5:
-//                    return new FitnessFragment();
-//
-//                case 6:
-//                    return new OthersFragment();
-//
-//                case 7:
-//                    return new ApparelFragment();
+
+                case 4:
+                    return new HomeFurnitureFragment();
+
+                case 5:
+                    return new FitnessFragment();
+
+                case 6:
+                    return new OthersFragment();
+
+                case 7:
+                    return new ApparelFragment();
 
                 default:
                     return null;

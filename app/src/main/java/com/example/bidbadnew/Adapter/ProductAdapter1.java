@@ -95,7 +95,7 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
 
         holder.subtitle.setText(heroList.get(position).getCategory());
         holder.mrp.setText("MRP "+ Symbol.rupee + heroList.get(position).getMrp());
-        holder.entry.setText("Enter contest for "+heroList.get(position).getSp());
+        holder.entry.setText(heroList.get(position).getSp());
         holder.title.setText(heroList.get(position).getTitle());
 
         final long secondsInMilli = 1000;
@@ -133,18 +133,14 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
 
                     final long elapsedSeconds = different / secondsInMilli;
 
-                    String curtime;
-
                     if (elapsedHours > 0) {
-                        curtime = elapsedHours + "hr " + String.format("%02d", elapsedMinutes) + "min";
-                        holder.hr1.setText(elapsedHours/100 + "");
+                        holder.hr1.setText(elapsedHours/10 + "");
                         holder.hr2.setText(elapsedHours%10 + "");
                         holder.min1.setText(elapsedMinutes/10 + "");
                         holder.min2.setText(elapsedMinutes%10 + "");
                         holder.sec1.setText(elapsedSeconds/10 + "");
                         holder.sec2.setText(elapsedSeconds%10 + "");
                     } else {
-                        curtime = String.format("%02d", elapsedMinutes) + " m " + String.format("%02d", elapsedSeconds) + " sec";
                         holder.hr1.setText(elapsedHours/10 + "");
                         holder.hr2.setText(elapsedHours%10 + "");
                         holder.min1.setText(elapsedMinutes/10 + "");
@@ -190,7 +186,7 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
             bidnow = itemView.findViewById(R.id.bidnowbtn);
             subtitle = itemView.findViewById(R.id.sub);
             mrp = itemView.findViewById(R.id.mrp);
-            entry = itemView.findViewById(R.id.entercontest);
+            entry = itemView.findViewById(R.id.entrypricenumber);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

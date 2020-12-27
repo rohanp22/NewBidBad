@@ -5,9 +5,12 @@ import com.example.bidbadnew.Model.Balance;
 import com.example.bidbadnew.Model.Current_Products;
 import com.example.bidbadnew.Model.LoginResponse;
 import com.example.bidbadnew.Model.MyBids;
+import com.example.bidbadnew.Model.NotificationModel;
 import com.example.bidbadnew.Model.OngoingItems;
 import com.example.bidbadnew.Model.Order;
+import com.example.bidbadnew.Model.PlaceOrderResponse;
 import com.example.bidbadnew.Model.SignupResponse;
+import com.example.bidbadnew.Model.Transaction;
 import com.example.bidbadnew.Model.WonItem;
 
 import java.util.List;
@@ -46,6 +49,9 @@ public interface Api {
     @GET("getmyongoingbids.php/")
     Call<List<OngoingItems>> getMyOngoingBids(@Query("id") int id);
 
+    @GET("showtransactions.php/")
+    Call<List<Transaction>> getTransactions(@Query("id") int id);
+
     @GET("getwonitems.php/")
     Call<List<WonItem>> getMyWins(@Query("id") int id);
 
@@ -66,10 +72,24 @@ public interface Api {
     @POST("Login/Api.php/")
     Call<LoginResponse> login(@Field("mobile") String mobile, @Field("password") String password, @Query("apicall") String apicall);
 
+    @GET("/AndroidAPI/getdefaultaddress.php")
+    Call<String> getDefaultAddress(@Query("id") int id);
+
+    @FormUrlEncoded
+    @POST("/AndroidAPI/placeorder.php/")
+    Call<PlaceOrderResponse> placeOrder(@Field("address") String address, @Field("productid") int productId, @Field("status") String status, @Query("id") int id);
+
+    @FormUrlEncoded
+    @POST("/AndroidAPI/setdefaultaddress.php")
+    Call<Void> setDefaultAddress(@Field("address") String address, @Query("id") int id);
+
     @FormUrlEncoded
     @POST("Login/Api.php/")
     Call<SignupResponse> signup(@Field("mobile") String mobile, @Field("firstname") String name, @Query("apicall") String apicall, @Field("email") String email, @Field("password") String password);
 
     @GET("isuserregistered.php/")
     Call<Integer> isUserRegistered(@Query("mobile") String mobile);
+
+    @GET("getnotifications.php")
+    Call<List<NotificationModel>> getNotifications(@Query("id") int id);
 }

@@ -2,6 +2,7 @@ package com.example.bidbadnew.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,18 @@ import com.example.bidbadnew.Adapter.ProductDetailsAdapter;
 import com.example.bidbadnew.R;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class ProductDetails extends Fragment {
 
     RecyclerView recyclerView;
     String tabName;
+    ArrayList<String> details;
+    String des;
 
-    public ProductDetails(String tabName){
+    public ProductDetails(String tabName, String description){
         this.tabName = tabName;
+        this.des = description;
     }
 
     @Nullable
@@ -37,11 +42,19 @@ public class ProductDetails extends Fragment {
         ArrayList<String> productDetails = new ArrayList<>();
         ArrayList<String> deliveryDetails = new ArrayList<>();
 
-        deliveryDetails.add("This is first delivery details");
-        deliveryDetails.add("This is first delivery details");
-        deliveryDetails.add("This is first delivery details");
-        deliveryDetails.add("This is first delivery details");
-        deliveryDetails.add("This is first delivery details");
+        details = new ArrayList<>();
+        // Inflate the layout for this fragment
+
+        StringTokenizer defaultTokenizer = new StringTokenizer(des, "\n");
+
+        System.out.println("Total number of tokens found : " + defaultTokenizer.countTokens());
+
+        while (defaultTokenizer.hasMoreTokens())
+        {
+            String t = defaultTokenizer.nextToken();
+            details.add(t);
+            Log.d("TOken", t);
+        }
 
         productDetails.add("This product height is 20cms.");
         productDetails.add("Warranty of 2 months");
@@ -49,9 +62,9 @@ public class ProductDetails extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         if(tabName.equals("productdetails")) {
-            recyclerView.setAdapter(new ProductDetailsAdapter(productDetails, view.getContext()));
+            recyclerView.setAdapter(new ProductDetailsAdapter(details, view.getContext()));
         } else {
-            recyclerView.setAdapter(new ProductDetailsAdapter(deliveryDetails, view.getContext()));
+            recyclerView.setAdapter(new ProductDetailsAdapter(productDetails, view.getContext()));
         }
         return view;
     }

@@ -28,18 +28,20 @@
                     android:id="@+id/bid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bid"
+                    android:text="bid"
+                    android:fontFamily="@font/round"
                     android:textColor="@color/colorSecondary"
-                    android:textSize="18dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/bad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/round"
                     android:layout_toRightOf="@id/bid"
                     android:text="bad"
                     android:textColor="@android:color/white"
-                    android:textSize="18dp" />
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 

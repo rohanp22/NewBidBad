@@ -9,10 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.bidbadnew.Fragments.PlaceOrderViewModel;
+import com.example.bidbadnew.Fragments.WonBidsFragmentDirections;
 import com.example.bidbadnew.Model.WonItem;
 import com.example.bidbadnew.R;
 
@@ -65,9 +68,7 @@ public class WonItemsAdapter extends RecyclerView.Adapter<WonItemsAdapter.BidHis
             holder.bidHistoryRank.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Bundle b = new Bundle();
-                    b.putSerializable("item", (Serializable) heroList.get(position));
-                    Navigation.findNavController(view).navigate(R.id.action_navigation_wonbids_to_placeOrderFragment, b);
+                    Navigation.findNavController(view).navigate(WonBidsFragmentDirections.actionNavigationWonbidsToPlaceOrderFragment(null, heroList.get(position)));
                 }
             });
         } else {

@@ -34,6 +34,23 @@
         <item name="actionMenuTextColor">@color/colorAccent</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="AppTheme.NoactionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">true</item>
+    </style>
+
+    <style name="SplashScreen" parent="AppTheme.NoactionBar">
+        <item name="android:windowBackground">@drawable/backgorund_splash</item>
+    </style>
+
+    <style name="WhiteAccent">
+        <item name="colorAccent">@color/white</item> <!-- Whatever color you want-->
+    </style>
+
     <style name="Widget.BidBadNew.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="backgroundTint">@color/colorSecondary</item>

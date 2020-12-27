@@ -8,18 +8,40 @@
     android:nestedScrollingEnabled="false"
     android:overScrollMode="never">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Fragments.OngoingBidsFragment">
 
         <TextView
-            android:id="@+id/nobids"
+            android:id="@+id/noBidsMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="No bids currently, Start bidding"
-            android:visibility="gone" />
+            android:text="No bids currently! Go bid and Win"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/noBidsMsg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/colorSecondary"
+            android:text="Browse bids"
+            android:visibility="gone"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"
+            />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -50,5 +72,5 @@
             android:textColor="@color/colorAccent"
             android:visibility="visible" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_home_to_actionBottomDialogFragment"
             app:destination="@id/actionBottomDialogFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
     </fragment>
 
     <fragment
@@ -161,6 +164,18 @@
         <action
             android:id="@+id/action_placeOrderFragment_to_selectAddressFragment2"
             app:destination="@id/selectAddressFragment" />
+        <argument
+            android:name="address"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="item."
+            app:argType="com.example.bidbadnew.Model.WonItem"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_placeOrderFragment_to_orderPlaced"
+            app:popUpTo="@id/navigation_home"
+            app:destination="@id/orderPlaced" />
     </fragment>
     <fragment
         android:id="@+id/manageAddressFragment"
@@ -174,6 +189,9 @@
         <action
             android:id="@+id/action_selectAddressFragment_to_orderPlaced"
             app:destination="@id/orderPlaced" />
+        <action
+            android:id="@+id/action_selectAddressFragment_to_placeOrderFragment"
+            app:destination="@id/placeOrderFragment" />
     </fragment>
     <dialog
         android:id="@+id/actionBottomDialogFragment"
@@ -187,6 +205,18 @@
         android:id="@+id/orderPlaced"
         android:name="com.example.bidbadnew.Fragments.OrderPlaced"
         android:label="fragment_order_placed"
-        tools:layout="@layout/fragment_order_placed" />
+        tools:layout="@layout/fragment_order_placed" >
+        <argument
+            android:name="productid"
+            app:argType="integer" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.bidbadnew.Fragments.NotificationsFragment"
+        android:label="notifications_fragment"
+        tools:layout="@layout/notifications_fragment" />
 
 </navigation>

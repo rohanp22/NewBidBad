@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.example.bidbadnew.Model.AddressModel;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.repositories.RetrofitClient;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.radiobutton.MaterialRadioButton;
@@ -53,6 +55,14 @@ public class ManageAddressFragment extends Fragment {
         card3 = view.findViewById(R.id.card3);
         toolbar = view.findViewById(R.id.toolbar);
         materialRadioButton3 = view.findViewById(R.id.radio3);
+
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
 
         addressField1 = view.findViewById(R.id.address1);
         addressField2 = view.findViewById(R.id.address2);

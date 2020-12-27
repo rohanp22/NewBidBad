@@ -16,10 +16,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
-        if(SharedPrefManager.getInstance(Login.this).isLoggedIn()){
-            startActivity(new Intent(Login.this, MainActivity.class));
-            finish();
-        }
+
         setContentView(R.layout.activity_login);
     }
 }

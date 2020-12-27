@@ -40,6 +40,7 @@ public class ProductDescription extends Fragment {
     ViewPager viewPager;
     long diff = 0;
     Date startDate1;
+    Date startedAt;
     String imageurl1, imageurl2, imageurl3;
 
     @Override
@@ -76,8 +77,19 @@ public class ProductDescription extends Fragment {
         note1 = view.findViewById(R.id.cardItem1);
         note2 = view.findViewById(R.id.cardItem2);
 
+        SimpleDateFormat startedAtFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM, hh:mm a");
+
+        try {
+            startedAt = startedAtFormat.parse(current_product.getStartDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         title.setText(current_product.getTitle());
-        mrp.setText(current_product.getMrp());
+        mrp.setText("₹"+current_product.getMrp());
+        started_at.setText(dateFormat.format(startedAt));
+        subtitle.setText(current_product.getSubtitle());
         entry.setText(current_product.getSp());
         Glide.with(view)
                 .load(current_product.getImageUrl())
@@ -250,10 +262,10 @@ public class ProductDescription extends Fragment {
         public Fragment getItem(int position){
             switch (position) {
                 case 0:
-                    return new ProductDetails("productdetails");
+                    return new ProductDetails("productdetails", current_product.getDescription());
 
                 case 1:
-                    return new ProductDetails("deliverydetails");
+                    return new ProductDetails("deliverydetails", current_product.getDescription());
 
                 default:
                     return null;

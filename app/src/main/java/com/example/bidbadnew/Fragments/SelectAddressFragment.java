@@ -22,10 +22,12 @@ import androidx.navigation.Navigation;
 
 import com.example.bidbadnew.Model.Address;
 import com.example.bidbadnew.Model.AddressModel;
+import com.example.bidbadnew.Model.WonItem;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.repositories.AddressRepo;
 import com.example.bidbadnew.repositories.RetrofitClient;
+import com.example.bidbadnew.ui.home.HomeFragmentDirections;
 import com.example.bidbadnew.ui.home.HomeViewModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.radiobutton.MaterialRadioButton;
@@ -52,6 +54,9 @@ public class SelectAddressFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_select_address, container, false);
 
+        WonItem wonItem = (WonItem) getArguments().getSerializable("item");
+
+
         selectAddressViewModel = new ViewModelProvider(this).get(SelectAddressViewModel.class);
 
         card1 = view.findViewById(R.id.card1);
@@ -72,14 +77,23 @@ public class SelectAddressFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(materialRadioButton1.isChecked() && card1.getVisibility() != View.GONE){
-                    Toast.makeText(getContext(), addressField1.getText().toString(), Toast.LENGTH_LONG).show();
-                    Navigation.findNavController(view).navigate(R.id.action_selectAddressFragment_to_orderPlaced);
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField1.getText().toString());
+                    setAddress(addressField1.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
                 } else if(materialRadioButton2.isChecked() && card2.getVisibility() != View.GONE){
-                    Toast.makeText(getContext(), addressField2.getText().toString(), Toast.LENGTH_LONG).show();
-                    Navigation.findNavController(view).navigate(R.id.action_selectAddressFragment_to_orderPlaced);
-                } else if(materialRadioButton3.isChecked() && card3.getVisibility() != View.GONE){
-                    Toast.makeText(getContext(), addressField3.getText().toString(), Toast.LENGTH_LONG).show();
-                    Navigation.findNavController(view).navigate(R.id.action_selectAddressFragment_to_orderPlaced);
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField2.getText().toString());
+                    setAddress(addressField2.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                 } else if(materialRadioButton3.isChecked() && card3.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField3.getText().toString());
+                    setAddress(addressField3.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
                 }
             }
         });
@@ -188,6 +202,21 @@ public class SelectAddressFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void setAddress(String address){
+        Call<Void> call = RetrofitClient.getInstance().getMyApi().setDefaultAddress(address, SharedPrefManager.getInstance(view.getContext()).getUser().getId());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("Resopnse", "Adress updated");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

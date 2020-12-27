@@ -21,8 +21,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:paddingBottom="64dp"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:layout_marginTop="?actionBarSize">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +37,52 @@
             android:paddingBottom="16dp"
             tools:context=".PlaceOrderFragment">
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageview"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:id="@+id/title"
+                android:fontFamily="@font/dmsansbold"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageview"
+                />
+
+            <Button
+                android:id="@+id/selectAddressButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/dm_sans_regular"
+                android:text="Select Address"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageview" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Address"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/dm_sans_regular"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selectAddressButton" />
+
+
             <TextView
                 android:id="@+id/orderDeliveryPaymentText"
                 android:layout_width="0dp"
@@ -47,7 +93,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@+id/address" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card1"
@@ -60,20 +106,20 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_margin="16dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp">
 
                     <TextView
                         android:id="@+id/orderDeliveryPayment1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:drawablePadding="16dp"
                         android:fontFamily="@font/dm_sans_regular"
-                        android:textSize="12sp"
                         android:gravity="start|center_vertical"
                         android:text="Money will be deducted from wallet"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/white"
+                        android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/balance" />
 
@@ -88,15 +134,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="$400"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:id="@+id/balance"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:fontFamily="@font/dmsansbold"
                         android:textColor="@color/white"
-                        />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="$400" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -158,11 +203,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/dm_sans_regular"
-                tools:text="₹500"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                tools:text="₹500" />
 
             <TextView
                 android:id="@+id/orderDeliveryShippingFees"
@@ -170,11 +215,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/dm_sans_regular"
-                tools:text="Free"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/orderDeliverySubtotal"
-                app:layout_constraintTop_toBottomOf="@+id/orderDeliverySubtotal" />
+                app:layout_constraintTop_toBottomOf="@+id/orderDeliverySubtotal"
+                tools:text="Free" />
 
             <TextView
                 android:id="@+id/orderDeliveryDiscount"
@@ -182,11 +227,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/dm_sans_regular"
-                tools:text="₹0"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/orderDeliveryShippingFees"
-                app:layout_constraintTop_toBottomOf="@+id/orderDeliveryShippingFees" />
+                app:layout_constraintTop_toBottomOf="@+id/orderDeliveryShippingFees"
+                tools:text="₹0" />
 
             <TextView
                 android:id="@+id/orderDeliveryTotal"
@@ -194,11 +239,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/dm_sans_regular"
-                tools:text="INR 450"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/orderDeliveryDiscount"
-                app:layout_constraintTop_toBottomOf="@+id/orderDeliveryDiscount" />
+                app:layout_constraintTop_toBottomOf="@+id/orderDeliveryDiscount"
+                tools:text="INR 450" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -235,13 +280,13 @@
         android:id="@+id/placeOrderButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_gravity="bottom"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/dm_sans_regular"
         android:padding="16dp"
         android:text="Place order"
-        android:layout_gravity="bottom"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:textColor="#000"

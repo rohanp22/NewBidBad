@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.example.bidbadnew.Adapter.WonItemsAdapter;
 import com.example.bidbadnew.Model.WonItem;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 
 import java.text.ParseException;
@@ -44,8 +46,20 @@ public class WonBidsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        getActivity().findViewById(R.id.bar).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.fabhome).setVisibility(View.GONE);
+
         View view = inflater.inflate(R.layout.fragment_won_items, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
 
         wonViewModel = new ViewModelProvider(this).get(WonItemsViewModel.class);
         wonViewModel.init(SharedPrefManager.getInstance(view.getContext()).getUser().getId());

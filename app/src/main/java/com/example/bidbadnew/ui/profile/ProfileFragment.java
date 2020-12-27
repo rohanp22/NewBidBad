@@ -26,6 +26,8 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        getActivity().findViewById(R.id.bar).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.fabhome).setVisibility(View.VISIBLE);
         notificationsViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);

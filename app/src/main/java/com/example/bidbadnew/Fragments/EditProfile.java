@@ -22,7 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
@@ -49,23 +51,32 @@ public class EditProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().findViewById(R.id.bar).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.fabhome).setVisibility(View.GONE);
+
         View view = inflater.inflate(R.layout.edit_profile_fragment, container, false);
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
         dialog = new Dialog(view.getContext());
         RecyclerView editRecycler = view.findViewById(R.id.editRecycler);
         RecyclerView editPrivate = view.findViewById(R.id.editRecycler1);
         ArrayList<Item> items = new ArrayList<>();
         ArrayList<Item> items1 = new ArrayList<>();
 
-        items.add(new Item("Name", "Rohan"));
-        items.add(new Item("Referral code", "rohan3241"));
+        items.add(new Item("Name", SharedPrefManager.getInstance(view.getContext()).getUser().getFirstname()));
+        items.add(new Item("Referral code", SharedPrefManager.getInstance(view.getContext()).getUser().getFirstname() + SharedPrefManager.getInstance(view.getContext()).getUser().getId()));
         items.add(new Item("Manage Address", ""));
         items.add(new Item("Change password", ""));
 
         items1.add(new Item("Gender", "Male"));
         items1.add(new Item("Date of birth", "01-01-1998"));
-
-        items1.add(new Item("Mobile", "+91-8309096401"));
-        items1.add(new Item("E-mail", "rohanpandey2210@gmail.com"));
+        items1.add(new Item("Mobile", SharedPrefManager.getInstance(view.getContext()).getUser().getMobile()));
+        items1.add(new Item("E-mail", SharedPrefManager.getInstance(view.getContext()).getUser().getEmail()));
 
         DividerItemDecoration itemDecorator = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         itemDecorator.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divideredit));
@@ -120,6 +131,7 @@ public class EditProfile extends Fragment {
                 super(itemView);
                 Title = itemView.findViewById(R.id.editItemTitle);
                 Value = itemView.findViewById(R.id.editItemValue);
+                itemView.setClickable(true);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
