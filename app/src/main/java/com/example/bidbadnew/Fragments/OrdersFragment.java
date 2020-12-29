@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -77,9 +78,7 @@ public class OrdersFragment extends Fragment {
         mViewModel.getOrder().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    orders.sort(new sortTime());
-                }
+                Collections.reverse(orders);
                 DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
                 dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
                 pastList.addItemDecoration(dividerItemDecoration);
@@ -100,12 +99,12 @@ public class OrdersFragment extends Fragment {
 
     class sortTime implements Comparator<Order> {
         public int compare(Order a, Order b) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:m a");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy, h:mm a");
             //May 24, 2020, 7:49 pm
             Date a1 = null, b1 = null;
             try {
-                a1 = simpleDateFormat.parse(a.getEndtime());
-                b1 = simpleDateFormat.parse(b.getEndtime());
+                a1 = simpleDateFormat.parse(a.getDate());
+                b1 = simpleDateFormat.parse(b.getDate());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
