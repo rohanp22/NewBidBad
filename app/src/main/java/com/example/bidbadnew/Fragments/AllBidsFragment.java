@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,12 +44,26 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 
-public class AllBidsFragment extends Fragment {
+public class AllBidsFragment extends Fragment implements AllBidsAdapter.AllBidsAdapterListener {
 
     ArrayList<PastProducts> cartItems;
     RecyclerView cartList;
     AllBidsAdapter adapterall;
+    View view;
+    AllBidsFragmentListener allBidsFragmentListener;
 
+    public AllBidsFragment(AllBidsFragmentListener allBidsFragmentListener){
+        this.allBidsFragmentListener = allBidsFragmentListener;
+    }
+
+    @Override
+    public void onItemClickListener(PastProducts pastProduct) {
+        allBidsFragmentListener.onItemClick();
+    }
+
+    public interface AllBidsFragmentListener {
+        public void onItemClick();
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -58,7 +73,7 @@ public class AllBidsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_all_bids, container, false);
+        view = inflater.inflate(R.layout.fragment_all_bids, container, false);
         cartList = view.findViewById(R.id.allbidsRecyclerview);
         cartList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
@@ -94,7 +109,7 @@ public class AllBidsFragment extends Fragment {
                                 cartItems.add(c);
                             }
                             cartItems.sort(new sortTime());
-                            adapterall = new AllBidsAdapter(view.getContext(), cartItems);
+                            adapterall = new AllBidsAdapter(view.getContext(), cartItems, AllBidsFragment.this);
                             cartList.setAdapter(adapterall);
                         } catch (JSONException e) {
                             e.printStackTrace();

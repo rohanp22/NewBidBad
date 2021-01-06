@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,16 +24,22 @@ public class AllBidsAdapter extends RecyclerView.Adapter<AllBidsAdapter.BidHisto
 
     Context context;
     ArrayList<PastProducts> heroList;
+    AllBidsAdapterListener allBidsAdapterListener;
 
-    public AllBidsAdapter(Context context, ArrayList<PastProducts> heroList) {
+    public AllBidsAdapter(Context context, ArrayList<PastProducts> heroList, AllBidsAdapterListener allBidsAdapterListener) {
         this.context = context;
         this.heroList = heroList;
+        this.allBidsAdapterListener = allBidsAdapterListener;
     }
 
     @NonNull
     @Override
     public AllBidsAdapter.BidHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new BidHistoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bid_history, parent, false));
+    }
+
+    public interface AllBidsAdapterListener{
+        public void onItemClickListener(PastProducts pastProduct);
     }
 
     @SuppressLint("SetTextI18n")
@@ -50,6 +57,13 @@ public class AllBidsAdapter extends RecyclerView.Adapter<AllBidsAdapter.BidHisto
         Glide.with(context)
                 .load(heroList.get(position).getImage_url())
                 .into(holder.bidHistoryImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allBidsAdapterListener.onItemClickListener(heroList.get(position));
+            }
+        });
     }
 
     @Override

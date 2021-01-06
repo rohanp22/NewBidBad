@@ -28,13 +28,21 @@
         android:id="@+id/navigation_order"
         android:name="com.example.bidbadnew.Fragments.OrdersFragment"
         android:label="Orders"
-        tools:layout="@layout/orders_fragment" />
+        tools:layout="@layout/orders_fragment" >
+        <action
+            android:id="@+id/action_navigation_order_to_orderSummary"
+            app:destination="@id/orderSummary" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.bidbadnew.ui.results.ResultsFragment"
         android:label="@string/results"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_productDescriptionHistory"
+            app:destination="@id/productDescriptionHistory" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_wonbids"
@@ -79,6 +87,9 @@
         <action
             android:id="@+id/action_navigation_notifications_to_editProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_wishlist"
+            app:destination="@id/wishlist" />
     </fragment>
 
     <action
@@ -218,5 +229,22 @@
         android:name="com.example.bidbadnew.Fragments.NotificationsFragment"
         android:label="notifications_fragment"
         tools:layout="@layout/notifications_fragment" />
+    <fragment
+        android:id="@+id/orderSummary"
+        android:name="com.example.bidbadnew.Fragments.OrderSummary"
+        android:label="OrderSummary" />
+    <fragment
+        android:id="@+id/wishlist"
+        android:name="com.example.bidbadnew.Fragments.Wishlist"
+        android:label="wishlist_fragment"
+        tools:layout="@layout/wishlist_fragment" />
+    <fragment
+        android:id="@+id/productDescriptionHistory"
+        android:name="com.example.bidbadnew.Fragments.ProductDescriptionHistory"
+        android:label="ProductDescriptionHistory" />
+    <fragment
+        android:id="@+id/allBidsFragment"
+        android:name="com.example.bidbadnew.Fragments.AllBidsFragment"
+        android:label="AllBidsFragment" />
 
 </navigation>

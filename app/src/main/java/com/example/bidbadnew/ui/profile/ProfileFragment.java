@@ -54,6 +54,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        wishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(root).navigate(R.id.action_navigation_notifications_to_wishlist);
+            }
+        });
+
         wonbids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

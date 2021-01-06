@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.bidbadnew.Fragments.AllBidsFragment;
@@ -20,16 +21,17 @@ import com.example.bidbadnew.Fragments.OngoingBidsFragment;
 import com.example.bidbadnew.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class ResultsFragment extends Fragment {
+public class ResultsFragment extends Fragment implements AllBidsFragment.AllBidsFragmentListener {
 
     private ResultsViewModel dashboardViewModel;
     ViewPager viewPager;
+    View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
                 new ViewModelProvider(this).get(ResultsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabLayout);
         viewPager=(ViewPager) root.findViewById(R.id.viewPager);
@@ -67,6 +69,11 @@ public class ResultsFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onItemClick() {
+        Navigation.findNavController(root).navigate(R.id.action_navigation_dashboard_to_productDescriptionHistory);
+    }
+
     class MyAdapter extends FragmentPagerAdapter {
 
         int totalTabs;
@@ -87,7 +94,7 @@ public class ResultsFragment extends Fragment {
                     return new MyBidsFragment("mybids");
 
                 case 2:
-                    return new AllBidsFragment();
+                    return new AllBidsFragment(ResultsFragment.this);
 
                 default:
                     return null;

@@ -11,6 +11,7 @@ import com.example.bidbadnew.Model.Order;
 import com.example.bidbadnew.Model.PlaceOrderResponse;
 import com.example.bidbadnew.Model.SignupResponse;
 import com.example.bidbadnew.Model.Transaction;
+import com.example.bidbadnew.Model.WishListItem;
 import com.example.bidbadnew.Model.WonItem;
 
 import java.util.List;
@@ -92,4 +93,15 @@ public interface Api {
 
     @GET("getnotifications.php")
     Call<List<NotificationModel>> getNotifications(@Query("id") int id);
+
+    @FormUrlEncoded
+    @POST("addtowishlist.php")
+    Call<Void> addToWishlist(@Query("id") int id, @Field("productid") int productid);
+
+    @FormUrlEncoded
+    @POST("deletefromwishlist.php")
+    Call<Void> deleteFromWishlist(@Query("id") int id, @Field("productid") int productid);
+
+    @GET("getwishlist.php")
+    Call<List<WishListItem>> getWishlist(@Query("id") int id);
 }

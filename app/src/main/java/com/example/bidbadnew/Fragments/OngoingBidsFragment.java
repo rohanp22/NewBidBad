@@ -47,8 +47,9 @@ public class OngoingBidsFragment extends Fragment {
             public void onChanged(List<OngoingItems> ongoingItems) {
                 ongoingItems.sort(new sortTime());
                 OngoingBidsAdapter walletAdapter = new OngoingBidsAdapter(view.getContext(), ongoingItems);
+                view.findViewById(R.id.progressBar).setVisibility(View.GONE);
+
                 if(ongoingItems.size() == 0){
-                    view.findViewById(R.id.progressBar).setVisibility(View.GONE);
                     view.findViewById(R.id.noBidsMsg).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.btn).setVisibility(View.VISIBLE);
                 }

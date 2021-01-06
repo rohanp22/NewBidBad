@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -12,10 +14,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bidbadnew.Fragments.AllBidsFragment;
@@ -23,14 +29,21 @@ import com.example.bidbadnew.Fragments.MyBidsFragment;
 import com.example.bidbadnew.Fragments.OngoingBidsFragment;
 import com.example.bidbadnew.Fragments.ProductDetails;
 import com.example.bidbadnew.Model.Current_Product;
+import com.example.bidbadnew.Others.SharedPrefManager;
+import com.example.bidbadnew.repositories.RetrofitClient;
 import com.example.bidbadnew.ui.home.HomeFragmentDirections;
 import com.example.bidbadnew.ui.results.ResultsFragment;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductDescription extends Fragment {
 
@@ -39,9 +52,11 @@ public class ProductDescription extends Fragment {
     ImageView imageView1, imageView2, imageView3;
     ViewPager viewPager;
     long diff = 0;
+    MaterialToolbar toolbar;
     Date startDate1;
     Date startedAt;
     String imageurl1, imageurl2, imageurl3;
+    boolean isBookmarked;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +91,51 @@ public class ProductDescription extends Fragment {
         started_at = view.findViewById(R.id.startedat);
         note1 = view.findViewById(R.id.cardItem1);
         note2 = view.findViewById(R.id.cardItem2);
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.product_description_menu);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_bookmark:
+                        isBookmarked = !isBookmarked;
+                        if(isBookmarked) {
+                            Call<Void> call = RetrofitClient.getInstance().getMyApi().addToWishlist(SharedPrefManager.getInstance(getContext()).getUser().getId(), Integer.parseInt(current_product.getCurrentid()));
+                            call.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                }
+                            });
+                            item.setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_24));
+                        } else {
+                            Call<Void> call = RetrofitClient.getInstance().getMyApi().deleteFromWishlist(SharedPrefManager.getInstance(getContext()).getUser().getId(), Integer.parseInt(current_product.getCurrentid()));
+                            call.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    Log.d("Removed from wishlist", "wishlist");
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                }
+                            });
+                            item.setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_border_24));
+                        }
+                        return true;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
 
         SimpleDateFormat startedAtFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
         SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM, hh:mm a");

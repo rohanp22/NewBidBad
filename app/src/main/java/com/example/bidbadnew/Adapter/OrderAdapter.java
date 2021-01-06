@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +22,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.BidHistoryVi
 
     Context context;
     List<Order> heroList;
+    OrderAdapterListener orderAdapterListener;
 
-    public OrderAdapter(Context context, List<Order> heroList){
+    public OrderAdapter(Context context, List<Order> heroList, OrderAdapterListener orderAdapterListener){
         this.context = context;
         this.heroList = heroList;
+        this.orderAdapterListener = orderAdapterListener;
+    }
+
+    public interface OrderAdapterListener {
+        public void onOrderItemClicked(Order order);
     }
 
     @NonNull
@@ -42,6 +49,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.BidHistoryVi
         Glide.with(context)
                 .load(heroList.get(position).getImageUrl())
                 .into(holder.orderImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderAdapterListener.onOrderItemClicked(heroList.get(position));
+            }
+        });
     }
 
     @Override

@@ -1,16 +1,13 @@
 package com.example.bidbadnew.Model;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+public class WishListItem {
 
-public class Order implements Serializable {
-
-    @SerializedName("past_id")
+    @SerializedName("currentid")
     @Expose
-    private String pastId;
+    private String currentid;
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
@@ -38,34 +35,19 @@ public class Order implements Serializable {
     @SerializedName("start_date")
     @Expose
     private String startDate;
-    @SerializedName("bidamount")
+    @SerializedName("subtitle")
     @Expose
-    private String bidamount;
-    @SerializedName("oid")
+    private String subtitle;
+    @SerializedName("category")
     @Expose
-    private String oid;
-    @SerializedName("productid")
-    @Expose
-    private String productid;
-    @SerializedName("address")
-    @Expose
-    private String address;
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("userid")
-    @Expose
-    private String userid;
-    @SerializedName("date")
-    @Expose
-    private String date;
+    private String category;
 
-    public String getPastId() {
-        return pastId;
+    public String getCurrentid() {
+        return currentid;
     }
 
-    public void setPastId(String pastId) {
-        this.pastId = pastId;
+    public void setCurrentid(String currentid) {
+        this.currentid = currentid;
     }
 
     public String getImageUrl() {
@@ -140,60 +122,20 @@ public class Order implements Serializable {
         this.startDate = startDate;
     }
 
-    public String getBidamount() {
-        return bidamount;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setBidamount(String bidamount) {
-        this.bidamount = bidamount;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
-    public String getOid() {
-        return oid;
+    public String getCategory() {
+        return category;
     }
 
-    public void setOid(String oid) {
-        this.oid = oid;
-    }
-
-    public String getProductid() {
-        return productid;
-    }
-
-    public void setProductid(String productid) {
-        this.productid = productid;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
 }

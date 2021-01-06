@@ -42,7 +42,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class OrdersFragment extends Fragment {
+public class OrdersFragment extends Fragment implements OrderAdapter.OrderAdapterListener {
 
     private OrdersViewModel mViewModel;
     View view;
@@ -83,7 +83,7 @@ public class OrdersFragment extends Fragment {
                 dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
                 pastList.addItemDecoration(dividerItemDecoration);
                 pastList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                pastList.setAdapter(new OrderAdapter(view.getContext(), orders));
+                pastList.setAdapter(new OrderAdapter(view.getContext(), orders, OrdersFragment.this));
             }
         });
     }
@@ -95,6 +95,14 @@ public class OrdersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onOrderItemClicked(Order order) {
+        Bundle b = new Bundle();
+        b.putSerializable("order", order);
+
+        Navigation.findNavController(view).navigate(R.id.action_navigation_order_to_orderSummary, b);
     }
 
     class sortTime implements Comparator<Order> {
