@@ -1,6 +1,7 @@
 package com.example.bidbadnew.Adapter;
 
 import android.content.Context;
+import android.graphics.Shader;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -22,26 +23,29 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.example.bidbadnew.ActionBottomDialogFragment;
 import com.example.bidbadnew.Model.Current_Product;
+import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.Others.Symbol;
 import com.example.bidbadnew.ProductDescriptionDirections;
 import com.example.bidbadnew.R;
+import com.example.bidbadnew.repositories.CurrentProductsRepo;
 import com.example.bidbadnew.ui.home.HomeFragmentDirections;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.ProductAdapterViewHolder> {
 
     Context context;
-    List<Current_Product> heroList;
+    List<Current_Product> heroList = new ArrayList<>();
     Date startDate1;
     ViewPager2 viewPager2;
     FragmentManager fragmentManager;
     RecyclerView recyclerView;
 
-    public ProductAdapter1(Context context, List<Current_Product> heroList, FragmentManager fragmentManager) {
+    public ProductAdapter1(Context context, FragmentManager fragmentManager) {
         this.context = context;
         this.heroList = heroList;
         this.fragmentManager = fragmentManager;
@@ -49,6 +53,11 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
 
     public void updateList(List<Current_Product> list){
         this.heroList = list;
+        notifyDataSetChanged();
+    }
+
+    public void setHeroList(List<Current_Product> heroList) {
+        this.heroList = heroList;
         notifyDataSetChanged();
     }
 
@@ -75,7 +84,7 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
             @Override
             public void onClick(View view) {
                 ActionBottomDialogFragment addPhotoBottomDialogFragment =
-                        ActionBottomDialogFragment.newInstance(heroList.get(position).getCurrentid(), heroList.get(position).getImageUrl(), heroList.get(position).getTitle(), heroList.get(position).getSp(), fragmentManager, position);
+                        ActionBottomDialogFragment.newInstance(heroList.get(position));
                 addPhotoBottomDialogFragment.show(fragmentManager,
                         ActionBottomDialogFragment.TAG);
             }
@@ -152,7 +161,24 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
             }
 
             public void onFinish() {
-
+                switch (heroList.get(position).getCategory()) {
+                    case "Electronics" : CurrentProductsRepo.getInstance().getElectronicsProductCategory();
+                        break;
+                    case "Appliances" : CurrentProductsRepo.getInstance().getAppliancesCategory();
+                        break;
+                    case "Accessories" : CurrentProductsRepo.getInstance().getAccessoriesCategory();
+                        break;
+                    case "Personal Care" : CurrentProductsRepo.getInstance().getPersonalcareProductCategory();
+                        break;
+                    case "Home & Furniture" : CurrentProductsRepo.getInstance().getHomeProductCategory();
+                        break;
+                    case "Fitness" : CurrentProductsRepo.getInstance().getFitnessProductCategory();
+                        break;
+                    case "Others" : CurrentProductsRepo.getInstance().getOthersCategory();
+                        break;
+                    case "Apparel" : CurrentProductsRepo.getInstance().getApparelProductCategory();
+                        break;
+                }
             }
 
         }.start();

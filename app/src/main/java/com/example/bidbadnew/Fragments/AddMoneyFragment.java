@@ -43,7 +43,7 @@ public class AddMoneyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_money, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).popBackStack();
@@ -55,7 +55,8 @@ public class AddMoneyFragment extends Fragment {
         call.enqueue(new Callback<Balance>() {
             @Override
             public void onResponse(Call<Balance> call, Response<Balance> response) {
-                balance.setText("₹"+response.body().getBalance());
+                if (response.body() != null)
+                    balance.setText("₹" + response.body().getBalance());
             }
 
             @Override
@@ -100,7 +101,7 @@ public class AddMoneyFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!editTextAmount.getText().toString().equals("")) {
+                if (!editTextAmount.getText().toString().equals("")) {
                     if (Integer.parseInt(editTextAmount.getText().toString()) < 100) {
                         textInputLayout.setError("Amount should be greater than 100");
                     } else {

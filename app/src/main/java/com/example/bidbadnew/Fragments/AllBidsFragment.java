@@ -58,11 +58,11 @@ public class AllBidsFragment extends Fragment implements AllBidsAdapter.AllBidsA
 
     @Override
     public void onItemClickListener(PastProducts pastProduct) {
-        allBidsFragmentListener.onItemClick();
+        allBidsFragmentListener.onItemClick(pastProduct);
     }
 
     public interface AllBidsFragmentListener {
-        public void onItemClick();
+        public void onItemClick(PastProducts pastProducts);
     }
 
     @Override

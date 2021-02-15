@@ -18,6 +18,9 @@ public class SharedPrefManager {
     private static final String KEY_FIRSTNAME = "keyfirstname";
     private static final String KEY_ID = "keyid";
     private static final String KEY_MOBILE = "keymobile";
+    private static final String KEY_GENDER = "keygender";
+    private static final String KEY_DOB = "keydob";
+    private static final String KEY_JOINED = "keyjoined";
     String myList = "myList";
 
     private static SharedPrefManager mInstance;
@@ -43,6 +46,9 @@ public class SharedPrefManager {
         editor.putString(KEY_EMAIL, user.getEmail());
         editor.putString(KEY_FIRSTNAME, user.getFirstname());
         editor.putString(KEY_MOBILE, user.getMobile());
+        editor.putString(KEY_GENDER, user.getGender());
+        editor.putString(KEY_DOB, user.getDob());
+        editor.putString(KEY_JOINED, user.getJoinedon());
         editor.apply();
     }
 
@@ -59,7 +65,10 @@ public class SharedPrefManager {
                 Integer.parseInt(sharedPreferences.getString(KEY_ID, null)),
                 sharedPreferences.getString(KEY_EMAIL, null),
                 sharedPreferences.getString(KEY_FIRSTNAME, null),
-                sharedPreferences.getString(KEY_MOBILE, null)
+                sharedPreferences.getString(KEY_MOBILE, null),
+                sharedPreferences.getString(KEY_GENDER, null),
+                sharedPreferences.getString(KEY_DOB, null),
+                sharedPreferences.getString(KEY_JOINED, "2019/01/01")
         );
     }
 

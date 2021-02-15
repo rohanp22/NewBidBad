@@ -2,7 +2,9 @@ package com.example.bidbadnew.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MyBid {
+import java.io.Serializable;
+
+public class MyBid implements Serializable {
 
     @SerializedName("past_id")
     @Expose

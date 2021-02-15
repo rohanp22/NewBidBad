@@ -13,4 +13,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="bookmark">Bookmark</string>
     <string name="your_bid_amount">Your bid amount</string>
+    <string name="entry_price">Entry price</string>
+    <string name="your_bid">Your bid</string>
+    <string name="the_bid_price">The Bid Price is only your ticket to enter this Bid</string>
 </resources>

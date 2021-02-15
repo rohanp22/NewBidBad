@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_navigation_product_description"
-            app:destination="@id/navigation_product_description" />
+            app:destination="@id/navigation_product_description"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_walletFragment"
             app:destination="@id/walletFragment" />
@@ -42,6 +46,12 @@
         <action
             android:id="@+id/action_navigation_dashboard_to_productDescriptionHistory"
             app:destination="@id/productDescriptionHistory" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_productDescriptionHistoryMyBids"
+            app:destination="@id/productDescriptionHistoryMyBids" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_productDescriptionOngoing"
+            app:destination="@id/productDescriptionOngoing" />
     </fragment>
 
     <fragment
@@ -58,10 +68,19 @@
         android:id="@+id/navigation_product_description"
         android:name="com.example.bidbadnew.ProductDescription"
         android:label="Product desc"
-        tools:layout="@layout/fragment_product_description2" >
+        tools:layout="@layout/fragment_product_description2">
+        <argumentToolbar
+            android:name="product"
+            app:argType="com.example.bidbadnew.Model.Current_Product" />
+        <action
+            android:id="@+id/action_navigation_product_description_to_actionBottomDialogFragment"
+            app:destination="@id/actionBottomDialogFragment" />
         <argument
             android:name="product"
             app:argType="com.example.bidbadnew.Model.Current_Product" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="http://easyvela.esy.es/pro" />
     </fragment>
 
     <fragment
@@ -90,6 +109,18 @@
         <action
             android:id="@+id/action_navigation_notifications_to_wishlist"
             app:destination="@id/wishlist" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_rewardsFragment"
+            app:destination="@id/rewardsFragment" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_itemFragment"
+            app:destination="@id/itemFragment" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_termsandConditions"
+            app:destination="@id/termsandConditions" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_privacyPolicy"
+            app:destination="@id/privacyPolicy" />
     </fragment>
 
     <action
@@ -139,6 +170,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_walletFragment_to_viewAllTransactions"
+            app:destination="@id/viewAllTransactions" />
     </fragment>
 
     <fragment
@@ -241,10 +275,73 @@
     <fragment
         android:id="@+id/productDescriptionHistory"
         android:name="com.example.bidbadnew.Fragments.ProductDescriptionHistory"
-        android:label="ProductDescriptionHistory" />
+        android:label="ProductDescriptionHistory" >
+        <argument
+            android:name="Past_Product"
+            app:argType="com.example.bidbadnew.Model.PastProducts" />
+    </fragment>
     <fragment
         android:id="@+id/allBidsFragment"
         android:name="com.example.bidbadnew.Fragments.AllBidsFragment"
         android:label="AllBidsFragment" />
+    <fragment
+        android:id="@+id/rewardsFragment"
+        android:name="com.example.bidbadnew.Fragments.RewardsFragment"
+        android:label="RewardsFragment" />
+    <fragment
+        android:id="@+id/productDescriptionHistoryMyBids"
+        android:name="com.example.bidbadnew.Fragments.ProductDescriptionHistoryMyBids"
+        android:label="ProductDescriptionHistoryMyBids" >
+        <argument
+            android:name="MyBid"
+            app:argType="com.example.bidbadnew.Model.MyBid" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewAllTransactions"
+        android:name="com.example.bidbadnew.Fragments.ViewAllTransactions"
+        android:label="view_all_transactions_fragment"
+        tools:layout="@layout/view_all_transactions_fragment" />
+    <fragment
+        android:id="@+id/referredItem"
+        android:name="com.example.bidbadnew.Fragments.ReferredItem"
+        android:label="fragment_referred_item"
+        tools:layout="@layout/fragment_referred_item">
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="http://easyvela.esy.es/newproduct?id1={id1}&amp;id2={id2}" />
+        <argument
+            android:name="id1"
+            app:argType="integer" />
+        <argument
+            android:name="id2"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDescriptionOngoing"
+        android:name="com.example.bidbadnew.Fragments.ProductDescriptionOngoing"
+        android:label="ProductDescriptionOngoing" >
+        <argument
+            android:name="ongoingItem"
+            app:argType="com.example.bidbadnew.Model.OngoingItems" />
+    </fragment>
+    <dialog
+        android:id="@+id/noConnectionDialogFragment"
+        android:name="com.example.bidbadnew.Fragments.NoConnectionDialogFragment"
+        android:label="NoConnectionDialogFragment" /><action android:id="@+id/action_global_noConnectionDialogFragment" app:destination="@id/noConnectionDialogFragment"/>
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.example.bidbadnew.Fragments.ItemFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" />
+    <fragment
+        android:id="@+id/termsandConditions"
+        android:name="com.example.bidbadnew.Fragments.TermsandConditions"
+        android:label="fragment_termsand_conditions"
+        tools:layout="@layout/fragment_termsand_conditions" />
+    <fragment
+        android:id="@+id/privacyPolicy"
+        android:name="com.example.bidbadnew.Fragments.PrivacyPolicy"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
 
 </navigation>

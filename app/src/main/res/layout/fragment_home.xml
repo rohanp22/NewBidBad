@@ -28,8 +28,8 @@
                     android:id="@+id/bid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="bid"
                     android:fontFamily="@font/round"
+                    android:text="bid"
                     android:textColor="@color/colorSecondary"
                     android:textSize="20dp" />
 
@@ -37,8 +37,8 @@
                     android:id="@+id/bad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/round"
                     android:layout_toRightOf="@id/bid"
+                    android:fontFamily="@font/round"
                     android:text="bad"
                     android:textColor="@android:color/white"
                     android:textSize="20dp" />
@@ -52,23 +52,23 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="wrap_content"
-        app:tabMode="scrollable"
         android:layout_height="wrap_content"
         android:background="@color/black"
-        app:tabSelectedTextColor="@color/colorSecondary"
         android:elevation="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar"
         app:tabIndicatorColor="@color/colorSecondary"
         app:tabIndicatorHeight="4dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorSecondary"
         app:tabTextAppearance="@style/MineCustomTabText" />
 
     <com.example.bidbadnew.Others.CustomViewPager
         android:id="@+id/viewPagerCategories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_below="@+id/tabLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         tools:layout_editor_absoluteX="8dp" />
 
@@ -89,9 +89,9 @@
         android:layout_height="0dp"
         android:layout_marginTop="48dp"
         android:overScrollMode="never"
-        android:visibility="gone"
         android:paddingStart="42dp"
         android:paddingEnd="42dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/explore" />

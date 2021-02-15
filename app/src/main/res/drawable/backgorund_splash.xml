@@ -3,5 +3,5 @@
     <item android:drawable="@color/black" />
     <item
         android:gravity="center"
-        android:drawable="@drawable/logo_final" />
+        android:drawable="@drawable/ic_slpash_image" />
 </layer-list>

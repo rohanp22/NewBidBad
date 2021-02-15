@@ -43,6 +43,20 @@ public class Current_Product implements Serializable {
     @SerializedName("category")
     @Expose
     private String category;
+    @SerializedName("bonus")
+    @Expose
+    private String bonus;
+    @SerializedName("freebid")
+    @Expose
+    private String freebid;
+
+    public String getBonus() {
+        return bonus;
+    }
+
+    public String getFreebid() {
+        return freebid;
+    }
 
     public String getCategory() {
         return category;

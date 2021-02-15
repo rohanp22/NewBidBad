@@ -8,8 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
+        android:layout_margin="-10dp"
+        app:cardElevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -58,12 +59,13 @@
                 app:layout_constraintStart_toEndOf="@id/view1"
                 app:layout_constraintTop_toBottomOf="@id/title" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/sharebid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:backgroundTint="@color/colorSecondary"
-                android:drawableLeft="@drawable/ic_share"
+                android:padding="16dp"
+                android:src="@drawable/ic_share"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,9 +106,9 @@
                 android:id="@+id/endsin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
                 android:fontFamily="@font/digital"
                 android:letterSpacing="0.1"
-                android:layout_margin="2dp"
                 android:text="20:04:51"
                 android:textColor="@color/colorSecondary"
                 android:textSize="16sp"

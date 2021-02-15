@@ -15,6 +15,7 @@ public class WishlistViewModel extends ViewModel {
 
     WishListRepo wishListRepo;
     private MutableLiveData<List<WishListItem>> wishList;
+    private MutableLiveData<List<WishListItem>> wishListPast;
 
     public void init(int id){
         if (wishList != null) {
@@ -22,10 +23,14 @@ public class WishlistViewModel extends ViewModel {
         }
         wishListRepo = WishListRepo.getInstance();
         wishList = wishListRepo.getWishList(id);
+        wishListPast = wishListRepo.getWishListPast(id);
     }
 
     public MutableLiveData<List<WishListItem>> getMyBids() {
         return wishList;
     }
 
+    public MutableLiveData<List<WishListItem>> getWishListPast() {
+        return wishListPast;
+    }
 }

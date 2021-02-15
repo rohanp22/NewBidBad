@@ -17,8 +17,8 @@ public class MyBidsRepo {
 
     public static MyBidsRepo myBidsRepo;
 
-    public static MyBidsRepo getInstance(){
-        if(myBidsRepo == null){
+    public static MyBidsRepo getInstance() {
+        if (myBidsRepo == null) {
             myBidsRepo = new MyBidsRepo();
         }
         return myBidsRepo;
@@ -32,8 +32,10 @@ public class MyBidsRepo {
         call.enqueue(new Callback<MyBids>() {
             @Override
             public void onResponse(Call<MyBids> call, Response<MyBids> response) {
-                myBidsList = response.body().getBids();
-                myBids.postValue(myBidsList);
+                if (response.body() != null) {
+                    myBidsList = response.body().getBids();
+                    myBids.postValue(myBidsList);
+                }
             }
 
             @Override
@@ -43,5 +45,5 @@ public class MyBidsRepo {
         });
         return myBids;
     }
-    
+
 }

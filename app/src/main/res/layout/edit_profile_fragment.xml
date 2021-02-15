@@ -15,7 +15,6 @@
             android:layout_height="?actionBarSize"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
-            app:menu="@menu/edit_profile_menu"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             app:title="Edit Profile" />
 
@@ -40,6 +39,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintEnd_toEndOf="@id/editImage"
+                android:src="@drawable/edit_circle"
+                app:layout_constraintBottom_toBottomOf="@id/editImage"
+                />
+
             <TextView
                 android:id="@+id/textPublic"
                 android:layout_width="wrap_content"
@@ -48,7 +55,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:text="PUBLIC"
-                android:textSize="10dp"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editImage" />
@@ -67,7 +74,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:text="PRIVATE"
-                android:textSize="10dp"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editRecycler" />

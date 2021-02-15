@@ -56,9 +56,8 @@ public class ProductDetails extends Fragment {
             Log.d("TOken", t);
         }
 
-        productDetails.add("This product height is 20cms.");
-        productDetails.add("Warranty of 2 months");
-        productDetails.add("Extra bass");
+        productDetails.add("Cash on delivery is not applicable. ");
+        productDetails.add("If you do not pay the Bid Amount, the second-highest bidder will win the product. ");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         if(tabName.equals("productdetails")) {

@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment {
                                 Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
                                 if (response.body().getMessage().equals("Login successfully")) {
                                     User u = response.body().getUser();
-                                    SharedPrefManager.getInstance(getContext()).userLogin(new User(u.getId(), u.getEmail(), u.getFirstname(), u.getMobile()));
+                                    SharedPrefManager.getInstance(getContext()).userLogin(new User(u.getId(), u.getEmail(), u.getFirstname(), u.getMobile(), u.getGender(), u.getDob(), u.getJoinedon()));
                                     startActivity(new Intent(getActivity(), MainActivity.class));
                                     getActivity().finish();
                                 }

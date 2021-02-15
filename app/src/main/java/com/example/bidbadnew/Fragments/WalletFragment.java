@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.bidbadnew.Adapter.WalletAdapter;
 import com.example.bidbadnew.Model.Balance;
+import com.example.bidbadnew.Model.FreeBid;
 import com.example.bidbadnew.Model.Transaction;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
@@ -26,6 +28,8 @@ import com.example.bidbadnew.repositories.RetrofitClient;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.text.DecimalFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +41,7 @@ public class WalletFragment extends Fragment {
     private WalletViewModel mViewModel;
     TextView balance, freebids, bonus;
     RecyclerView recyclerview;
+    TextView viewall;
 
     public static WalletFragment newInstance() {
         return new WalletFragment();
@@ -52,7 +57,8 @@ public class WalletFragment extends Fragment {
 
         balance = view.findViewById(R.id.balance);
         freebids = view.findViewById(R.id.freebidscount);
-        bonus = view.findViewById(R.id.bonuspointscount);
+        viewall = view.findViewById(R.id.viewalltext);
+        bonus = view.findViewById(R.id.rewardcount);
         recyclerview = view.findViewById(R.id.walletTransactions);
         mViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
         mViewModel.init(SharedPrefManager.getInstance(view.getContext()).getUser().getId());
@@ -61,7 +67,17 @@ public class WalletFragment extends Fragment {
         mViewModel.getMyWonItems().observe(getViewLifecycleOwner(), new Observer<List<Transaction>>() {
             @Override
             public void onChanged(List<Transaction> transactions) {
-                recyclerview.setAdapter(new WalletAdapter(view.getContext(), transactions));
+                if(transactions != null) {
+                    Collections.reverse(transactions);
+                    recyclerview.setAdapter(new WalletAdapter(view.getContext(), transactions, transactions.size() < 4 ? transactions.size() : 4));
+                }
+            }
+        });
+
+        viewall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_walletFragment_to_viewAllTransactions);
             }
         });
 
@@ -69,12 +85,44 @@ public class WalletFragment extends Fragment {
         call.enqueue(new Callback<Balance>() {
             @Override
             public void onResponse(Call<Balance> call, Response<Balance> response) {
-                balance.setText(new DecimalFormat("##,##,##0").format(Integer.parseInt(response.body().getBalance())));
+                if(response.body() != null) {
+                    balance.setText(new DecimalFormat("##,##,##0").format(Integer.parseInt(response.body().getBalance())));
+                }
             }
 
             @Override
             public void onFailure(Call<Balance> call, Throwable t) {
 
+            }
+        });
+
+        Call<List<FreeBid>> call1 = RetrofitClient.getInstance().getMyApi().getFreeBids(SharedPrefManager.getInstance(getContext()).getUser().getId());
+        call1.enqueue(new Callback<List<FreeBid>>() {
+            @Override
+            public void onResponse(Call<List<FreeBid>> call, Response<List<FreeBid>> response) {
+                if(response.body() != null)
+                    freebids.setText(response.body().size()+"");
+            }
+
+            @Override
+            public void onFailure(Call<List<FreeBid>> call, Throwable t) {
+
+            }
+        });
+
+        Call<String> rewardPointsCall = RetrofitClient.getInstance().getMyApi().getRewardPoints(SharedPrefManager.getInstance(getContext()).getUser().getId());
+        rewardPointsCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.body() != null) {
+                    Log.d("Response", response.body().toString() + " ");
+                    bonus.setText(response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
             }
         });
 

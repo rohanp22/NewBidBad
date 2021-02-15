@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bidbadnew.Adapter.MyBidsAdapter;
 import com.example.bidbadnew.Model.MyBid;
+import com.example.bidbadnew.Model.MyBids;
+import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.Others.SharedPrefManager;
 
@@ -29,12 +31,27 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class MyBidsFragment extends Fragment {
+public class MyBidsFragment extends Fragment implements MyBidsAdapter.MyBidsAdapterListener {
 
     RecyclerView cartList;
     String bid;
     MyBidsAdapter adapterall;
     MyBidsViewModel myBidsViewModel;
+
+    MyBidsFragmentListener myBidsFragmentListener;
+
+    public MyBidsFragment(MyBidsFragmentListener allBidsFragmentListener){
+        this.myBidsFragmentListener = allBidsFragmentListener;
+    }
+
+    @Override
+    public void onItemClickListener(MyBid pastProduct) {
+        myBidsFragmentListener.onItemClick(pastProduct);
+    }
+
+    public interface MyBidsFragmentListener {
+        public void onItemClick(MyBid pastProducts);
+    }
 
     public MyBidsFragment(String bid) {
         this.bid = bid;
@@ -70,7 +87,7 @@ public class MyBidsFragment extends Fragment {
             @Override
             public void onChanged(List<MyBid> myBids) {
                 myBids.sort(new sortTime());
-                adapterall = new MyBidsAdapter(getContext(), myBids);
+                adapterall = new MyBidsAdapter(getContext(), myBids, MyBidsFragment.this);
                 cartList.setAdapter(adapterall);
             }
         });

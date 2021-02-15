@@ -73,14 +73,16 @@ public class WonBidsFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<WonItem> wonItems) {
-                wonItems.sort(new sortTime2());
-                if(wonItems.size() == 0){
-                    view.findViewById(R.id.nowonitems).setVisibility(View.VISIBLE);
-                } else {
-                    view.findViewById(R.id.nowonitems).setVisibility(View.GONE);
+                if(wonItems != null) {
+                    wonItems.sort(new sortTime2());
+                    if (wonItems.size() == 0) {
+                        view.findViewById(R.id.nowonitems).setVisibility(View.VISIBLE);
+                    } else {
+                        view.findViewById(R.id.nowonitems).setVisibility(View.GONE);
+                    }
+                    walletAdapter = new WonItemsAdapter(view.getContext(), wonItems);
+                    recyclerView.setAdapter(walletAdapter);
                 }
-                walletAdapter = new WonItemsAdapter(view.getContext(), wonItems);
-                recyclerView.setAdapter(walletAdapter);
             }
         });
         return view;

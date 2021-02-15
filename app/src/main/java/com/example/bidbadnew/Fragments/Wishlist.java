@@ -25,7 +25,7 @@ import java.util.List;
 public class Wishlist extends Fragment {
 
     private WishlistViewModel mViewModel;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, recyclerViewPast;
 
     public static Wishlist newInstance() {
         return new Wishlist();
@@ -34,16 +34,32 @@ public class Wishlist extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        getActivity().findViewById(R.id.bar).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.fabhome).setVisibility(View.GONE);
+
         View view = inflater.inflate(R.layout.wishlist_fragment, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerViewPast = view.findViewById(R.id.recyclerViewPast);
         mViewModel = new ViewModelProvider(this).get(WishlistViewModel.class);
         mViewModel.init(SharedPrefManager.getInstance(view.getContext()).getUser().getId());
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerViewPast.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         mViewModel.getMyBids().observe(getViewLifecycleOwner(), new Observer<List<WishListItem>>() {
             @Override
             public void onChanged(List<WishListItem> wishListItems) {
-                recyclerView.setAdapter(new WishListAdapter(wishListItems, view.getContext()));
+                if(wishListItems != null) {
+                    recyclerView.setAdapter(new WishListAdapter(wishListItems, view.getContext()));
+                }
+            }
+        });
+
+        mViewModel.getWishListPast().observe(getViewLifecycleOwner(), new Observer<List<WishListItem>>() {
+            @Override
+            public void onChanged(List<WishListItem> wishListItems) {
+                if(wishListItems != null) {
+                    recyclerViewPast.setAdapter(new WishListAdapter(wishListItems, view.getContext()));
+                }
             }
         });
 

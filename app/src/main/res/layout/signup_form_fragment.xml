@@ -12,41 +12,32 @@
         android:padding="24dp"
         android:paddingTop="16dp">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
-
         <TextView
             android:id="@+id/bidbadtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
+            android:textSize="32dp"
             android:layout_marginBottom="132dp"
-            android:text="Bidbad"
-            app:layout_constraintEnd_toEndOf="@id/logo"
-            app:layout_constraintStart_toStartOf="@id/logo"
-            app:layout_constraintTop_toBottomOf="@id/logo" />
+            android:text="Sign up"
+            android:fontFamily="@font/bitterbold"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinput2"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"
             android:hint="E-mail"
+            app:boxStrokeColor="@color/colorSecondary"
             app:errorEnabled="true"
-            android:layout_marginTop="56dp"
-            app:layout_constraintTop_toBottomOf="@id/bidbadtext"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bidbadtext">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginEmail"
@@ -62,12 +53,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:boxStrokeColor="@color/colorSecondary"
+            android:layout_marginTop="4dp"
             android:hint="Name"
             app:errorEnabled="true"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/textinput2"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textinput2">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginName"
@@ -83,6 +75,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/colorSecondary"
             android:layout_marginTop="4dp"
             android:hint="Password"
             app:errorEnabled="true"
@@ -102,6 +95,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/colorSecondary"
             android:layout_marginTop="4dp"
             android:hint="Repeat password"
             app:errorEnabled="true"
@@ -122,7 +116,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:backgroundTint="@color/colorSecondary"
-            android:text="Sign up"
+            android:text="Next"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/password_text_input2" />

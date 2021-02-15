@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BidBadNew"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.example.Login"
-            android:screenOrientation="portrait"
-            >
+        <activity
+            android:name="com.example.Login"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
@@ -24,14 +24,27 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize"
             android:label="@string/app_name">
+            <nav-graph android:value="@navigation/mobile_navigation" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="easyvela.esy.es"
+                    android:pathPattern="/product" />
+            </intent-filter>
         </activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <activity android:name=".Activities.Splash"
-            android:theme="@style/SplashScreen"
-            >
+        <activity
+            android:name=".Activities.Splash"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,6 +1,7 @@
 package com.example.bidbadnew.ui.home;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,29 +11,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.bidbadnew.ActionBottomDialogFragment;
 import com.example.bidbadnew.Adapter.ProductAdapter1;
-import com.example.bidbadnew.Fragments.AccessoriesFragment;
-import com.example.bidbadnew.Fragments.ApparelFragment;
-import com.example.bidbadnew.Fragments.ApplicancesFragment;
-import com.example.bidbadnew.Fragments.ElectronicsFragment;
-import com.example.bidbadnew.Fragments.FitnessFragment;
-import com.example.bidbadnew.Fragments.HomeFurnitureFragment;
-import com.example.bidbadnew.Fragments.OthersFragment;
-import com.example.bidbadnew.Fragments.PersonalCareFragment;
+import com.example.bidbadnew.Fragments.ProductsFragment;
 import com.example.bidbadnew.Model.Current_Product;
-import com.example.bidbadnew.Others.CustomViewPager;
 import com.example.bidbadnew.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.ParseException;
@@ -45,31 +38,11 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
     private HomeViewModel homeViewModel;
     ViewPager viewPager;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.home_menu);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Log.d("Itemclicked", item.getItemId() + "");
-                switch (item.getItemId()) {
-                    case R.id.navigation_wallet:
-                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_walletFragment);
-                        return true;
 
-                    case R.id.navigation_notification:
-                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_notificationsFragment);
-                        return true;
-
-                    default:
-                        break;
-                }
-
-                return true;
-            }
-        });
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         viewPager = (ViewPager) view.findViewById(R.id.viewPagerCategories);
 
@@ -109,14 +82,43 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
     }
 
     View view;
+    Toolbar toolbar;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         getActivity().findViewById(R.id.bar).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.fabhome).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.resultsDot).setVisibility(View.INVISIBLE);
+        getActivity().findViewById(R.id.personDot).setVisibility(View.INVISIBLE);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fabhome);
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_black_24dp));
         setHasOptionsMenu(true);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.home_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.d("Itemclicked", item.getItemId() + "");
+                switch (item.getItemId()) {
+                    case R.id.navigation_wallet:
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_walletFragment);
+                        return true;
+
+                    case R.id.navigation_notification:
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_notificationsFragment);
+                        return true;
+
+                    default:
+                        break;
+                }
+
+                return true;
+            }
+        });
         return view;
     }
 
@@ -132,34 +134,11 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
         // this is for fragment tabs
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new ElectronicsFragment();
-
-                case 1:
-                    return new ApplicancesFragment();
-
-                case 2:
-                    return new AccessoriesFragment();
-
-                case 3:
-                    return new ElectronicsFragment();
-
-                case 4:
-                    return new HomeFurnitureFragment();
-
-                case 5:
-                    return new FitnessFragment();
-
-                case 6:
-                    return new OthersFragment();
-
-                case 7:
-                    return new ApparelFragment();
-
-                default:
-                    return null;
-            }
+            Bundle b = new Bundle();
+            b.putInt("position", position);
+            ProductsFragment productsFragment = new ProductsFragment();
+            productsFragment.setArguments(b);
+            return productsFragment;
         }
         // this counts total number of tabs
         @Override

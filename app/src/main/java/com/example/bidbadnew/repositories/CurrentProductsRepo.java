@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.bidbadnew.Api.Api;
 import com.example.bidbadnew.Model.Current_Product;
 import com.example.bidbadnew.Model.Current_Products;
 
@@ -19,8 +20,8 @@ public class CurrentProductsRepo {
 
     public static CurrentProductsRepo currentProductsRepo;
 
-    public static CurrentProductsRepo getInstance(int id){
-        if(currentProductsRepo == null){
+    public static CurrentProductsRepo getInstance() {
+        if (currentProductsRepo == null) {
             currentProductsRepo = new CurrentProductsRepo();
         }
         return currentProductsRepo;
@@ -40,7 +41,9 @@ public class CurrentProductsRepo {
         call.enqueue(new Callback<Current_Products>() {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                accessoriesCategory.postValue(response.body().getCurrentProducts());
+                if (response.body() != null) {
+                    accessoriesCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -56,7 +59,9 @@ public class CurrentProductsRepo {
         call.enqueue(new Callback<Current_Products>() {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                apparelProductCategory.postValue(response.body().getCurrentProducts());
+                if (response.body() != null) {
+                    apparelProductCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -72,7 +77,9 @@ public class CurrentProductsRepo {
         call.enqueue(new Callback<Current_Products>() {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                othersCategory.postValue(response.body().getCurrentProducts());
+                if (response.body() != null) {
+                    othersCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -89,8 +96,9 @@ public class CurrentProductsRepo {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
                 Log.d("Category loaded", "Appliances");
-                appliancesCategory.postValue(response.body().getCurrentProducts());
-                Log.d("Appliances", response.body().getCurrentProducts().size() + "");
+                if (response.body() != null) {
+                    appliancesCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -106,7 +114,9 @@ public class CurrentProductsRepo {
         call.enqueue(new Callback<Current_Products>() {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                personalcareProductCategory.postValue(response.body().getCurrentProducts());
+                if (response.body() != null) {
+                    personalcareProductCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -123,8 +133,9 @@ public class CurrentProductsRepo {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
                 Log.d("Category loaded", "Electronics");
-                Log.d("Size", response.body().getCurrentProducts().size()+"");
-                electronicsProductCategory.postValue(response.body().getCurrentProducts());
+                if (response.body() != null) {
+                    electronicsProductCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -135,12 +146,46 @@ public class CurrentProductsRepo {
         return electronicsProductCategory;
     }
 
+    public MutableLiveData<List<Current_Product>> getElectronicsProductCategory() {
+        return electronicsProductCategory;
+    }
+
+    public MutableLiveData<List<Current_Product>> getApparelProductCategory() {
+        return apparelProductCategory;
+    }
+
+    public MutableLiveData<List<Current_Product>> getAppliancesCategory() {
+        return appliancesCategory;
+    }
+
+    public MutableLiveData<List<Current_Product>> getOthersCategory() {
+        return othersCategory;
+    }
+
+    public MutableLiveData<List<Current_Product>> getFitnessProductCategory() {
+        return fitnessProductCategory;
+    }
+
+    public MutableLiveData<List<Current_Product>> getAccessoriesCategory() {
+        return accessoriesCategory;
+    }
+
+    public MutableLiveData<List<Current_Product>> getHomeProductCategory() {
+        return homeProductCategory;
+    }
+
+    public MutableLiveData<List<Current_Product>> getPersonalcareProductCategory() {
+        return personalcareProductCategory;
+    }
+
     public MutableLiveData<List<Current_Product>> getFitnessProductCategory(int id) {
         Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Fitness");
         call.enqueue(new Callback<Current_Products>() {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                fitnessProductCategory.postValue(response.body().getCurrentProducts());
+                if (response.body() != null) {
+                    fitnessProductCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -151,12 +196,16 @@ public class CurrentProductsRepo {
         return fitnessProductCategory;
     }
 
+    Api retrofitClient = RetrofitClient.getInstance().getMyApi();
+
     public MutableLiveData<List<Current_Product>> getHomeProductCategory(int id) {
         Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Home");
         call.enqueue(new Callback<Current_Products>() {
             @Override
             public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                homeProductCategory.postValue(response.body().getCurrentProducts());
+                if (response.body() != null) {
+                    homeProductCategory.postValue(response.body().getCurrentProducts());
+                }
             }
 
             @Override
@@ -167,4 +216,130 @@ public class CurrentProductsRepo {
         return homeProductCategory;
     }
 
+    public void getProducts(int position, int userid) {
+        Call<Current_Products> call = null;
+        switch (position) {
+            case 0: {
+                call = retrofitClient.getCurrentProducts(userid, "Electronics");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                        electronicsProductCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            }
+            case 1:
+                call = retrofitClient.getCurrentProducts(userid, "Appliances");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            appliancesCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case 2:
+                call = retrofitClient.getCurrentProducts(userid, "Accessories");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            accessoriesCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case 3:
+                call = retrofitClient.getCurrentProducts(userid, "Personalcare");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            personalcareProductCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case 4:
+                call = retrofitClient.getCurrentProducts(userid, "Home");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            homeProductCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case 5:
+                call = retrofitClient.getCurrentProducts(userid, "Fitness");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            fitnessProductCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case 6:
+                call = retrofitClient.getCurrentProducts(userid, "Others");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            othersCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case 7:
+                call = retrofitClient.getCurrentProducts(userid, "Apparel");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            apparelProductCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+        }
+    }
 }

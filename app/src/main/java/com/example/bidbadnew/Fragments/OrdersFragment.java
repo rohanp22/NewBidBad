@@ -78,12 +78,14 @@ public class OrdersFragment extends Fragment implements OrderAdapter.OrderAdapte
         mViewModel.getOrder().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
-                Collections.reverse(orders);
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
-                dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-                pastList.addItemDecoration(dividerItemDecoration);
-                pastList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                pastList.setAdapter(new OrderAdapter(view.getContext(), orders, OrdersFragment.this));
+                if (orders != null) {
+                    orders.sort(new sortId());
+                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
+                    dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+                    pastList.addItemDecoration(dividerItemDecoration);
+                    pastList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                    pastList.setAdapter(new OrderAdapter(view.getContext(), orders, OrdersFragment.this));
+                }
             }
         });
     }
@@ -105,7 +107,7 @@ public class OrdersFragment extends Fragment implements OrderAdapter.OrderAdapte
         Navigation.findNavController(view).navigate(R.id.action_navigation_order_to_orderSummary, b);
     }
 
-    class sortTime implements Comparator<Order> {
+    class sortId implements Comparator<Order> {
         public int compare(Order a, Order b) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy, h:mm a");
             //May 24, 2020, 7:49 pm
@@ -117,7 +119,7 @@ public class OrdersFragment extends Fragment implements OrderAdapter.OrderAdapte
                 e.printStackTrace();
             }
 
-            return a1.compareTo(b1);
+            return b1.compareTo(a1);
         }
     }
 

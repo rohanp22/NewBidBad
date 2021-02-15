@@ -35,7 +35,7 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/dmsansregular"
                 android:layout_marginRight="5dp"
-                android:textSize="18dp"
+                android:textSize="14sp"
                 android:textColor="@color/white"
                 android:text="Money added to wallet"
                 android:textStyle="bold"
@@ -53,7 +53,7 @@
                 app:layout_constraintStart_toStartOf="@id/transactionDescription"
                 app:layout_constraintTop_toBottomOf="@id/transactionDescription"
                 android:layout_marginTop="16dp"
-                android:textSize="12dp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/value"
@@ -67,7 +67,7 @@
                 android:layout_marginRight="10dp"
                 android:text="30"
                 android:textStyle="bold"
-                android:textSize="16dp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/date"
@@ -79,7 +79,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/imageTransaction"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/orderId"
-                android:textSize="12dp" />
+                android:textSize="10sp" />
 
             <!-- <View
                  android:layout_marginTop="10dp"

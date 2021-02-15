@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextUtils;
@@ -61,6 +62,13 @@ public class SignupForm extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //SignupFormDirections.
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (TextUtils.isEmpty(email.getText().toString()) || !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                     email.setError("Enter a valid email");
                 } else if(TextUtils.isEmpty(name.getText().toString())){
@@ -71,24 +79,26 @@ public class SignupForm extends Fragment {
                 } else if(!password.getText().toString().equals(repeatpassword.getText().toString())){
                     passwordt.setError("Passwords don't match");
                 } else {
-                    Call<SignupResponse> signupResponseCall = RetrofitClient.getInstance().getMyApi().signup(phone, name.getText().toString(), "signup", email.getText().toString(), password.getText().toString());
-                    signupResponseCall.enqueue(new Callback<SignupResponse>() {
-                        @Override
-                        public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
-                            if (!response.body().getError()) {
-                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
-                                User u = response.body().getUser();
-                                SharedPrefManager.getInstance(getContext()).userLogin(new User(u.getId(), u.getEmail(), u.getFirstname(), u.getMobile()));
-                                startActivity(new Intent(getActivity(), MainActivity.class));
-                                getActivity().finish();
-                            }
-                        }
+                    Navigation.findNavController(view).navigate(SignupFormDirections.actionSignupFormToPersonalDetails(phone, email.getText().toString(), password.getText().toString(), name.getText().toString()));
 
-                        @Override
-                        public void onFailure(Call<SignupResponse> call, Throwable t) {
-
-                        }
-                    });
+//                    Call<SignupResponse> signupResponseCall = RetrofitClient.getInstance().getMyApi().signup(phone, name.getText().toString(), "signup", email.getText().toString(), password.getText().toString());
+//                    signupResponseCall.enqueue(new Callback<SignupResponse>() {
+//                        @Override
+//                        public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
+//                            if (!response.body().getError()) {
+//                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+//                                User u = response.body().getUser();
+//                                SharedPrefManager.getInstance(getContext()).userLogin(new User(u.getId(), u.getEmail(), u.getFirstname(), u.getMobile()));
+//                                startActivity(new Intent(getActivity(), MainActivity.class));
+//                                getActivity().finish();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<SignupResponse> call, Throwable t) {
+//
+//                        }
+//                    });
                 }
             }
         });

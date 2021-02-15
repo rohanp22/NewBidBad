@@ -30,9 +30,11 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
 
     List<Transaction> walletTransactions;
     Context context;
+    int size;
 
-    public WalletAdapter(Context context, List<Transaction> walletTransactions) {
+    public WalletAdapter(Context context, List<Transaction> walletTransactions, int size) {
         this.context = context;
+        this.size = size;
         this.walletTransactions = walletTransactions;
     }
 
@@ -48,7 +50,7 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
     public void onBindViewHolder(@NonNull WalletAdapter.ViewHolder viewHolder, int i) {
         if (Integer.parseInt(walletTransactions.get(i).getAmount()) > 0) {
             viewHolder.amount.setText("+ ₹" + walletTransactions.get(i).getAmount());
-            viewHolder.amount.setTextColor(Color.parseColor("##3B864F"));
+            viewHolder.amount.setTextColor(Color.parseColor("#3b864f"));
         } else {
             viewHolder.amount.setText("- ₹" + abs(Integer.parseInt(walletTransactions.get(i).getAmount())));
             viewHolder.amount.setTextColor(Color.parseColor("#ad1615"));
@@ -121,10 +123,7 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        if (walletTransactions.size() > 5)
-            return 4;
-        else
-            return walletTransactions.size();
+        return size;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

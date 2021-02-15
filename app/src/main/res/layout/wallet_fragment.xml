@@ -62,11 +62,14 @@
                     android:padding="10dp">
 
                     <TextView
+                        android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="Available Balance"
+                        app:layout_constraintBottom_toTopOf="@+id/balance"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,20 +89,9 @@
                         android:textSize="28dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Each bidbad coin : 1 Rupee"
-                        android:textColor="@color/white"
-                        android:layout_marginTop="8dp"
-                        android:textSize="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -130,7 +122,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="24"
                         android:textColor="#02c20f"
                         android:textSize="24dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +129,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/bonuspointscount"
+                        android:id="@+id/freebidstext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -176,10 +167,9 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/image2"
+                        android:id="@+id/rewardcount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="43"
                         android:textColor="#008bf5"
                         android:textSize="24dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -196,7 +186,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/image2" />
+                        app:layout_constraintTop_toBottomOf="@id/rewardcount" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

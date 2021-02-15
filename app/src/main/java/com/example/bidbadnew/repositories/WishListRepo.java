@@ -39,4 +39,21 @@ public class WishListRepo {
         });
         return myOngoing;
     }
+
+    public MutableLiveData<List<WishListItem>> getWishListPast(int id) {
+        MutableLiveData<List<WishListItem>> myOngoing = new MutableLiveData<>();
+        Call<List<WishListItem>> call = RetrofitClient.getInstance().getMyApi().getWishListPast(id);
+        call.enqueue(new Callback<List<WishListItem>>() {
+            @Override
+            public void onResponse(Call<List<WishListItem>> call, Response<List<WishListItem>> response) {
+                myOngoing.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<WishListItem>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+        return myOngoing;
+    }
 }

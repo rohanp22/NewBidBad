@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.CountDownTimer;
@@ -34,6 +35,8 @@ import com.example.bidbadnew.repositories.RetrofitClient;
 import com.example.bidbadnew.ui.home.HomeFragmentDirections;
 import com.example.bidbadnew.ui.results.ResultsFragment;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.ParseException;
@@ -54,9 +57,11 @@ public class ProductDescription extends Fragment {
     long diff = 0;
     MaterialToolbar toolbar;
     Date startDate1;
+    Menu menu;
     Date startedAt;
     String imageurl1, imageurl2, imageurl3;
     boolean isBookmarked;
+    MaterialButton bidnowbtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,7 @@ public class ProductDescription extends Fragment {
         Log.d("Current product", current_product.getCurrentid() + "");
 
         imageView1 = view.findViewById(R.id.imageview);
+        bidnowbtn = view.findViewById(R.id.bidnowbtn);
         imageView2 = view.findViewById(R.id.image1);
         imageView3 = view.findViewById(R.id.image2);
         hr1 = view.findViewById(R.id.hr1);
@@ -94,6 +100,45 @@ public class ProductDescription extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.product_description_menu);
 
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
+
+        menu = toolbar.getMenu();
+
+        Call<String> call = RetrofitClient.getInstance().getMyApi().isWishlist(SharedPrefManager.getInstance(view.getContext()).getUser().getId(), Integer.parseInt(current_product.getCurrentid()));
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.d("Response", response.body());
+                if(response.body().equals("1")){
+                    isBookmarked = true;
+                    menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_24));
+                } else {
+                    menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_border_24));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        bidnowbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActionBottomDialogFragment addPhotoBottomDialogFragment =
+                        ActionBottomDialogFragment.newInstance(current_product);
+                addPhotoBottomDialogFragment.show(getChildFragmentManager(),
+                        ActionBottomDialogFragment.TAG);
+            }
+        });
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -105,7 +150,8 @@ public class ProductDescription extends Fragment {
                             call.enqueue(new Callback<Void>() {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
-
+                                    Snackbar.make(view, "Product added to wishlist", Snackbar.LENGTH_SHORT)
+                                            .show();
                                 }
 
                                 @Override
@@ -119,7 +165,8 @@ public class ProductDescription extends Fragment {
                             call.enqueue(new Callback<Void>() {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
-                                    Log.d("Removed from wishlist", "wishlist");
+                                    Snackbar.make(view, "Product removed from wishlist", Snackbar.LENGTH_SHORT)
+                                            .show();
                                 }
 
                                 @Override

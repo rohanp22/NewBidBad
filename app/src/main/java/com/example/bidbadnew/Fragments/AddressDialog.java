@@ -109,6 +109,7 @@ public class AddressDialog extends DialogFragment {
 
                         }
                     });
+                    dismiss();
                 }
             }
         });
@@ -120,10 +121,5 @@ public class AddressDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         toolbar.setNavigationOnClickListener(v -> dismiss());
         toolbar.setTitle("Edit address");
-        toolbar.inflateMenu(R.menu.address_menu);
-        toolbar.setOnMenuItemClickListener(item -> {
-            dismiss();
-            return true;
-        });
     }
 }

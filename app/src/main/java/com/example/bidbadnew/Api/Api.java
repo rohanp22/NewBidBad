@@ -2,14 +2,19 @@ package com.example.bidbadnew.Api;
 
 import com.example.bidbadnew.Model.AddressModel;
 import com.example.bidbadnew.Model.Balance;
+import com.example.bidbadnew.Model.Current_Product;
 import com.example.bidbadnew.Model.Current_Products;
+import com.example.bidbadnew.Model.FreeBid;
 import com.example.bidbadnew.Model.LoginResponse;
 import com.example.bidbadnew.Model.MyBids;
 import com.example.bidbadnew.Model.NotificationModel;
 import com.example.bidbadnew.Model.OngoingItems;
 import com.example.bidbadnew.Model.Order;
+import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.Model.PlaceOrderResponse;
+import com.example.bidbadnew.Model.Ranking;
 import com.example.bidbadnew.Model.SignupResponse;
+import com.example.bidbadnew.Model.Stat;
 import com.example.bidbadnew.Model.Transaction;
 import com.example.bidbadnew.Model.WishListItem;
 import com.example.bidbadnew.Model.WonItem;
@@ -38,13 +43,31 @@ public interface Api {
     @GET("currentproducts.php/")
     Call<Current_Products> getCurrentProducts(@Query("id") int id);
 
+    @GET("/AndroidAPI/getproductranking.php")
+    Call<List<Ranking>> getProductRanking(@Query("id") int id);
+
+    @GET("/AndroidAPI/getfreebids.php")
+    Call<List<FreeBid>> getFreeBids(@Query("id") int id);
+
+    @GET("/AndroidAPI/getrewardpoints.php")
+    Call<String> getRewardPoints(@Query("id") int id);
+
+    @GET("/AndroidAPI/getstats.php/")
+    Call<Stat> getStats(@Query("id") int id);
+
     @GET("currentproducts.php/")
     Call<Current_Products> getCurrentProducts(@Query("id") int id, @Query("category") String category);
+
+    @GET("/AndroidAPI/getwishlistpast.php/")
+    Call<List<WishListItem>> getWishListPast(@Query("id") int id);
+
+    @GET("/AndroidAPI/iswishlist.php")
+    Call<String> isWishlist(@Query("id") int id, @Query("productid") int productid);
 
     @GET("getaddresses.php/")
     Call<AddressModel> getMyAddresses(@Query("id") int id);
 
-    @GET("getmybids.php/")
+    @GET("/AndroidAPI/getmybids.php/")
     Call<MyBids> getMyBids(@Query("id") int id);
 
     @GET("getmyongoingbids.php/")
@@ -85,8 +108,8 @@ public interface Api {
     Call<Void> setDefaultAddress(@Field("address") String address, @Query("id") int id);
 
     @FormUrlEncoded
-    @POST("Login/Api.php/")
-    Call<SignupResponse> signup(@Field("mobile") String mobile, @Field("firstname") String name, @Query("apicall") String apicall, @Field("email") String email, @Field("password") String password);
+    @POST("/AndroidAPI/Login/Api.php/")
+    Call<SignupResponse> signup(@Field("mobile") String mobile, @Field("firstname") String name, @Query("apicall") String apicall, @Field("email") String email, @Field("password") String password, @Field("dob") String dob, @Field("gender") String gender);
 
     @GET("isuserregistered.php/")
     Call<Integer> isUserRegistered(@Query("mobile") String mobile);

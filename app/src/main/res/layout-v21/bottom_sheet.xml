@@ -23,6 +23,7 @@
         >
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:title="Place bid"
@@ -31,7 +32,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,8 +40,22 @@
         android:layout_marginTop="8dp"
         android:paddingLeft="15dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textStyle="bold"
+            android:text="Earphones"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageBottomsheet"
+            android:id="@+id/title"
+            android:layout_toEndOf="@id/imageBottomsheet" />
+
         <ImageView
             android:id="@+id/imageBottomsheet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="100dp"
             android:layout_height="100dp" />
 
@@ -50,20 +65,60 @@
             android:fontFamily="@font/dmsansbold"
             android:textSize="16sp"
             android:textColor="@color/colorSecondary"
+            app:layout_constraintStart_toEndOf="@id/imageBottomsheet"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            android:layout_below="@+id/title"
             android:layout_height="wrap_content"
             tools:text="Entry : 50B"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/imageBottomsheet" />
 
-    </RelativeLayout>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchBtn"
+            android:layout_width="0dp"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:gravity="right|center_vertical"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            android:textSize="12dp"
+            app:switchPadding="8dp"
+            app:layout_constraintTop_toTopOf="@id/title"
+            app:layout_constraintBottom_toBottomOf="@id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Use Freebid"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/bonuscheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:checkMark="@color/white"
+        android:text="Use bonus points"
+        android:layout_below="@id/layoutBottomSheet"
+        android:layout_marginLeft="15dp"
+        />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/rewardscheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Use Freebid"
+        android:layout_below="@id/bonuscheckbox"
+        android:layout_marginLeft="15dp"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textinput1"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutBottomSheet"
+        android:layout_below="@+id/rewardscheckbox"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
@@ -93,17 +148,19 @@
         android:textSize="10dp"
         tools:ignore="RtlHardcoded" />
 
-    <Button
+    <TextView
         android:id="@+id/bottomSheetPlaceBid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bottomSheetTerms"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
+        android:background="@drawable/dialog_bg"
         android:backgroundTint="@color/colorSecondary"
-        android:text="Enter bidding"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
+        android:fontFamily="@font/bitter"
+        android:gravity="center"
+        android:text="BID NOW"
+        android:textColor="@color/white"
+        android:layout_below="@id/bottomSheetTerms"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

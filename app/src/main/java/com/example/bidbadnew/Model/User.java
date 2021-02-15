@@ -17,12 +17,32 @@ public class User {
     @SerializedName("mobile")
     @Expose
     private String mobile;
+    @SerializedName("dob")
+    @Expose
+    private String dob;
+    @SerializedName("gender")
+    @Expose
+    private String gender;
+    @SerializedName("joinedon")
+    @Expose
+    private String joinedon;
 
-    public User(int id, String email, String firstname, String mobile) {
+    public User(int id, String email, String firstname, String mobile, String dob, String gender, String joinedon) {
         this.id = id;
         this.email = email;
         this.firstname = firstname;
         this.mobile = mobile;
+        this.gender = gender;
+        this.dob = dob;
+        this.joinedon = joinedon;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public Integer getId() {
@@ -57,4 +77,7 @@ public class User {
         this.mobile = mobile;
     }
 
+    public String getJoinedon() {
+        return joinedon;
+    }
 }

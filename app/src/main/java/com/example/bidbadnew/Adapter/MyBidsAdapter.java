@@ -2,6 +2,7 @@ package com.example.bidbadnew.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +16,10 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.bidbadnew.Fragments.MyBidsFragment;
 import com.example.bidbadnew.Model.MyBid;
+import com.example.bidbadnew.Model.PastProducts;
+import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
 
 import java.text.ParseException;
@@ -26,10 +30,16 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
 
     Context context;
     List<MyBid> heroList;
+    MyBidsAdapterListener myBidsAdapterListener;
 
-    public MyBidsAdapter(Context context, List<MyBid> heroList) {
+    public MyBidsAdapter(Context context, List<MyBid> heroList, MyBidsAdapterListener myBidsAdapterListener) {
         this.context = context;
         this.heroList = heroList;
+        this.myBidsAdapterListener = myBidsAdapterListener;
+    }
+
+    public interface MyBidsAdapterListener{
+        public void onItemClickListener(MyBid pastProduct);
     }
 
     @NonNull
@@ -45,9 +55,20 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         Glide.with(context)
                 .load(heroList.get(position).getImageUrl())
                 .into(holder.bidHistoryImage);
-        holder.bidHistoryAmount.setText("₹"+heroList.get(position).getSp());
+        holder.bidHistoryAmount.setText("₹"+heroList.get(position).getBidamount());
         holder.bidHistoryTitle.setText(heroList.get(position).getTitle());
         holder.bidHistoryStartDate.setText(heroList.get(position).getEndtime());
+        Log.d("Id", heroList.get(position).getId());
+        Log.d("IDs", heroList.get(position).getIds());
+        Log.d("Compare" , Integer.parseInt(heroList.get(position).getId()) + "  "+ SharedPrefManager.getInstance(context).getUser().getId());
+        if(Integer.parseInt(heroList.get(position).getIds()) == SharedPrefManager.getInstance(context).getUser().getId()) {
+            holder.bidHistoryRank.setText("You Won");
+            holder.bidHistoryRank.setTextColor(Color.parseColor("#008000"));
+        } else {
+            holder.bidHistoryRank.setText("You lost");
+            holder.bidHistoryRank.setTextColor(context.getResources().getColor(R.color.colorSecondary));
+        }
+        Log.d("Won by : ", heroList.get(position).getFirstname());
 
         try {
             @SuppressLint("SimpleDateFormat") String dt1 = new SimpleDateFormat("dd MMM yyyy HH:mm").format(new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").parse(heroList.get(position).getEndtime()));
@@ -55,6 +76,13 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myBidsAdapterListener.onItemClickListener(heroList.get(position));
+            }
+        });
+
     }
 
     @Override

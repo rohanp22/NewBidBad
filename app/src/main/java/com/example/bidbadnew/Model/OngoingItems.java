@@ -3,7 +3,9 @@ package com.example.bidbadnew.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OngoingItems {
+import java.io.Serializable;
+
+public class OngoingItems implements Serializable {
 
     @SerializedName("currentid")
     @Expose

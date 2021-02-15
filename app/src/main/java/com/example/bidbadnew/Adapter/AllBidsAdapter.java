@@ -42,7 +42,7 @@ public class AllBidsAdapter extends RecyclerView.Adapter<AllBidsAdapter.BidHisto
         public void onItemClickListener(PastProducts pastProduct);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextfI18n")
     @Override
     public void onBindViewHolder(@NonNull BidHistoryViewHolder holder, int position) {
         holder.bidHistoryTitle.setText(heroList.get(position).getTitle());
@@ -52,7 +52,7 @@ public class AllBidsAdapter extends RecyclerView.Adapter<AllBidsAdapter.BidHisto
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.bidHistoryRank.setText("Rank #1: " + heroList.get(position).getWinner());
+        holder.bidHistoryRank.setText("Won by : " + heroList.get(position).getWinner());
         holder.bidHistoryAmount.setText("₹"+ heroList.get(position).getBidamount());
         Glide.with(context)
                 .load(heroList.get(position).getImage_url())

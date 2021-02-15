@@ -18,7 +18,7 @@ public class HomeViewModel extends ViewModel {
         if (current_productsmutable != null) {
             return;
         }
-        currentProductsRepo = CurrentProductsRepo.getInstance(id);
+        currentProductsRepo = CurrentProductsRepo.getInstance();
         current_productsmutable = currentProductsRepo.getAppliancesCategory(id);
     }
 

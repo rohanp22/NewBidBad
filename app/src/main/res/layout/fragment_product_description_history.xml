@@ -57,7 +57,7 @@
                     android:layout_height="0dp"
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/jbl"
-                    app:layout_constraintBottom_toBottomOf="@id/sub"
+                    app:layout_constraintBottom_toBottomOf="@id/startedat"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/title"
                     app:layout_constraintTop_toTopOf="@id/title" />
@@ -113,8 +113,8 @@
 
                 <ImageView
                     android:id="@+id/image2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="24dp"
                     android:background="@drawable/border"
                     android:layout_marginTop="6dp"
@@ -124,8 +124,8 @@
 
                 <ImageView
                     android:id="@+id/image1"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/border"
                     android:src="@drawable/jblboombox"
@@ -262,55 +262,6 @@
                     app:layout_constraintTop_toBottomOf="@id/materialCardView3"
                     app:strokeColor="@color/colorPrimaryLight"
                     app:strokeWidth="2dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="115dp"
-                        android:background="@color/colorPrimaryDark"
-                        android:padding="16dp">
-
-                        <View
-                            android:id="@+id/view"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/rectangular_edittext"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/cardItem1" />
-
-                        <TextView
-                            android:id="@+id/cardItem1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:text="Oops! Lorem ipsum cash on delivery available for products below ₹ 5000"
-                            android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/view"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:id="@+id/view2"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/rectangular_edittext"
-                            app:layout_constraintStart_toStartOf="@+id/view"
-                            app:layout_constraintTop_toTopOf="@+id/cardItem2" />
-
-                        <TextView
-                            android:id="@+id/cardItem2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="12dp"
-                            android:text="Oops! Lorem ipsum cash on delivery available for products below ₹ 5000"
-                            android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/view2"
-                            app:layout_constraintTop_toBottomOf="@+id/cardItem1" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 

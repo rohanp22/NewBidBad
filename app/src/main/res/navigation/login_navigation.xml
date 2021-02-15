@@ -48,6 +48,31 @@
         <argument
             android:name="mobile"
             app:argType="string" />
+        <action
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            android:id="@+id/action_signupForm_to_personalDetails"
+            app:destination="@id/personalDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalDetails"
+        android:name="com.example.bidbadnew.Fragments.PersonalDetails"
+        android:label="fragment_personal_details"
+        tools:layout="@layout/fragment_personal_details" >
+        <argument
+            android:name="mobile"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
 
 </navigation>

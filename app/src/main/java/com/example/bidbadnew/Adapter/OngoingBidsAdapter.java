@@ -1,6 +1,7 @@
 package com.example.bidbadnew.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.bidbadnew.Model.MyBid;
 import com.example.bidbadnew.Model.OngoingItems;
+import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.Others.Symbol;
 import com.example.bidbadnew.R;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,10 +32,12 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
     List<OngoingItems> cartList;
     Context mContext;
     Date startDate1;
+    OngoingBidsAdapterListener ongoingBidsAdapterListener;
 
-    public OngoingBidsAdapter(Context context, List<OngoingItems> heroList) {
+    public OngoingBidsAdapter(Context context, List<OngoingItems> heroList, OngoingBidsAdapterListener ongoingBidsAdapterListener) {
         mContext = context;
         this.cartList = heroList;
+        this.ongoingBidsAdapterListener = ongoingBidsAdapterListener;
     }
 
     @NonNull
@@ -41,6 +47,10 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
         return new ViewHolder(view);
     }
 
+    public interface OngoingBidsAdapterListener{
+        public void onItemClickListener(OngoingItems pastProduct);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
@@ -48,6 +58,13 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ongoingBidsAdapterListener.onItemClickListener(cartList.get(position));
             }
         });
 
@@ -116,6 +133,23 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
             }
         }.start();
 
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Create an ACTION_SEND Intent*/
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                /*This will be the actual content you wish you share.*/
+                String shareBody = "Hey! Bid using this link to get the bonus points http://easyvela.esy.es/newproduct?id1="+cartList.get(position).getCurrentid() + "&id2="+ SharedPrefManager.getInstance(mContext).getUser().getId();
+                /*The type of the content is text, obviously.*/
+                intent.setType("text/plain");
+                /*Applying information Subject and Body.*/
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share bid");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                /*Fire!*/
+                mContext.startActivity(Intent.createChooser(intent, "Share via"));
+            }
+        });
+
         Glide.with(mContext)
                 .asBitmap()
                 .load(cartList.get(position).getImageUrl())
@@ -133,6 +167,7 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
         TextView title;
         TextView date;
         TextView yourbid;
+        ImageView share;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -140,6 +175,7 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
             title = (TextView) itemView.findViewById(R.id.title);
             image = (ImageView) itemView.findViewById(R.id.imageview);
             date = (TextView) itemView.findViewById(R.id.endsin);
+            share = itemView.findViewById(R.id.sharebid);
         }
     }
 }

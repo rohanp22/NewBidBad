@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bidbadnew.Adapter.OngoingBidsAdapter;
 import com.example.bidbadnew.Model.CartItems;
+import com.example.bidbadnew.Model.MyBid;
 import com.example.bidbadnew.Model.OngoingItems;
 import com.example.bidbadnew.R;
 
@@ -28,10 +29,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class OngoingBidsFragment extends Fragment {
+public class OngoingBidsFragment extends Fragment implements OngoingBidsAdapter.OngoingBidsAdapterListener {
 
     private RecyclerView cartList;
     private OngoingViewModel ongoingViewModel;
+    OnGoingFragmentListener onGoingFragmentListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,24 +47,39 @@ public class OngoingBidsFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<OngoingItems> ongoingItems) {
-                ongoingItems.sort(new sortTime());
-                OngoingBidsAdapter walletAdapter = new OngoingBidsAdapter(view.getContext(), ongoingItems);
-                view.findViewById(R.id.progressBar).setVisibility(View.GONE);
+                if(ongoingItems != null) {
+                    ongoingItems.sort(new sortTime());
+                    OngoingBidsAdapter walletAdapter = new OngoingBidsAdapter(view.getContext(), ongoingItems, OngoingBidsFragment.this);
+                    view.findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-                if(ongoingItems.size() == 0){
-                    view.findViewById(R.id.noBidsMsg).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.btn).setVisibility(View.VISIBLE);
+                    if (ongoingItems.size() == 0) {
+                        view.findViewById(R.id.noBidsMsg).setVisibility(View.VISIBLE);
+                        view.findViewById(R.id.btn).setVisibility(View.VISIBLE);
+                    }
+                    cartList.setAdapter(walletAdapter);
+                    cartList.setLayoutManager(new LinearLayoutManager(view.getContext()));
                 }
-                cartList.setAdapter(walletAdapter);
-                cartList.setLayoutManager(new LinearLayoutManager(view.getContext()));
             }
         });
         return view;
     }
 
+    public OngoingBidsFragment(OnGoingFragmentListener allBidsFragmentListener){
+        this.onGoingFragmentListener = allBidsFragmentListener;
+    }
+
+    public interface OnGoingFragmentListener{
+        public void onItemClick(OngoingItems pastProducts);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public void onItemClickListener(OngoingItems pastProduct) {
+        onGoingFragmentListener.onItemClick(pastProduct);
     }
 
     class sortTime implements Comparator<OngoingItems> {
