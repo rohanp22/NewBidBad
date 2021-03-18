@@ -19,7 +19,7 @@ public class HomeViewModel extends ViewModel {
             return;
         }
         currentProductsRepo = CurrentProductsRepo.getInstance();
-        current_productsmutable = currentProductsRepo.getAppliancesCategory(id);
+        current_productsmutable = currentProductsRepo.getAppliancesCategory();
     }
 
     public MutableLiveData<List<Current_Product>> getCurrent_productsmutable() {

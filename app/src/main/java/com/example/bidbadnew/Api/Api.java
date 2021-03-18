@@ -52,6 +52,9 @@ public interface Api {
     @GET("/AndroidAPI/getrewardpoints.php")
     Call<String> getRewardPoints(@Query("id") int id);
 
+    @GET("/AndroidAPI/forgotpassword.php")
+    Call<Void> forgotpassword(@Query("mobile") String phone, @Query("password") String password);
+
     @GET("/AndroidAPI/getstats.php/")
     Call<Stat> getStats(@Query("id") int id);
 

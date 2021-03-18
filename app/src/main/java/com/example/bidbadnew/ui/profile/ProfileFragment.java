@@ -89,6 +89,13 @@ public class ProfileFragment extends Fragment {
         name = root.findViewById(R.id.profileName);
         edit = root.findViewById(R.id.profileEdit);
 
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(root).navigate(R.id.action_navigation_notifications_to_feedbackFragment);
+            }
+        });
+
         termsandconditions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

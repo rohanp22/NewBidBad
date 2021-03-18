@@ -1,10 +1,177 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:paddingBottom="8dp">-->
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/bottomSheetProgress"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:backgroundTint="@color/colorPrimary"-->
+<!--        android:elevation="10dp"-->
+<!--        android:visibility="gone" />-->
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/actionbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?actionBarSize"-->
+<!--        app:elevation="0dp"-->
+<!--        >-->
+
+<!--        <com.google.android.material.appbar.MaterialToolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:title="Place bid"-->
+<!--            app:navigationIcon="@drawable/ic_baseline_close_24"-->
+<!--            />-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/layoutBottomSheet"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/actionbar"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:paddingLeft="15dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:text="Earphones"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/imageBottomsheet"-->
+<!--            android:id="@+id/title"-->
+<!--            android:layout_toEndOf="@id/imageBottomsheet" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageBottomsheet"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/entryprice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:fontFamily="@font/dmsansbold"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textColor="@color/colorSecondary"-->
+<!--            app:layout_constraintStart_toEndOf="@id/imageBottomsheet"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/title"-->
+<!--            android:layout_below="@+id/title"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:text="Entry : 50B"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_toEndOf="@id/imageBottomsheet" />-->
+
+<!--        <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--            android:id="@+id/switchBtn"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:scaleX="0.9"-->
+<!--            android:scaleY="0.9"-->
+<!--            android:gravity="right|center_vertical"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/title"-->
+<!--            android:textSize="12dp"-->
+<!--            app:switchPadding="8dp"-->
+<!--            app:layout_constraintTop_toTopOf="@id/title"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/title"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:text="Use Freebid"-->
+<!--            />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    <com.google.android.material.checkbox.MaterialCheckBox-->
+<!--        android:id="@+id/bonuscheckbox"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="gone"-->
+<!--        android:checkMark="@color/white"-->
+<!--        android:text="Use bonus points"-->
+<!--        android:layout_below="@id/layoutBottomSheet"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        />-->
+
+<!--    <com.google.android.material.checkbox.MaterialCheckBox-->
+<!--        android:id="@+id/rewardscheckbox"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="gone"-->
+<!--        android:text="Use Freebid"-->
+<!--        android:layout_below="@id/bonuscheckbox"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        />-->
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/textinput1"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/rewardscheckbox"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_marginRight="15dp"-->
+<!--        app:boxStrokeColor="@color/colorSecondary"-->
+<!--        app:hintTextColor="@color/colorSecondary">-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/biddingButton"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Enter your bid"-->
+<!--            android:inputType="numberDecimal"-->
+<!--            android:padding="10dp" />-->
+
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/bottomSheetTerms"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/textinput1"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginRight="15dp"-->
+<!--        android:gravity="left"-->
+<!--        android:text="By clicking enter bidding the entry amount will be deducted from your wallet, and the entered bid will be placed"-->
+<!--        android:textSize="10dp"-->
+<!--        tools:ignore="RtlHardcoded" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/bottomSheetPlaceBid"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/dialog_bg"-->
+<!--        android:backgroundTint="@color/colorSecondary"-->
+<!--        android:fontFamily="@font/bitter"-->
+<!--        android:gravity="center"-->
+<!--        android:text="BID NOW"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:layout_below="@id/bottomSheetTerms"-->
+<!--        android:layout_marginHorizontal="30dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:textStyle="bold" />-->
+
+<!--</RelativeLayout>-->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="8dp">
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="32dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="32dp">
 
     <ProgressBar
         android:id="@+id/bottomSheetProgress"
@@ -13,154 +180,219 @@
         android:layout_centerInParent="true"
         android:backgroundTint="@color/colorPrimary"
         android:elevation="10dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:elevation="0dp"
-        >
+    <TextView
+        android:id="@+id/placebidtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bitter"
+        android:text="Place your bid"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/close" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:title="Place bid"
-            app:navigationIcon="@drawable/ic_baseline_close_24"
-            />
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:src="@drawable/ic_baseline_cancel_white_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutBottomSheet"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textinput1"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/actionbar"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="15dp">
+        android:layout_below="@+id/rewardscheckbox"
+        android:layout_marginTop="32dp"
+        android:hint="Enter your bid"
+        app:boxStrokeColor="@color/colorSecondary"
+        app:hintTextColor="#fff"
+        app:layout_constraintTop_toBottomOf="@+id/placebidtext">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:textStyle="bold"
-            android:text="Earphones"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageBottomsheet"
-            android:id="@+id/title"
-            android:layout_toEndOf="@id/imageBottomsheet" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/biddingButton"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textColorHint="@color/white" />
 
-        <ImageView
-            android:id="@+id/imageBottomsheet"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/entryprice"
-            android:layout_width="wrap_content"
-            android:fontFamily="@font/dmsansbold"
-            android:textSize="16sp"
-            android:textColor="@color/colorSecondary"
-            app:layout_constraintStart_toEndOf="@id/imageBottomsheet"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            android:layout_below="@+id/title"
-            android:layout_height="wrap_content"
-            tools:text="Entry : 50B"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/imageBottomsheet" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchBtn"
-            android:layout_width="0dp"
-            android:scaleX="0.9"
-            android:scaleY="0.9"
-            android:gravity="right|center_vertical"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toEndOf="@+id/title"
-            android:textSize="12dp"
-            app:switchPadding="8dp"
-            app:layout_constraintTop_toTopOf="@id/title"
-            app:layout_constraintBottom_toBottomOf="@id/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Use Freebid"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/entrytext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bitter"
+        android:text="Entry Fee"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textinput1" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/bonuscheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:checkMark="@color/white"
-        android:text="Use bonus points"
-        android:layout_below="@id/layoutBottomSheet"
-        android:layout_marginLeft="15dp"
-        />
+        android:layout_marginLeft="-5dp"
+        android:fontFamily="@font/bitter"
+        android:minWidth="0dp"
+        style="@style/CheckBox"
+        android:buttonTint="@color/colorSecondary"
+        android:padding="0dp"
+        android:text="Use Bonus"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/bonustext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/entrytext"
+        app:layout_constraintTop_toTopOf="@id/bonustext" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/rewardscheckbox"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="Use Freebid"
-        android:layout_below="@id/bonuscheckbox"
-        android:layout_marginLeft="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/bonuscheckbox"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="(You have 15 bonus points)"
+        android:id="@+id/youhavexbonus"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textinput1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/infobtn"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="2dp"
+        android:src="@drawable/ic_baseline_info_24"
+        app:layout_constraintBottom_toBottomOf="@id/bonuscheckbox"
+        app:layout_constraintStart_toEndOf="@id/bonuscheckbox"
+        app:layout_constraintTop_toTopOf="@id/bonuscheckbox" />
+
+    <TextView
+        android:id="@+id/bonustext"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rewardscheckbox"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        app:boxStrokeColor="@color/colorSecondary"
-        app:hintTextColor="@color/colorSecondary">
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bitter"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/bonuscheckbox"
+        app:layout_constraintTop_toBottomOf="@id/entrytext" />
 
-        <EditText
-            android:id="@+id/biddingButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your bid"
-            android:inputType="numberDecimal"
-            android:padding="10dp" />
+    <TextView
+        android:id="@+id/totaltext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bitter"
+        android:text="Total"
+        android:textColor="#25BA38"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/entrytext"
+        app:layout_constraintTop_toBottomOf="@id/view" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/entryprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="300"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/bidcoin1"
+        app:layout_constraintTop_toTopOf="@id/entrytext" />
+
+    <ImageView
+        android:id="@+id/bidcoin1"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_b1"
+        app:layout_constraintBottom_toBottomOf="@id/entryprice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/entryprice" />
+
+    <TextView
+        android:id="@+id/bonusmoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-0"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/bidcoin3"
+        app:layout_constraintTop_toTopOf="@id/bonustext" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="16dp"
+        android:background="#fafafa"
+        app:layout_constraintTop_toBottomOf="@id/youhavexbonus" />
+
+    <TextView
+        android:id="@+id/totalamount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:fontFamily="@font/bitterbold"
+        android:text="INR 260"
+        android:textColor="#25BA38"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@id/bidcoin2"
+        app:layout_constraintTop_toTopOf="@id/totaltext" />
+
+    <ImageView
+        android:id="@+id/bidcoin2"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_b1"
+        app:layout_constraintBottom_toBottomOf="@id/totalamount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/totalamount" />
+
+    <ImageView
+        android:id="@+id/bidcoin3"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_b1"
+        app:layout_constraintBottom_toBottomOf="@id/bonusmoney"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bonusmoney" />
 
     <TextView
         android:id="@+id/bottomSheetTerms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textinput1"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginTop="24dp"
         android:gravity="left"
         android:text="By clicking enter bidding the entry amount will be deducted from your wallet, and the entered bid will be placed"
+        android:textColor="@color/white"
         android:textSize="10dp"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalamount" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bottomSheetPlaceBid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorSecondary"
         android:fontFamily="@font/bitter"
-        android:gravity="center"
-        android:text="BID NOW"
-        android:textColor="@color/white"
-        android:layout_below="@id/bottomSheetTerms"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="15dp"
-        android:textStyle="bold" />
+        android:text="Bid now"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/bottomSheetTerms" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

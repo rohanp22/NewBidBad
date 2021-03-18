@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
@@ -54,17 +55,16 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
         tabLayout.addTab(tabLayout.newTab().setText("Fitness"));
         tabLayout.addTab(tabLayout.newTab().setText("Others"));
         tabLayout.addTab(tabLayout.newTab().setText("Apparel"));
+        tabLayout.addTab(tabLayout.newTab().setText("Freebids"));
 
         MyAdapter adapter = new MyAdapter(view.getContext(), getChildFragmentManager(), tabLayout.getTabCount());
         Log.d("Tabcount: ", tabLayout.getTabCount()+"");
         viewPager.setAdapter(adapter);
-        viewPager.requestDisallowInterceptTouchEvent(false);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("TabSelected", tab.getPosition() + "");
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

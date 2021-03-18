@@ -10,12 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,8 @@ public class LoginFragment extends Fragment {
     EditText mobile, password;
     TextView signup;
     MaterialButton login;
+    ImageView check;
+    TextView forgot;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -50,25 +55,52 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.password_edit_text);
         signup = view.findViewById(R.id.signuptext);
         login = view.findViewById(R.id.next_button);
+        check = view.findViewById(R.id.check);
+        forgot = view.findViewById(R.id.forgotPasswordText);
+
+        mobile.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() == 10){
+                    check.setVisibility(View.VISIBLE);
+                } else {
+                    check.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("Login");
-                if(mobile.getText().toString().length() != 10){
+                if (mobile.getText().toString().length() != 10) {
                     mobile.setError("Enter a valid phone number");
                 } else {
                     Call<LoginResponse> loginCall = RetrofitClient.getInstance().getMyApi().login("+91" + mobile.getText().toString(), password.getText().toString(), "login");
                     loginCall.enqueue(new Callback<LoginResponse>() {
                         @Override
                         public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                            if (!response.body().getError()) {
-                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
-                                if (response.body().getMessage().equals("Login successfully")) {
-                                    User u = response.body().getUser();
-                                    SharedPrefManager.getInstance(getContext()).userLogin(new User(u.getId(), u.getEmail(), u.getFirstname(), u.getMobile(), u.getGender(), u.getDob(), u.getJoinedon()));
-                                    startActivity(new Intent(getActivity(), MainActivity.class));
-                                    getActivity().finish();
+                            if (response.body() != null) {
+                                if (!response.body().getError()) {
+                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                    if (response.body().getMessage().equals("Login successfully")) {
+                                        User u = response.body().getUser();
+                                        SharedPrefManager.getInstance(getContext()).userLogin(new User(u.getId(), u.getEmail(), u.getFirstname(), u.getMobile(), u.getGender(), u.getDob(), u.getJoinedon()));
+                                        startActivity(new Intent(getActivity(), MainActivity.class));
+                                        getActivity().finish();
+                                    } else {
+                                        forgot.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         }
@@ -79,6 +111,14 @@ public class LoginFragment extends Fragment {
                         }
                     });
                 }
+            }
+        });
+
+        TextView forgotPassword = view.findViewById(R.id.forgotPasswordText);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgotPassword);
             }
         });
 

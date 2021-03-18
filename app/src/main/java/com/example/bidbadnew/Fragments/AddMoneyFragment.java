@@ -41,6 +41,8 @@ public class AddMoneyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().findViewById(R.id.fabhome).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.bar).setVisibility(View.GONE);
         View view = inflater.inflate(R.layout.fragment_add_money, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

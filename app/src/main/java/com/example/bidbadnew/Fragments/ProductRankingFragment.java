@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class ProductRankingFragment extends Fragment {
         View view = inflater.inflate(R.layout.product_ranking_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
+        Log.d("Current id: ", id);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         Call<List<Ranking>> call = RetrofitClient.getInstance().getMyApi().getProductRanking(Integer.parseInt(id));
@@ -48,6 +50,7 @@ public class ProductRankingFragment extends Fragment {
         call.enqueue(new Callback<List<Ranking>>() {
             @Override
             public void onResponse(Call<List<Ranking>> call, Response<List<Ranking>> response) {
+                Log.d("Response", response.body().toString());
                 recyclerView.setAdapter(new ProductRankAdapter(response.body(), view.getContext()));
                 recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             }

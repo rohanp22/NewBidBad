@@ -2,7 +2,9 @@ package com.example.bidbadnew.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements ActionBottomDialo
     public NavController navController;
     public ImageView personDot, resultsDot;
     Activity activity;
+    public static int height, width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements ActionBottomDialo
 
         activity = this;
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
         setContentView(R.layout.activity_main);
         navController = Navigation.findNavController(activity, R.id.nav_host_fragment);

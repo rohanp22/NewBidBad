@@ -48,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDescription extends Fragment {
+public class ProductDescription extends Fragment implements ActionBottomDialogFragment.ItemClickListener{
 
     TextView hr1, hr2, min1, min2, sec1, sec2, title, subtitle, started_at, entry, mrp, note1, note2;
     Current_Product current_product;
@@ -119,7 +119,11 @@ public class ProductDescription extends Fragment {
                     isBookmarked = true;
                     menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_24));
                 } else {
-                    menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_border_24));
+                    try {
+                        menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_border_24));
+                    } catch (Exception e){
+
+                    }
                 }
             }
 
@@ -132,10 +136,9 @@ public class ProductDescription extends Fragment {
         bidnowbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActionBottomDialogFragment addPhotoBottomDialogFragment =
-                        ActionBottomDialogFragment.newInstance(current_product);
-                addPhotoBottomDialogFragment.show(getChildFragmentManager(),
-                        ActionBottomDialogFragment.TAG);
+                Bundle b = new Bundle();
+                b.putSerializable("Current_product", current_product);
+                Navigation.findNavController(view).navigate(R.id.action_navigation_product_description_to_actionBottomDialogFragment, b);
             }
         });
 
@@ -329,9 +332,6 @@ public class ProductDescription extends Fragment {
         viewPager.setAdapter(adapter);
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
-        tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
-        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffbc00"));
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -353,6 +353,15 @@ public class ProductDescription extends Fragment {
         });
 
         return view;
+    }
+
+    ActionBottomDialogFragment.ItemClickListener itemClickListener = this::onItemClick;
+
+    @Override
+    public void onItemClick(String item) {
+        if(item.equals("lowbalance")){
+            Log.d("Low balance", "low");
+        }
     }
 
     class MyAdapter extends FragmentPagerAdapter {

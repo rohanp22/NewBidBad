@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_loginFragment_to_nav_login"
             app:destination="@id/nav_login" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPassword"
+            app:destination="@id/forgotPassword" />
     </fragment>
     <fragment
         android:id="@+id/signupForm"
@@ -73,6 +76,62 @@
         <argument
             android:name="name"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="com.example.bidbadnew.Fragments.ForgotPassword"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPassword_to_forgotPasswordEnterOTP"
+            app:destination="@id/forgotPasswordEnterOTP" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordEnterOTP"
+        android:name="com.example.bidbadnew.Fragments.ForgotPasswordEnterOTP"
+        android:label="fragment_forgot_password_enter_o_t_p"
+        tools:layout="@layout/fragment_forgot_password_enter_o_t_p" >
+        <action
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            android:id="@+id/action_forgotPasswordEnterOTP_to_enterNewPassword"
+            app:destination="@id/enterNewPassword" />
+        <action
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            android:id="@+id/action_forgotPasswordEnterOTP_to_changePassword"
+            app:destination="@id/changePassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterNewPassword"
+        android:name="com.example.bidbadnew.Fragments.EnterNewPassword"
+        android:label="fragment_enter_new_password"
+        tools:layout="@layout/fragment_enter_new_password" >
+        <action
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            android:id="@+id/action_enterNewPassword_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePassword"
+        android:name="com.example.bidbadnew.Fragments.ChangePassword"
+        android:label="ChangePassword" >
+        <action
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            android:id="@+id/action_changePassword_to_loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 </navigation>

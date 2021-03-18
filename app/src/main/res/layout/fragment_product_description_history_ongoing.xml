@@ -473,17 +473,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/bidnowbtn"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:cornerRadius="25dp"
-        android:layout_gravity="bottom"
-        android:fontFamily="@font/bitter"
-        android:layout_marginHorizontal="56dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="@color/colorPrimaryLight"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryDark" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

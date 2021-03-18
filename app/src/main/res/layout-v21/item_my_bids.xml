@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/bidHistoryImage"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/jbl"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bidHistoryTitle" />
+
+    <TextView
+        android:id="@+id/bidHistoryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="Play Station 4"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/bidHistoryImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bidHistoryStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:text="Helloo bro"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/clockimage"
+        app:layout_constraintTop_toBottomOf="@+id/bidHistoryTitle" />
+
+    <ImageView
+        android:id="@+id/clockimage"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_baseline_access_time_24"
+        app:layout_constraintBottom_toBottomOf="@id/bidHistoryStartDate"
+        app:layout_constraintEnd_toStartOf="@+id/bidHistoryStartDate"
+        app:layout_constraintStart_toStartOf="@id/bidHistoryTitle"
+        app:layout_constraintTop_toTopOf="@id/bidHistoryStartDate" />
+
+    <ImageView
+        android:id="@+id/bidHistoryMedalImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@id/cardView"
+        app:layout_constraintTop_toTopOf="@id/cardView" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTint="@color/colorSecondary"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:paddingStart="8dp"
+        app:strokeColor="#02c20f"
+        app:strokeWidth="1dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:backgroundTint="#e7f9f1"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bidHistoryAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bidHistoryAmount" >
+
+        <TextView
+            android:id="@+id/bidHistoryRank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#02c20f"
+            android:textStyle="bold"
+            android:text="You won"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTint="@color/colorSecondary"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        app:strokeColor="#c2020f"
+        app:strokeWidth="1dp"
+        android:visibility="gone"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:backgroundTint="#f9e7f1"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bidHistoryAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bidHistoryAmount" >
+
+        <TextView
+            android:id="@+id/bidHistoryRankLost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#c2020f"
+            android:textStyle="bold"
+            android:text="You lost"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/bidHistoryAmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:text="@string/your_bid"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/clockimage"
+        app:layout_constraintTop_toBottomOf="@+id/bidHistoryStartDate" />
+
+    <TextView
+        android:id="@+id/bidHistoryAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="25$"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textColor="#f9a825"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/clockimage"
+        app:layout_constraintTop_toBottomOf="@+id/bidHistoryAmountText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

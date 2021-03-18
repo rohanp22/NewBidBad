@@ -17,5 +17,6 @@
     <color name="colorPrimary">#303030</color>
     <color name="colorPrimaryDark">#000a12</color>
     <color name="colorAccent">#FFC107</color>
-    <color name="mtrl_textinput_default_box_stroke_color">#4b4b4b</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
+    <color name="loginEditTextColor">#fafafa</color>
 </resources>

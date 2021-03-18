@@ -16,4 +16,8 @@
     <string name="entry_price">Entry price</string>
     <string name="your_bid">Your bid</string>
     <string name="the_bid_price">The Bid Price is only your ticket to enter this Bid</string>
+    <string name="signin_up"><u>Signin Up</u></string>
+    <string name="by_continuing_i_hereby_confirm_to_the_terms_of_service_fairplay_policy_amp_privacy_policy"><![CDATA[By continuing I hereby confirm to the Terms of Service. Fairplay Policy & Privacy Policy]]></string>
+    <string name="sign_in"><u>Sign In</u></string>
+
 </resources>

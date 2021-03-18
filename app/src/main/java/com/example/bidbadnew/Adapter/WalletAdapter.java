@@ -35,6 +35,8 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
     public WalletAdapter(Context context, List<Transaction> walletTransactions, int size) {
         this.context = context;
         this.size = size;
+        Log.d("Sizewallet", String.valueOf(walletTransactions.size()));
+        Log.d("Size", String.valueOf(size));
         this.walletTransactions = walletTransactions;
     }
 
@@ -55,7 +57,7 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
             viewHolder.amount.setText("- ₹" + abs(Integer.parseInt(walletTransactions.get(i).getAmount())));
             viewHolder.amount.setTextColor(Color.parseColor("#ad1615"));
         }
-        viewHolder.orderid.setText("order id - " + walletTransactions.get(i).getOrderid());
+        viewHolder.orderid.setText("Transaction id - " + walletTransactions.get(i).getOrderid());
 
         String pattern = "d MMM yy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -123,7 +125,10 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return size;
+        if(walletTransactions.size() < 4){
+            return walletTransactions.size();
+        } else
+            return size;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

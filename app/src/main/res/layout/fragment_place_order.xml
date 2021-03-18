@@ -21,9 +21,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:paddingBottom="64dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize">
+        android:layout_marginTop="?actionBarSize"
+        android:paddingBottom="64dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,25 +38,23 @@
             tools:context=".PlaceOrderFragment">
 
             <ImageView
+                android:id="@+id/imageview"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/imageview"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:id="@+id/title"
-                android:fontFamily="@font/dmsansbold"
                 android:layout_marginLeft="10dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/dmsansbold"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/imageview"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/selectAddressButton"
@@ -65,8 +63,8 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:text="Select Address"
-                android:textColor="@color/white"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageview" />
@@ -75,12 +73,12 @@
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Address"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/selectAddressButton" />
+                app:layout_constraintTop_toBottomOf="@+id/selectAddressButton"
+                tools:text="Address" />
 
 
             <TextView
@@ -203,11 +201,48 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/dm_sans_regular"
+                android:gravity="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/bidcoin1"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
                 tools:text="₹500" />
+
+            <ImageView
+                android:id="@+id/bidcoin1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_bid_coins"
+                app:layout_constraintBottom_toBottomOf="@id/orderDeliverySubtotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/orderDeliverySubtotal" />
+
+            <ImageView
+                android:id="@+id/bidcoin2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_bid_coins"
+                app:layout_constraintBottom_toBottomOf="@id/orderDeliveryShippingFees"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/orderDeliveryShippingFees" />
+
+            <ImageView
+                android:id="@+id/bidcoin3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_bid_coins"
+                app:layout_constraintBottom_toBottomOf="@id/orderDeliveryDiscount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/orderDeliveryDiscount" />
+
+            <ImageView
+                android:id="@+id/bidcoin4"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_bid_coins"
+                app:layout_constraintBottom_toBottomOf="@id/orderDeliveryTotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/orderDeliveryTotal" />
 
             <TextView
                 android:id="@+id/orderDeliveryShippingFees"
@@ -217,7 +252,7 @@
                 android:fontFamily="@font/dm_sans_regular"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/orderDeliverySubtotal"
+                app:layout_constraintEnd_toStartOf="@+id/bidcoin2"
                 app:layout_constraintTop_toBottomOf="@+id/orderDeliverySubtotal"
                 tools:text="Free" />
 
@@ -229,7 +264,7 @@
                 android:fontFamily="@font/dm_sans_regular"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/orderDeliveryShippingFees"
+                app:layout_constraintEnd_toStartOf="@id/bidcoin2"
                 app:layout_constraintTop_toBottomOf="@+id/orderDeliveryShippingFees"
                 tools:text="₹0" />
 

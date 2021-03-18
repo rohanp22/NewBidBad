@@ -26,13 +26,16 @@
         <action
             android:id="@+id/action_navigation_home_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_bottomFragmentFreeBid"
+            app:destination="@id/bottomFragmentFreeBid" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.example.bidbadnew.Fragments.OrdersFragment"
         android:label="Orders"
-        tools:layout="@layout/orders_fragment" >
+        tools:layout="@layout/orders_fragment">
         <action
             android:id="@+id/action_navigation_order_to_orderSummary"
             app:destination="@id/orderSummary" />
@@ -42,7 +45,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.bidbadnew.ui.results.ResultsFragment"
         android:label="@string/results"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_navigation_dashboard_to_productDescriptionHistory"
             app:destination="@id/productDescriptionHistory" />
@@ -58,10 +61,13 @@
         android:id="@+id/navigation_wonbids"
         android:name="com.example.bidbadnew.Fragments.WonBidsFragment"
         android:label="Won bids"
-        tools:layout="@layout/fragment_won_items" >
+        tools:layout="@layout/fragment_won_items">
         <action
             android:id="@+id/action_navigation_wonbids_to_placeOrderFragment"
             app:destination="@id/placeOrderFragment" />
+        <action
+            android:id="@+id/action_navigation_wonbids_to_winnerScreen"
+            app:destination="@id/winnerScreen" />
     </fragment>
 
     <fragment
@@ -121,6 +127,9 @@
         <action
             android:id="@+id/action_navigation_notifications_to_privacyPolicy"
             app:destination="@id/privacyPolicy" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_feedbackFragment"
+            app:destination="@id/feedbackFragment" />
     </fragment>
 
     <action
@@ -193,11 +202,11 @@
         android:id="@+id/selectPaymentMethod"
         android:name="com.example.bidbadnew.Fragments.SelectPaymentMethod"
         android:label="fragment_select_payment_method"
-        tools:layout="@layout/fragment_select_payment_method" >
+        tools:layout="@layout/fragment_select_payment_method">
         <argument
             android:name="amount"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_selectPaymentMethod_to_walletFragment"
             app:destination="@id/walletFragment" />
@@ -205,7 +214,7 @@
     <fragment
         android:id="@+id/placeOrderFragment"
         android:name="com.example.bidbadnew.Fragments.PlaceOrderFragment"
-        android:label="PlaceOrderFragment" >
+        android:label="PlaceOrderFragment">
         <action
             android:id="@+id/action_placeOrderFragment_to_selectAddressFragment2"
             app:destination="@id/selectAddressFragment" />
@@ -219,8 +228,8 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_placeOrderFragment_to_orderPlaced"
-            app:popUpTo="@id/navigation_home"
-            app:destination="@id/orderPlaced" />
+            app:destination="@id/orderPlaced"
+            app:popUpTo="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/manageAddressFragment"
@@ -230,7 +239,7 @@
     <fragment
         android:id="@+id/selectAddressFragment"
         android:name="com.example.bidbadnew.Fragments.SelectAddressFragment"
-        android:label="SelectAddressFragment" >
+        android:label="SelectAddressFragment">
         <action
             android:id="@+id/action_selectAddressFragment_to_orderPlaced"
             app:destination="@id/orderPlaced" />
@@ -241,21 +250,37 @@
     <dialog
         android:id="@+id/actionBottomDialogFragment"
         android:name="com.example.bidbadnew.ActionBottomDialogFragment"
-        android:label="ActionBottomDialogFragment" >
+        android:label="ActionBottomDialogFragment">
         <action
             android:id="@+id/action_actionBottomDialogFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_actionBottomDialogFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/actionBottomDialogFragment"
+            android:id="@+id/action_actionBottomDialogFragment_to_confirmFragment"
+            app:destination="@id/confirmFragment" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/actionBottomDialogFragment"
+            android:id="@+id/action_actionBottomDialogFragment_to_bidNotPlacedFragment"
+            app:destination="@id/bidNotPlacedFragment" />
     </dialog>
     <fragment
         android:id="@+id/orderPlaced"
         android:name="com.example.bidbadnew.Fragments.OrderPlaced"
         android:label="fragment_order_placed"
-        tools:layout="@layout/fragment_order_placed" >
+        tools:layout="@layout/fragment_order_placed">
         <argument
             android:name="productid"
             app:argType="integer" />
         <argument
             android:name="address"
+            app:argType="string" />
+        <argument
+            android:name="price"
             app:argType="string" />
     </fragment>
     <fragment
@@ -275,7 +300,7 @@
     <fragment
         android:id="@+id/productDescriptionHistory"
         android:name="com.example.bidbadnew.Fragments.ProductDescriptionHistory"
-        android:label="ProductDescriptionHistory" >
+        android:label="ProductDescriptionHistory">
         <argument
             android:name="Past_Product"
             app:argType="com.example.bidbadnew.Model.PastProducts" />
@@ -291,7 +316,7 @@
     <fragment
         android:id="@+id/productDescriptionHistoryMyBids"
         android:name="com.example.bidbadnew.Fragments.ProductDescriptionHistoryMyBids"
-        android:label="ProductDescriptionHistoryMyBids" >
+        android:label="ProductDescriptionHistoryMyBids">
         <argument
             android:name="MyBid"
             app:argType="com.example.bidbadnew.Model.MyBid" />
@@ -319,7 +344,7 @@
     <fragment
         android:id="@+id/productDescriptionOngoing"
         android:name="com.example.bidbadnew.Fragments.ProductDescriptionOngoing"
-        android:label="ProductDescriptionOngoing" >
+        android:label="ProductDescriptionOngoing">
         <argument
             android:name="ongoingItem"
             app:argType="com.example.bidbadnew.Model.OngoingItems" />
@@ -327,7 +352,10 @@
     <dialog
         android:id="@+id/noConnectionDialogFragment"
         android:name="com.example.bidbadnew.Fragments.NoConnectionDialogFragment"
-        android:label="NoConnectionDialogFragment" /><action android:id="@+id/action_global_noConnectionDialogFragment" app:destination="@id/noConnectionDialogFragment"/>
+        android:label="NoConnectionDialogFragment" />
+    <action
+        android:id="@+id/action_global_noConnectionDialogFragment"
+        app:destination="@id/noConnectionDialogFragment" />
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.example.bidbadnew.Fragments.ItemFragment"
@@ -338,10 +366,58 @@
         android:name="com.example.bidbadnew.Fragments.TermsandConditions"
         android:label="fragment_termsand_conditions"
         tools:layout="@layout/fragment_termsand_conditions" />
+
     <fragment
         android:id="@+id/privacyPolicy"
         android:name="com.example.bidbadnew.Fragments.PrivacyPolicy"
         android:label="fragment_privacy_policy"
         tools:layout="@layout/fragment_privacy_policy" />
+    <dialog
+        android:id="@+id/feedbackFragment"
+        android:name="com.example.bidbadnew.Fragments.FeedbackFragment"
+        android:label="FeedbackFragment" />
+    <fragment
+        android:id="@+id/winnerScreen"
+        android:name="com.example.bidbadnew.Fragments.WinnerScreen"
+        android:label="fragment_winner_screen"
+        tools:layout="@layout/fragment_winner_screen" />
+    <dialog
+        android:id="@+id/confirmFragment"
+        android:name="com.example.bidbadnew.Fragments.ConfirmFragment"
+        android:label="fragment_blank"
+        app:popUpTo="@+id/nav_host_fragment"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_blank">
+        <action
+            android:id="@+id/action_confirmFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@+id/a"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <dialog
+        android:id="@+id/bidNotPlacedFragment"
+        android:name="com.example.bidbadnew.Fragments.BidNotPlacedFragment"
+        android:label="BidNotPlacedFragment" >
+        <action
+            android:id="@+id/action_bidNotPlacedFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_bidNotPlacedFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_bidNotPlacedFragment_to_addMoneyFragment"
+            app:destination="@id/addMoneyFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/bottomFragmentFreeBid"
+        android:name="com.example.bidbadnew.Fragments.BottomFragmentFreeBid"
+        android:label="BottomFragmentFreeBid" >
+        <action
+            android:id="@+id/action_bottomFragmentFreeBid_to_bidNotPlacedFragment"
+            app:destination="@id/bidNotPlacedFragment" />
+        <action
+            android:id="@+id/action_bottomFragmentFreeBid_to_confirmFragment"
+            app:destination="@id/confirmFragment" />
+    </dialog>
 
 </navigation>

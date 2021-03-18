@@ -10,7 +10,8 @@
         android:layout_height="?actionBarSize"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:paddingLeft="10dp"
@@ -29,11 +30,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:clipToPadding="false"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingBottom="16dp"
-            android:layout_marginTop="10dp"
             tools:context=".OrderSummary">
 
             <ImageView
@@ -42,7 +43,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:src="@drawable/jbl"
                 app:layout_constraintBottom_toBottomOf="@id/summaryOrderDate"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,11 +94,11 @@
                 android:drawablePadding="16dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:text="Delivery"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="#f9a825"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/summaryOrderDate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/summaryOrderDate" />
@@ -129,13 +130,13 @@
 
             <SeekBar
                 android:id="@+id/summaryOrderSeekbar"
-                android:layout_width="0dp"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:thumbOffset="24dp"
-                android:progress="25"
-                android:thumb="@drawable/ic_baseline_person_24"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:clickable="false"
+                android:max="4"
+                android:progressTint="@color/colorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/summaryOrderTracking" />
 
@@ -192,8 +193,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:lineSpacingExtra="12dp"
                 android:gravity="left"
+                android:lineSpacingExtra="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/summaryOrderShippingAddress" />
 
@@ -224,14 +225,13 @@
 
             <TextView
                 android:id="@+id/summaryOrderPaymentMerchandise"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:text="Merchandise Subtotal"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/summaryOrderMerchandiseAmount"
                 app:layout_constraintStart_toStartOf="@+id/summaryOrderPaymentInfo"
                 app:layout_constraintTop_toBottomOf="@+id/summaryOrderPaymentInfo" />
 
@@ -240,23 +240,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/dm_sans_regular"
+                android:gravity="center"
                 android:text="INR 500"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/summaryOrderPaymentMerchandise"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/bidcoin1"
                 app:layout_constraintTop_toTopOf="@id/summaryOrderPaymentMerchandise" />
 
             <TextView
                 android:id="@+id/summaryOrderPaymentShipping"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:text="Shipping charges"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/summaryOrderMerchandiseAmount"
                 app:layout_constraintStart_toStartOf="@+id/summaryOrderPaymentInfo"
                 app:layout_constraintTop_toBottomOf="@+id/summaryOrderPaymentMerchandise" />
 
@@ -265,38 +265,75 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/dm_sans_regular"
+                android:gravity="center"
                 android:text="INR 50"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/summaryOrderPaymentShipping"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/summaryOrderMerchandiseAmount"
+                app:layout_constraintEnd_toStartOf="@id/bidcoin2"
                 app:layout_constraintTop_toTopOf="@id/summaryOrderPaymentShipping" />
 
             <TextView
                 android:id="@+id/summaryOrderPaymentTotal"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="16dp"
                 android:fontFamily="@font/dm_sans_regular"
                 android:text="Total"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/summaryOrderMerchandiseAmount"
                 app:layout_constraintStart_toStartOf="@+id/summaryOrderPaymentInfo"
-                app:layout_constraintTop_toBottomOf="@+id/summaryOrderPaymentShipping" />
+                app:layout_constraintTop_toBottomOf="@+id/totalDivider" />
+
+            <ImageView
+                android:id="@+id/bidcoin1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_bid_coins"
+                app:layout_constraintBottom_toBottomOf="@id/summaryOrderMerchandiseAmount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/summaryOrderMerchandiseAmount" />
+
+            <ImageView
+                android:id="@+id/bidcoin2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_bid_coins"
+                app:layout_constraintBottom_toBottomOf="@id/summaryOrderShippingAmount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/summaryOrderShippingAmount" />
+
+            <ImageView
+                android:id="@+id/bidcoin3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_bid_coins"
+                app:layout_constraintBottom_toBottomOf="@id/summaryOrderPaymentTotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/summaryOrderPaymentTotal" />
+
+            <View
+                android:id="@+id/totalDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/bidcoin2"
+                app:layout_constraintStart_toStartOf="@id/summaryOrderShippingTotalAmount"
+                app:layout_constraintTop_toBottomOf="@+id/bidcoin2" />
 
             <TextView
                 android:id="@+id/summaryOrderShippingTotalAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/dm_sans_regular"
+                android:gravity="center"
                 android:text="INR 550"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/summaryOrderPaymentTotal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/summaryOrderMerchandiseAmount"
+                app:layout_constraintEnd_toStartOf="@+id/bidcoin3"
                 app:layout_constraintTop_toTopOf="@id/summaryOrderPaymentTotal" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -15,16 +15,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.bidbadnew.Activities.MainActivity;
 import com.example.bidbadnew.Model.Balance;
 import com.example.bidbadnew.Model.WonItem;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.Others.Symbol;
 import com.example.bidbadnew.R;
+import com.example.bidbadnew.repositories.CurrentProductsRepo;
 import com.example.bidbadnew.repositories.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
@@ -39,6 +49,8 @@ public class PlaceOrderFragment extends Fragment {
     ImageView imageView;
     Button placeOrder, selectAddress;
     WonItem wonItem;
+    int id;
+    int bal;
     String addressText;
     PlaceOrderViewModel placeOrderViewModel;
 
@@ -64,10 +76,10 @@ public class PlaceOrderFragment extends Fragment {
         balance = view.findViewById(R.id.balance);
 
         wonItem.getBidamount();
-        total.setText(Symbol.rupee + (Integer.parseInt(wonItem.getBidamount())+50));
-        subTotal.setText(Symbol.rupee + wonItem.getBidamount());
-        shippingCost.setText(Symbol.rupee + "50");
-        discount.setText(Symbol.rupee + "0");
+        total.setText((Integer.parseInt(wonItem.getBidamount()) + 50) + "");
+        subTotal.setText(wonItem.getBidamount());
+        shippingCost.setText("50");
+        discount.setText("0");
 
         Glide.with(view.getContext())
                 .load(wonItem.getImageUrl())
@@ -109,7 +121,7 @@ public class PlaceOrderFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Balance> call, @NotNull Response<Balance> response) {
                 assert response.body() != null;
-                balance.setText("₹"+new DecimalFormat("##,##,##0").format(Integer.parseInt(response.body().getBalance())));
+                balance.setText("₹" + new DecimalFormat("##,##,##0").format(Integer.parseInt(response.body().getBalance())));
             }
 
             @Override
@@ -121,7 +133,52 @@ public class PlaceOrderFragment extends Fragment {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(PlaceOrderFragmentDirections.actionPlaceOrderFragmentToOrderPlaced(Integer.parseInt(wonItem.getPastId()), addressText));
+                if (!addressText.isEmpty()) {
+                    id = SharedPrefManager.getInstance(view.getContext()).getUser().getId();
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/checkbalance.php?id=" + id,
+                            new com.android.volley.Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject obj = new JSONObject(response);
+                                        bal = Integer.parseInt(obj.getString("balance"));
+                                        if (bal > (Integer.parseInt(wonItem.getBidamount()) + 50)) {
+                                            StringRequest stringRequest2 = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/updatewallet.php?id=" + id + "&value=" + (Integer.parseInt(wonItem.getBidamount()) + 50) * -1 + "&type=Paid to Place order for " + wonItem.getTitle() + "&image_url=" + wonItem.getImageUrl(),
+                                                    new com.android.volley.Response.Listener<String>() {
+                                                        @Override
+                                                        public void onResponse(String response) {
+                                                            Navigation.findNavController(view).navigate(PlaceOrderFragmentDirections.actionPlaceOrderFragmentToOrderPlaced(Integer.parseInt(wonItem.getPastId()), addressText, wonItem.getBidamount()));
+                                                        }
+                                                    },
+                                                    new com.android.volley.Response.ErrorListener() {
+                                                        @Override
+                                                        public void onErrorResponse(VolleyError error) {
+                                                            Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
+                                            RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity());
+                                            requestQueue2.add(stringRequest2);
+                                        } else {
+                                            Toast.makeText(view.getContext(), "Insuffecient Balance", Toast.LENGTH_LONG).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new com.android.volley.Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            });
+
+                    RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                    requestQueue.add(stringRequest);
+                } else {
+                    Toast.makeText(getContext(), "Enter a address", Toast.LENGTH_LONG);
+                }
             }
         });
 

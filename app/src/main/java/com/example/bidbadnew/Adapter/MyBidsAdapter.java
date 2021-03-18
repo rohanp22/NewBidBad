@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,7 @@ import com.example.bidbadnew.Model.MyBid;
 import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,11 +64,11 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         Log.d("IDs", heroList.get(position).getIds());
         Log.d("Compare" , Integer.parseInt(heroList.get(position).getId()) + "  "+ SharedPrefManager.getInstance(context).getUser().getId());
         if(Integer.parseInt(heroList.get(position).getIds()) == SharedPrefManager.getInstance(context).getUser().getId()) {
-            holder.bidHistoryRank.setText("You Won");
-            holder.bidHistoryRank.setTextColor(Color.parseColor("#008000"));
+            holder.youWon.setVisibility(View.VISIBLE);
+            holder.youLost.setVisibility(View.GONE);
         } else {
-            holder.bidHistoryRank.setText("You lost");
-            holder.bidHistoryRank.setTextColor(context.getResources().getColor(R.color.colorSecondary));
+            holder.youLost.setVisibility(View.VISIBLE);
+            holder.youWon.setVisibility(View.GONE);
         }
         Log.d("Won by : ", heroList.get(position).getFirstname());
 
@@ -97,6 +99,7 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         TextView bidHistoryStartDate;
         TextView bidHistoryAmount;
         TextView bidHistoryRank;
+        MaterialCardView youWon, youLost;
 
         BidHistoryViewHolder(View itemView) {
             super(itemView);
@@ -105,6 +108,8 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
             bidHistoryTitle = itemView.findViewById(R.id.bidHistoryTitle);
             bidHistoryStartDate = itemView.findViewById(R.id.bidHistoryStartDate);
             bidHistoryRank = itemView.findViewById(R.id.bidHistoryRank);
+            youLost = itemView.findViewById(R.id.cardView2);
+            youWon = itemView.findViewById(R.id.cardView);
         }
     }
 }

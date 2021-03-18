@@ -35,115 +35,10 @@ public class CurrentProductsRepo {
     public MutableLiveData<List<Current_Product>> accessoriesCategory = new MutableLiveData<>();
     public MutableLiveData<List<Current_Product>> othersCategory = new MutableLiveData<>();
     public MutableLiveData<List<Current_Product>> appliancesCategory = new MutableLiveData<>();
+    public MutableLiveData<List<Current_Product>> freeBids = new MutableLiveData<>();
 
-    public MutableLiveData<List<Current_Product>> getAccessoriesCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Accessories");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                if (response.body() != null) {
-                    accessoriesCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return accessoriesCategory;
-    }
-
-    public MutableLiveData<List<Current_Product>> getApparelProductCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Apparel");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                if (response.body() != null) {
-                    apparelProductCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return apparelProductCategory;
-    }
-
-    public MutableLiveData<List<Current_Product>> getOthersCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Others");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                if (response.body() != null) {
-                    othersCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return othersCategory;
-    }
-
-    public MutableLiveData<List<Current_Product>> getAppliancesCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Appliances");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                Log.d("Category loaded", "Appliances");
-                if (response.body() != null) {
-                    appliancesCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return appliancesCategory;
-    }
-
-    public MutableLiveData<List<Current_Product>> getPersonalcareProductCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Personalcare");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                if (response.body() != null) {
-                    personalcareProductCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return personalcareProductCategory;
-    }
-
-    public MutableLiveData<List<Current_Product>> getElectronicsProductCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Electronics");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                Log.d("Category loaded", "Electronics");
-                if (response.body() != null) {
-                    electronicsProductCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return electronicsProductCategory;
+    public MutableLiveData<List<Current_Product>> getFreeBids() {
+        return freeBids;
     }
 
     public MutableLiveData<List<Current_Product>> getElectronicsProductCategory() {
@@ -178,43 +73,7 @@ public class CurrentProductsRepo {
         return personalcareProductCategory;
     }
 
-    public MutableLiveData<List<Current_Product>> getFitnessProductCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Fitness");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                if (response.body() != null) {
-                    fitnessProductCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return fitnessProductCategory;
-    }
-
     Api retrofitClient = RetrofitClient.getInstance().getMyApi();
-
-    public MutableLiveData<List<Current_Product>> getHomeProductCategory(int id) {
-        Call<Current_Products> call = RetrofitClient.getInstance().getMyApi().getCurrentProducts(id, "Home");
-        call.enqueue(new Callback<Current_Products>() {
-            @Override
-            public void onResponse(@NotNull Call<Current_Products> call, @NotNull Response<Current_Products> response) {
-                if (response.body() != null) {
-                    homeProductCategory.postValue(response.body().getCurrentProducts());
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Current_Products> call, @NotNull Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return homeProductCategory;
-    }
 
     public void getProducts(int position, int userid) {
         Call<Current_Products> call = null;
@@ -327,6 +186,21 @@ public class CurrentProductsRepo {
                 break;
             case 7:
                 call = retrofitClient.getCurrentProducts(userid, "Apparel");
+                call.enqueue(new Callback<Current_Products>() {
+                    @Override
+                    public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                        if(response.body() != null)
+                            apparelProductCategory.setValue(response.body().getCurrentProducts());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Current_Products> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case 8:
+                call = retrofitClient.getCurrentProducts(userid, "Freebid");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {

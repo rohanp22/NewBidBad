@@ -22,6 +22,7 @@ import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ViewAllTransactions extends Fragment {
@@ -54,6 +55,7 @@ public class ViewAllTransactions extends Fragment {
             @Override
             public void onChanged(List<Transaction> transactions) {
                 if(transactions != null) {
+                    Collections.reverse(transactions);
                     recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
                     recyclerView.setAdapter(new WalletAdapter(view.getContext(), transactions, transactions.size()));
                 }

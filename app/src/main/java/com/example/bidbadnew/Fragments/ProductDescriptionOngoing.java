@@ -1,5 +1,6 @@
 package com.example.bidbadnew.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDescriptionOngoing extends Fragment{
+public class ProductDescriptionOngoing extends Fragment {
     TextView hr1, hr2, min1, min2, sec1, sec2, title, subtitle, started_at, entry, mrp, note1, note2;
     OngoingItems current_product;
     ImageView imageView1, imageView2, imageView3;
@@ -66,7 +69,7 @@ public class ProductDescriptionOngoing extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_product_description2, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_description_history_ongoing, container, false);
 
         getActivity().findViewById(R.id.bar).setVisibility(View.GONE);
         getActivity().findViewById(R.id.fabhome).setVisibility(View.GONE);
@@ -108,7 +111,7 @@ public class ProductDescriptionOngoing extends Fragment{
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d("Response", response.body());
-                if(response.body().equals("1")){
+                if (response.body().equals("1")) {
                     isBookmarked = true;
                     menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_24));
                 } else {
@@ -128,7 +131,7 @@ public class ProductDescriptionOngoing extends Fragment{
                 switch (item.getItemId()) {
                     case R.id.navigation_bookmark:
                         isBookmarked = !isBookmarked;
-                        if(isBookmarked) {
+                        if (isBookmarked) {
                             Call<Void> call = RetrofitClient.getInstance().getMyApi().addToWishlist(SharedPrefManager.getInstance(getContext()).getUser().getId(), Integer.parseInt(current_product.getCurrentid()));
                             call.enqueue(new Callback<Void>() {
                                 @Override
@@ -177,7 +180,7 @@ public class ProductDescriptionOngoing extends Fragment{
         }
 
         title.setText(current_product.getTitle());
-        mrp.setText("₹"+current_product.getMrp());
+        mrp.setText("₹" + current_product.getMrp());
         started_at.setText(dateFormat.format(startedAt));
         subtitle.setText(current_product.getTitle());
         entry.setText(current_product.getSp());
@@ -248,6 +251,7 @@ public class ProductDescriptionOngoing extends Fragment{
 
         new CountDownTimer(finalDiff, 1000) {
 
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
             public void onTick(long millisUntilFinished) {
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
@@ -278,20 +282,20 @@ public class ProductDescriptionOngoing extends Fragment{
 
                     if (elapsedHours > 0) {
                         curtime = elapsedHours + "hr " + String.format("%02d", elapsedMinutes) + "min";
-                        hr1.setText(elapsedHours/10 + "");
-                        hr2.setText(elapsedHours%10 + "");
-                        min1.setText(elapsedMinutes/10 + "");
-                        min2.setText(elapsedMinutes%10 + "");
-                        sec1.setText(elapsedSeconds/10 + "");
-                        sec2.setText(elapsedSeconds%10 + "");
+                        hr1.setText(elapsedHours / 10 + "");
+                        hr2.setText(elapsedHours % 10 + "");
+                        min1.setText(elapsedMinutes / 10 + "");
+                        min2.setText(elapsedMinutes % 10 + "");
+                        sec1.setText(elapsedSeconds / 10 + "");
+                        sec2.setText(elapsedSeconds % 10 + "");
                     } else {
                         curtime = String.format("%02d", elapsedMinutes) + " m " + String.format("%02d", elapsedSeconds) + " sec";
-                        hr1.setText(elapsedHours/10 + "");
-                        hr2.setText(elapsedHours%10 + "");
-                        min1.setText(elapsedMinutes/10 + "");
-                        min2.setText(elapsedMinutes%10 + "");
-                        sec1.setText(elapsedSeconds/10 + "");
-                        sec2.setText(elapsedSeconds%10 + "");
+                        hr1.setText(elapsedHours / 10 + "");
+                        hr2.setText(elapsedHours % 10 + "");
+                        min1.setText(elapsedMinutes / 10 + "");
+                        min2.setText(elapsedMinutes % 10 + "");
+                        sec1.setText(elapsedSeconds / 10 + "");
+                        sec2.setText(elapsedSeconds % 10 + "");
                     }
                 }
             }
@@ -348,8 +352,9 @@ public class ProductDescriptionOngoing extends Fragment{
         }
 
         // this is for fragment tabs
+        @NotNull
         @Override
-        public Fragment getItem(int position){
+        public Fragment getItem(int position) {
             switch (position) {
                 case 0:
                     return new ProductDetails("productdetails", current_product.getDescription());

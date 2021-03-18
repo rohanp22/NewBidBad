@@ -97,6 +97,13 @@ public class WonItemsAdapter extends RecyclerView.Adapter<WonItemsAdapter.BidHis
             bidHistoryTitle = itemView.findViewById(R.id.bidHistoryTitle);
             bidHistoryStartDate = itemView.findViewById(R.id.bidHistoryStartDate);
             bidHistoryRank = itemView.findViewById(R.id.bidHistoryRank);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.findNavController(v).navigate(R.id.action_navigation_wonbids_to_winnerScreen);
+                }
+            });
         }
     }
 }

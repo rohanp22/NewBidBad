@@ -47,7 +47,8 @@ public class ProductDescriptionHistory extends Fragment {
     long diff = 0;
     MaterialToolbar toolbar;
     Date startDate1;
-    Date startedAt;
+    Date startedAt, endedAt;
+    TextView endedon;
     String imageurl1, imageurl2, imageurl3;
     boolean isBookmarked;
     Menu menu;
@@ -81,6 +82,7 @@ public class ProductDescriptionHistory extends Fragment {
         note2 = view.findViewById(R.id.cardItem2);
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.product_description_menu);
+        endedon = view.findViewById(R.id.endedon);
         menu = toolbar.getMenu();
 
         Call<String> call = RetrofitClient.getInstance().getMyApi().isWishlist(SharedPrefManager.getInstance(view.getContext()).getUser().getId(), Integer.parseInt(current_product.getId()));
@@ -153,6 +155,7 @@ public class ProductDescriptionHistory extends Fragment {
             e.printStackTrace();
         }
 
+        endedon.setText(dateFormat.format(startedAt));
         title.setText(current_product.getTitle());
         mrp.setText("₹"+current_product.getMrp());
         started_at.setText(dateFormat.format(startedAt));
@@ -211,16 +214,13 @@ public class ProductDescriptionHistory extends Fragment {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Product details"));
         tabLayout.addTab(tabLayout.newTab().setText("Ranking"));
+        tabLayout.addTab(tabLayout.newTab().setText("Product details"));
 
         MyAdapter adapter = new MyAdapter(view.getContext(), getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
-        tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
-        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffbc00"));
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -263,10 +263,10 @@ public class ProductDescriptionHistory extends Fragment {
         public Fragment getItem(int position){
             switch (position) {
                 case 0:
-                    return new ProductDetails("productdetails", current_product.getDescription());
+                    return new ProductRankingFragment(current_product.getId());
 
                 case 1:
-                    return new ProductRankingFragment(current_product.getId());
+                    return new ProductDetails("productdetails", current_product.getDescription());
 
                 default:
                     return null;

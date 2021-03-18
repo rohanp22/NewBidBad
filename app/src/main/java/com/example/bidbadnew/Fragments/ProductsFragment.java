@@ -2,6 +2,7 @@ package com.example.bidbadnew.Fragments;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,6 +19,8 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.bidbadnew.Activities.MainActivity;
+import com.example.bidbadnew.Adapter.ProductAdapter;
 import com.example.bidbadnew.Adapter.ProductAdapter1;
 import com.example.bidbadnew.Model.Current_Product;
 import com.example.bidbadnew.Others.CenterZoomLayoutManager;
@@ -24,6 +28,7 @@ import com.example.bidbadnew.Others.ProductLayoutDecoration;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.repositories.CurrentProductsRepo;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,13 +44,12 @@ public class ProductsFragment extends Fragment {
     ProductAdapter1 adapter;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe);
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.addItemDecoration(new ProductLayoutDecoration());
-        recyclerView.requestDisallowInterceptTouchEvent(true);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -59,86 +63,153 @@ public class ProductsFragment extends Fragment {
         adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
         productsViewModel.refreshProduct(position, SharedPrefManager.getInstance(view.getContext()).getUser().getId());
 
-        recyclerView.setClipToPadding(false);
-        CenterZoomLayoutManager centerZoomLayoutManager = new CenterZoomLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        CenterZoomLayoutManager centerZoomLayoutManager = new CenterZoomLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(centerZoomLayoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.scrollTo(100, 0);
-        centerZoomLayoutManager.scrollHorizontallyBy(50, null, null);
-        
-        switch (position) {
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.getLayoutManager().scrollToPosition(5);
+                centerZoomLayoutManager.scrollToPositionWithOffset(Integer.MAX_VALUE / 2, (int) (MainActivity.height * .175));
 
-            case 0: productsViewModel.electronicsProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
-            break;
-            case 1: productsViewModel.appliancesCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                        if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                            int position = centerZoomLayoutManager.findFirstVisibleItemPosition() + 1;
+                            MaterialCardView nextSliderDetail = null;
+                            MaterialCardView previousSliderDetail = centerZoomLayoutManager.findViewByPosition(position - 1).findViewById(R.id.cardView);
+                            MaterialCardView constraintLayout = centerZoomLayoutManager.findViewByPosition(position).findViewById(R.id.cardView);
+                            constraintLayout.setStrokeColor(getResources().getColor(R.color.colorSecondary));
+                            previousSliderDetail.setStrokeColor(getResources().getColor(R.color.colorPrimaryLight));
+                            ConstraintLayout constraintLayoutParent = (ConstraintLayout) centerZoomLayoutManager.findViewByPosition(position + 1);
+                            if(constraintLayoutParent != null){
+                                nextSliderDetail = constraintLayoutParent.findViewById(R.id.cardView);
+                            }
+                            if(previousSliderDetail != null){
+                                previousSliderDetail.setStrokeColor(getResources().getColor(R.color.colorPrimaryLight));
+                            }
+                            if(nextSliderDetail != null){
+                                nextSliderDetail.setStrokeColor(getResources().getColor(R.color.colorPrimaryLight));
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
+        switch (position) {
+            case 0:
+                productsViewModel.electronicsProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(new ProductAdapter(view.getContext(), current_products, recyclerView, centerZoomLayoutManager));
+                        recyclerView.getLayoutManager().scrollToPosition(5);
+                        centerZoomLayoutManager.scrollToPositionWithOffset(Integer.MAX_VALUE / 2, (int) (MainActivity.height * .5));
+                    }
+                });
                 break;
-            case 2: productsViewModel.accessoriesCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
+            case 1:
+                productsViewModel.appliancesCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
                 break;
-            case 3: productsViewModel.personalcareProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
+            case 2:
+                productsViewModel.accessoriesCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
                 break;
-            case 4: productsViewModel.homeProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
+            case 3:
+                productsViewModel.personalcareProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
                 break;
-            case 5: productsViewModel.fitnessProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
+            case 4:
+                productsViewModel.homeProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+
+                    }
+                });
                 break;
-            case 6: productsViewModel.othersCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
+            case 5:
+                productsViewModel.fitnessProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
                 break;
-            case 7: productsViewModel.apparelProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onChanged(List<Current_Product> current_products) {
-                    current_products.sort(new sortTime());
-                    adapter.setHeroList(current_products);
-                }
-            });
+            case 6:
+                productsViewModel.othersCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
+                break;
+            case 7:
+                productsViewModel.apparelProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
+                break;
+            case 8:
+                productsViewModel.apparelProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onChanged(List<Current_Product> current_products) {
+                        current_products.sort(new sortTime());
+                        adapter = new ProductAdapter1(view.getContext(), getChildFragmentManager());
+                        adapter.setHeroList(current_products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
                 break;
         }
     }
@@ -150,7 +221,7 @@ public class ProductsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         productsViewModel = new ViewModelProvider(this).get(ProductsViewModel.class);
-        
+
         return view;
     }
 

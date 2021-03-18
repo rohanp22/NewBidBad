@@ -106,7 +106,7 @@ public class SelectAddressFragment extends Fragment {
                 a2 = address.getAddress2();
                 a3 = address.getAddress3();
                 //a4 = heroObject.getString("address4");
-
+                if(address.getAddress() != null)
                 if (!address.getAddress().equals("") && !address.getAddress().equals("null")) {
                     addressField1.setText(a1);
                     card1.setVisibility(View.VISIBLE);
@@ -114,7 +114,7 @@ public class SelectAddressFragment extends Fragment {
                 } else {
                     card1.setVisibility(View.GONE);
                 }
-
+                if(address.getAddress2() != null)
                 if (!address.getAddress2().equals("") && !address.getAddress2().equals("null")) {
                     addressField2.setText(a2);
                     card2.setVisibility(View.VISIBLE);
@@ -122,7 +122,7 @@ public class SelectAddressFragment extends Fragment {
                 } else {
                     card2.setVisibility(View.GONE);
                 }
-
+                if(address.getAddress3() != null)
                 if (!address.getAddress3().equals("") && !address.getAddress3().equals("null")) {
                     addressField3.setText(a3);
                     card3.setVisibility(View.VISIBLE);
@@ -154,6 +154,25 @@ public class SelectAddressFragment extends Fragment {
                 materialRadioButton1.setChecked(true);
                 materialRadioButton2.setChecked(false);
                 materialRadioButton3.setChecked(false);
+                if(materialRadioButton1.isChecked() && card1.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField1.getText().toString());
+                    setAddress(addressField1.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                } else if(materialRadioButton2.isChecked() && card2.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField2.getText().toString());
+                    setAddress(addressField2.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                } else if(materialRadioButton3.isChecked() && card3.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField3.getText().toString());
+                    setAddress(addressField3.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                }
             }
         });
 
@@ -163,6 +182,25 @@ public class SelectAddressFragment extends Fragment {
                 materialRadioButton2.setChecked(true);
                 materialRadioButton1.setChecked(false);
                 materialRadioButton3.setChecked(false);
+                if(materialRadioButton1.isChecked() && card1.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField1.getText().toString());
+                    setAddress(addressField1.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                } else if(materialRadioButton2.isChecked() && card2.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField2.getText().toString());
+                    setAddress(addressField2.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                } else if(materialRadioButton3.isChecked() && card3.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField3.getText().toString());
+                    setAddress(addressField3.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                }
             }
         });
 
@@ -172,6 +210,25 @@ public class SelectAddressFragment extends Fragment {
                 materialRadioButton3.setChecked(true);
                 materialRadioButton2.setChecked(false);
                 materialRadioButton1.setChecked(false);
+                if(materialRadioButton1.isChecked() && card1.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField1.getText().toString());
+                    setAddress(addressField1.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                } else if(materialRadioButton2.isChecked() && card2.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField2.getText().toString());
+                    setAddress(addressField2.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                } else if(materialRadioButton3.isChecked() && card3.getVisibility() != View.GONE){
+                    Bundle b = new Bundle();
+                    b.putSerializable("item", wonItem);
+                    b.putString("address", addressField3.getText().toString());
+                    setAddress(addressField3.getText().toString());
+                    Navigation.findNavController(view).popBackStack();
+                }
             }
         });
 

@@ -2,6 +2,7 @@ package com.example.bidbadnew;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -32,6 +34,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.bidbadnew.Activities.MainActivity;
+import com.example.bidbadnew.Fragments.ConfirmFragment;
+import com.example.bidbadnew.Fragments.ProductsViewModel;
 import com.example.bidbadnew.Model.Current_Product;
 import com.example.bidbadnew.Model.FreeBid;
 import com.example.bidbadnew.Others.RequestHandler;
@@ -56,7 +60,6 @@ import retrofit2.Callback;
 public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         implements View.OnClickListener {
     public static final String TAG = "ActionBottomDialog";
-    private ItemClickListener mListener;
     ProgressBar progressBar;
     String category;
     String imageurl, title, sp, productId;
@@ -64,20 +67,13 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
     HomeViewModel homeViewModel;
     Current_Product current_product;
     String isFreebid, bonusPoints;
-    SwitchMaterial switchMaterial;
+    ImageView cancel;
+    TextView bonusMoney, total, bonusbalance;
+    int bp;
+    int bonusApplied = 0;
 
-    public ActionBottomDialogFragment(Current_Product current_product) {
-        this.imageurl = current_product.getImageUrl();
-        this.title = current_product.getTitle();
-        this.sp = current_product.getSp();
-        this.category = current_product.getCategory();
-        this.productId = current_product.getCurrentid();
-        this.isFreebid = current_product.getFreebid();
-        this.bonusPoints = current_product.getBonus();
-    }
+    public ActionBottomDialogFragment() {
 
-    public static ActionBottomDialogFragment newInstance(Current_Product current_product) {
-        return new ActionBottomDialogFragment(current_product);
     }
 
     View view;
@@ -85,7 +81,16 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle);
+        if (getArguments() != null) {
+            Current_Product current_product = (Current_Product) getArguments().getSerializable("Current_product");
+            this.imageurl = current_product.getImageUrl();
+            this.title = current_product.getTitle();
+            this.sp = current_product.getSp();
+            this.category = current_product.getCategory();
+            this.productId = current_product.getCurrentid();
+            this.isFreebid = current_product.getFreebid();
+            this.bonusPoints = current_product.getBonus();
+        }
     }
 
     @Nullable
@@ -94,41 +99,82 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.bottom_sheet, container, false);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        cancel = view.findViewById(R.id.close);
+        progressBar = view.findViewById(R.id.bottomSheetProgress);
+        bonusMoney = view.findViewById(R.id.bonusmoney);
+        total = view.findViewById(R.id.totalamount);
+        bonus = view.findViewById(R.id.bonuscheckbox);
+        bonusbalance = view.findViewById(R.id.youhavexbonus);
 
-        return view;
-    }
+        total.setText((Integer.parseInt(sp) - Integer.parseInt(bonusMoney.getText().toString())) + "");
 
-    int id, bal;
-    EditText bidamount;
+        freebid = view.findViewById(R.id.rewardscheckbox);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        bonus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(Integer.parseInt(bonusPoints) > 0) {
+                    if (isChecked) {
+                        if (bp / 10 < Integer.parseInt(sp) / 10) {
+                            bonusMoney.setText("- " + bp / 10);
+                            total.setText((Integer.parseInt(sp) - bp / 10) + "");
+                            bonusApplied = bp / 10;
+                        } else {
+                            bonusMoney.setText("- " + Integer.parseInt(sp) / 10);
+                            total.setText((Integer.parseInt(sp) - Integer.parseInt(sp) / 10) + "");
+                            bonusApplied = Integer.parseInt(sp) / 10;
+                        }
+                    }
+                    if (!isChecked) {
+                        bonusMoney.setText("-0");
+                        total.setText((Integer.parseInt(sp)) + "");
+                        bonusApplied = 0;
+                    }
+                } else {
+                    
+                }
+            }
+        });
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
 
-        ImageView img = view.findViewById(R.id.imageBottomsheet);
-        Glide.with(view.getContext())
-                .load(imageurl)
-                .into(img);
+        view.findViewById(R.id.infobtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("10 bonus points = 1 bonus points\nYou can use only bonus worth 10% of the bidamount");
+                AlertDialog alert = builder.create();
+                alert.show();
 
-        progressBar = view.findViewById(R.id.bottomSheetProgress);
-
-        bonus = view.findViewById(R.id.bonuscheckbox);
-        switchMaterial = view.findViewById(R.id.switchBtn);
-        freebid = view.findViewById(R.id.rewardscheckbox);
+            }
+        });
 
         if (Integer.parseInt(bonusPoints) > 0) {
-            switchMaterial.setText("Use "+ bonusPoints +"bonus points");
+            Call call = RetrofitClient.getInstance().getMyApi().getRewardPoints(SharedPrefManager.getInstance(view.getContext()).getUser().getId());
+            call.enqueue(new Callback() {
+                @Override
+                public void onResponse(Call call, retrofit2.Response response) {
+                    bp = Integer.parseInt(response.body().toString());
+                    if(bp/10 < Integer.parseInt(sp)/10)
+                        bonus.setText("Use " + (bp - bp%10) + " Bonus points");
+                    else
+                        bonus.setText("Use " + (Integer.parseInt(sp) - Integer.parseInt(sp)%10) + " Bonus points");
+                    bonusbalance.setText("(You have "+response.body()+" bonus points)");
+                }
+
+                @Override
+                public void onFailure(Call call, Throwable t) {
+
+                }
+            });
         }
         if (Integer.parseInt(isFreebid) > 0) {
-            switchMaterial.setText("Use freebid");
+
         }
 
         Call<List<FreeBid>> call1 = RetrofitClient.getInstance().getMyApi().getFreeBids(SharedPrefManager.getInstance(view.getContext()).getUser().getId());
@@ -157,7 +203,7 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         });
 
         TextView entry = view.findViewById(R.id.entryprice);
-        entry.setText("Entry price : " + sp);
+        entry.setText("" + sp);
 
         bidamount = view.findViewById(R.id.biddingButton);
 
@@ -167,7 +213,6 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
             public void onClick(View view) {
                 Log.d("BottomSheet", "button clicked");
                 placeBid.setEnabled(false);
-                mListener.onItemClick(bidamount.getText().toString());
 
                 id = SharedPrefManager.getInstance(view.getContext()).getUser().getId();
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/checkbalance.php?id=" + id,
@@ -178,39 +223,13 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
                                     progressBar.setVisibility(View.VISIBLE);
                                     JSONObject obj = new JSONObject(response);
                                     bal = Integer.parseInt(obj.getString("balance"));
-                                    if (bal > Integer.parseInt(sp)) {
-                                        StringRequest stringRequest2 = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/updatewallet.php?id=" + id + "&value=" + Integer.parseInt(sp) * -1 + "&type=Paid to enter the bidding for " + title + "&image_url=" + imageurl,
+                                    if (bal - bonusApplied > Integer.parseInt(sp)) {
+                                        StringRequest stringRequest2 = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/updatewallet.php?id=" + id + "&value=" + (Integer.parseInt(sp) * -1 + bonusApplied) + "&type=Paid to enter the bidding for " + title + "&image_url=" + imageurl,
                                                 new Response.Listener<String>() {
                                                     @Override
                                                     public void onResponse(String response) {
                                                         sendOrderToDB();
                                                         progressBar.setVisibility(View.GONE);
-                                                        switch (category) {
-                                                            case "Electronics":
-                                                                CurrentProductsRepo.getInstance().getElectronicsProductCategory();
-                                                                break;
-                                                            case "Appliances":
-                                                                CurrentProductsRepo.getInstance().getAppliancesCategory();
-                                                                break;
-                                                            case "Accessories":
-                                                                CurrentProductsRepo.getInstance().getAccessoriesCategory();
-                                                                break;
-                                                            case "Personal Care":
-                                                                CurrentProductsRepo.getInstance().getPersonalcareProductCategory();
-                                                                break;
-                                                            case "Home & Furniture":
-                                                                CurrentProductsRepo.getInstance().getHomeProductCategory();
-                                                                break;
-                                                            case "Fitness":
-                                                                CurrentProductsRepo.getInstance().getFitnessProductCategory();
-                                                                break;
-                                                            case "Others":
-                                                                CurrentProductsRepo.getInstance().getOthersCategory();
-                                                                break;
-                                                            case "Apparel":
-                                                                CurrentProductsRepo.getInstance().getApparelProductCategory();
-                                                                break;
-                                                        }
                                                     }
                                                 },
                                                 new Response.ErrorListener() {
@@ -223,9 +242,7 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
                                         RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity());
                                         requestQueue2.add(stringRequest2);
                                     } else {
-                                        Toast.makeText(getActivity(), "Insuffecient Balance, add money to wallet", Toast.LENGTH_LONG).show();
-                                        ((MainActivity) getActivity()).navController.navigateUp();
-                                        dismiss();
+                                        ((MainActivity) getActivity()).navController.navigate(R.id.action_actionBottomDialogFragment_to_bidNotPlacedFragment);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -243,13 +260,23 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
                 requestQueue.add(stringRequest);
             }
         });
+
+        return view;
+    }
+
+    int id, bal;
+    EditText bidamount;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ItemClickListener) {
-            mListener = (ItemClickListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement ItemClickListener");
@@ -259,15 +286,12 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override
     public void onClick(View view) {
         TextView tvSelected = (TextView) view;
         Button placeBid = view.findViewById(R.id.bottomSheetPlaceBid);
-        mListener.onItemClick(placeBid.getText().toString());
-        mListener.onItemClick(tvSelected.getText().toString());
         progressBar.setVisibility(View.GONE);
         dismiss();
     }
@@ -286,7 +310,6 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
 
         class RegisterUser extends AsyncTask<Void, Void, String> {
 
-            private ProgressBar progressBar;
             public View view1;
 
             public RegisterUser(View view) {
@@ -305,6 +328,7 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
                 params.put("bidamount", bidamount.getText().toString());
                 params.put("productid", productId);
                 params.put("type", "Paid to enter bidding for " + title);
+                params.put("bonuspoints", bonusApplied + "");
 
                 //returing the response
                 return requestHandler.sendPostRequest("http://easyvela.esy.es/AndroidAPI/addtomybids.php", params);
@@ -318,11 +342,40 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                //hiding the progressbar after completion
+
+                switch (category) {
+                    case "Electronics":
+                        CurrentProductsRepo.getInstance().getProducts(0, id);
+                        break;
+                    case "Appliances":
+                        CurrentProductsRepo.getInstance().getProducts(1, id);
+                        break;
+                    case "Accessories":
+                        CurrentProductsRepo.getInstance().getProducts(2, id);
+                        break;
+                    case "Personal Care":
+                        CurrentProductsRepo.getInstance().getProducts(3, id);
+                        break;
+                    case "Home":
+                        CurrentProductsRepo.getInstance().getProducts(4, id);
+                        break;
+                    case "Fitness":
+                        CurrentProductsRepo.getInstance().getProducts(5, id);
+                        break;
+                    case "Others":
+                        CurrentProductsRepo.getInstance().getProducts(6, id);
+                        break;
+                    case "Apparel":
+                        CurrentProductsRepo.getInstance().getProducts(7, id);
+                        break;
+                }
+
                 homeViewModel.init(id);
-                ((MainActivity) getActivity()).navController.navigateUp();
-                dismiss();
-                Log.d("addtomybids", s);
+                Log.d("addtomybids", "Executed");
+
+                ((MainActivity) getActivity()).navController.navigate(R.id.action_actionBottomDialogFragment_to_confirmFragment);
+//                ((MainActivity) getActivity()).navController.navigateUp();
+//                dismiss();
                 //HomeItems.isLoaded = false
                 Toast.makeText(getView().getContext(), "Bid placed successfully", Toast.LENGTH_LONG);
             }
@@ -331,5 +384,10 @@ public class ActionBottomDialogFragment extends BottomSheetDialogFragment
         //executing the async task
         RegisterUser ru = new RegisterUser(view);
         ru.execute();
+    }
+
+    @Override
+    public int getTheme() {
+        return R.style.CustomBottomSheetDialog;
     }
 }

@@ -48,9 +48,9 @@ public class ResultsFragment extends Fragment implements AllBidsFragment.AllBids
         TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabLayout);
         viewPager=(ViewPager) root.findViewById(R.id.viewPager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Current bids"));
-        tabLayout.addTab(tabLayout.newTab().setText("My Bids"));
-        tabLayout.addTab(tabLayout.newTab().setText("Our history"));
+        tabLayout.addTab(tabLayout.newTab().setText("Live contest"));
+        tabLayout.addTab(tabLayout.newTab().setText("Past contests"));
+        tabLayout.addTab(tabLayout.newTab().setText("All contests"));
 
         MyAdapter adapter = new MyAdapter(root.getContext(), getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);

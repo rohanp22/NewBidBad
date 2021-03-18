@@ -58,12 +58,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar"
         app:tabIndicatorColor="@color/colorSecondary"
+        app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="4dp"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/colorSecondary"
         app:tabTextAppearance="@style/MineCustomTabText" />
 
-    <com.example.bidbadnew.Others.CustomViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerCategories"
         android:layout_width="match_parent"
         android:layout_height="0dp"

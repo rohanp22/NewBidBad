@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.bidbadnew.Others.SharedPrefManager;
@@ -25,8 +26,9 @@ public class OrderPlaced extends Fragment {
     LottieAnimationView lottieAnimationView;
     ProgressBar progressBar;
     Button continueBidding;
-    String address;
+    String address, bidamount;
     int productid;
+    TextView price;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +39,11 @@ public class OrderPlaced extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         address = OrderPlacedArgs.fromBundle(getArguments()).getAddress();
         productid = OrderPlacedArgs.fromBundle(getArguments()).getProductid();
+        bidamount = OrderPlacedArgs.fromBundle(getArguments()).getPrice();
         continueBidding = view.findViewById(R.id.continueBidding);
+        price = view.findViewById(R.id.price);
+
+        price.setText("Paid : " +(Integer.parseInt(bidamount) + 50));
 
         continueBidding.setOnClickListener(new View.OnClickListener() {
             @Override

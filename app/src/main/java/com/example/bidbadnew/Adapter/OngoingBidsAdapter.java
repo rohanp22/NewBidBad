@@ -1,8 +1,13 @@
 package com.example.bidbadnew.Adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.bidbadnew.Model.MyBid;
 import com.example.bidbadnew.Model.OngoingItems;
 import com.example.bidbadnew.Others.SharedPrefManager;
@@ -22,6 +30,7 @@ import com.example.bidbadnew.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,6 +55,8 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ongoing_item, parent, false);
         return new ViewHolder(view);
     }
+
+    Bitmap icon;
 
     public interface OngoingBidsAdapterListener{
         public void onItemClickListener(OngoingItems pastProduct);
@@ -136,17 +147,55 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
         holder.share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Create an ACTION_SEND Intent*/
-                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-                /*This will be the actual content you wish you share.*/
-                String shareBody = "Hey! Bid using this link to get the bonus points http://easyvela.esy.es/newproduct?id1="+cartList.get(position).getCurrentid() + "&id2="+ SharedPrefManager.getInstance(mContext).getUser().getId();
-                /*The type of the content is text, obviously.*/
-                intent.setType("text/plain");
-                /*Applying information Subject and Body.*/
-                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share bid");
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                /*Fire!*/
-                mContext.startActivity(Intent.createChooser(intent, "Share via"));
+
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load(cartList.get(position).getImageUrl())
+                        .into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                icon = resource;
+                                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+
+                                Intent share = new Intent(Intent.ACTION_SEND);
+                                share.setType("image/jpeg");
+
+                                ContentValues values = new ContentValues();
+                                values.put(MediaStore.Images.Media.TITLE, "title");
+                                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                                Uri uri = mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                        values);
+
+                                OutputStream outstream;
+                                try {
+                                    outstream = mContext.getContentResolver().openOutputStream(uri);
+                                    icon.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                                    outstream.close();
+                                } catch (Exception e) {
+                                    System.err.println(e.toString());
+                                }
+
+                                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                                //startActivity(Intent.createChooser(share, "Share Image"));
+
+                                /*Create an ACTION_SEND Intent*/
+                                /*This will be the actual content you wish you share.*/
+                                String shareBody = "Hey! Bid using this link to get the bonus points http://easyvela.esy.es/newproduct?id1="+cartList.get(position).getCurrentid() + "&id2="+ SharedPrefManager.getInstance(mContext).getUser().getId();
+                                /*The type of the content is text, obviously.*/
+                                intent.setType("text/plain");
+                                /*Applying information Subject and Body.*/
+                                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share bid");
+                                intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                                /*Fire!*/
+                                mContext.startActivity(Intent.createChooser(intent, "Share via"));
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+                            }
+                        });
+
+
             }
         });
 

@@ -12,7 +12,7 @@
         android:layout_marginTop="2dp"
         android:scaleType="fitCenter"
         android:src="@drawable/jbl"
-        app:layout_constraintBottom_toBottomOf="@+id/bidHistoryRank"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bidHistoryTitle" />
 
@@ -54,27 +54,74 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
-        app:layout_constraintEnd_toStartOf="@id/bidHistoryRank"
-        app:layout_constraintTop_toTopOf="@id/bidHistoryRank" />
+        app:layout_constraintEnd_toStartOf="@id/cardView"
+        app:layout_constraintTop_toTopOf="@id/cardView" />
 
-    <TextView
-        android:id="@+id/bidHistoryRank"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTint="@color/colorSecondary"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:paddingStart="8dp"
+        app:strokeColor="#02c20f"
+        app:strokeWidth="1dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:backgroundTint="#e7f9f1"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bidHistoryAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bidHistoryAmount" >
+
+        <TextView
+            android:id="@+id/bidHistoryRank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#02c20f"
+            android:textStyle="bold"
+            android:text="You won"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableTint="@color/colorSecondary"
         android:gravity="center_vertical"
         android:paddingStart="8dp"
+        app:strokeColor="#c2020f"
+        app:strokeWidth="1dp"
         android:paddingTop="4dp"
         android:paddingEnd="8dp"
+        android:backgroundTint="#f9e7f1"
         android:paddingBottom="4dp"
-        android:text="#324"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textColor="@color/colorSecondary"
-        android:textSize="12sp"
-        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/bidHistoryAmount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bidHistoryAmount" />
+        app:layout_constraintTop_toTopOf="@id/bidHistoryAmount" >
+
+        <TextView
+            android:id="@+id/bidHistoryRankLost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#c2020f"
+            android:textStyle="bold"
+            android:text="You lost"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/bidHistoryAmountText"

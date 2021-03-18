@@ -219,18 +219,13 @@ public class ProductDescriptionHistoryMyBids extends Fragment {
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-
-        tabLayout.addTab(tabLayout.newTab().setText("Product details"));
         tabLayout.addTab(tabLayout.newTab().setText("Ranking"));
+        tabLayout.addTab(tabLayout.newTab().setText("Product details"));
 
         MyAdapter adapter = new MyAdapter(view.getContext(), getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
-        tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
-        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffbc00"));
-        tabLayout.setScrollPosition(2,0f,true);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -268,16 +263,31 @@ public class ProductDescriptionHistoryMyBids extends Fragment {
             this.totalTabs = totalTabs;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // this is for fragment tabs
         @Override
         public Fragment getItem(int position){
+            Log.d("Current product id : ", current_product.getId());
             switch (position) {
                 case 0:
-                    return new ProductDetails("productdetails", current_product.getDescription());
+                    return new ProductRankingFragment(current_product.getPastId());
 
                 case 1:
-                    //return new ProductDetails("deliverydetails", current_product.getDescription());
-                    return new ProductRankingFragment(current_product.getPastId());
+                    return new ProductDetails("productdetails", current_product.getDescription());
 
                 default:
                     return null;
