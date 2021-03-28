@@ -23,7 +23,8 @@
         android:layout_marginLeft="16dp"
         android:text="Play Station 4"
         android:textColor="?android:textColorPrimary"
-        android:textSize="14sp"
+        android:fontFamily="@font/bitter"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/bidHistoryImage"
         app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +131,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/your_bid"
         android:textColor="?android:textColorPrimary"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/clockimage"
         app:layout_constraintTop_toBottomOf="@+id/bidHistoryStartDate" />
@@ -142,8 +143,9 @@
         android:text="25$"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textColor="#f9a825"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
+        android:fontFamily="@font/bitter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/clockimage"
         app:layout_constraintTop_toBottomOf="@+id/bidHistoryAmountText" />

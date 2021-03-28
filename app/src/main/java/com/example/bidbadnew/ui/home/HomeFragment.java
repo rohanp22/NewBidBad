@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         viewPager = (ViewPager) view.findViewById(R.id.viewPagerCategories);
 
+        tabLayout.addTab(tabLayout.newTab().setText("Freebids"));
         tabLayout.addTab(tabLayout.newTab().setText("Electronics"));
         tabLayout.addTab(tabLayout.newTab().setText("Appliances"));
         tabLayout.addTab(tabLayout.newTab().setText("Accessories"));
@@ -55,7 +56,6 @@ public class HomeFragment extends Fragment implements ActionBottomDialogFragment
         tabLayout.addTab(tabLayout.newTab().setText("Fitness"));
         tabLayout.addTab(tabLayout.newTab().setText("Others"));
         tabLayout.addTab(tabLayout.newTab().setText("Apparel"));
-        tabLayout.addTab(tabLayout.newTab().setText("Freebids"));
 
         MyAdapter adapter = new MyAdapter(view.getContext(), getChildFragmentManager(), tabLayout.getTabCount());
         Log.d("Tabcount: ", tabLayout.getTabCount()+"");

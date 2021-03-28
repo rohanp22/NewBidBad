@@ -74,9 +74,9 @@ public class MyBidsFragment extends Fragment implements MyBidsAdapter.MyBidsAdap
         myBidsViewModel.init(SharedPrefManager.getInstance(view.getContext()).getUser().getId());
 
         cartList = view.findViewById(R.id.bidHistoryRecyclerView);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-        cartList.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
+//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+//        cartList.addItemDecoration(dividerItemDecoration);
         cartList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
         Context context;

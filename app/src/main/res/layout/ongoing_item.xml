@@ -7,16 +7,20 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:strokeColor="#1e202d"
+        app:strokeWidth="2dp"
         app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        android:layout_margin="-10dp"
         app:cardElevation="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/cardview_gradient_ongoing"
             android:padding="16dp">
 
             <ImageView

@@ -26,6 +26,7 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistoryViewHolder> {
@@ -59,22 +60,26 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
                 .into(holder.bidHistoryImage);
         holder.bidHistoryAmount.setText("₹"+heroList.get(position).getBidamount());
         holder.bidHistoryTitle.setText(heroList.get(position).getTitle());
-        holder.bidHistoryStartDate.setText(heroList.get(position).getEndtime());
+ //       holder.bidHistoryStartDate.setText(heroList.get(position).getEndtime());
         Log.d("Id", heroList.get(position).getId());
         Log.d("IDs", heroList.get(position).getIds());
         Log.d("Compare" , Integer.parseInt(heroList.get(position).getId()) + "  "+ SharedPrefManager.getInstance(context).getUser().getId());
         if(Integer.parseInt(heroList.get(position).getIds()) == SharedPrefManager.getInstance(context).getUser().getId()) {
-            holder.youWon.setVisibility(View.VISIBLE);
-            holder.youLost.setVisibility(View.GONE);
+
+//            holder.youWon.setVisibility(View.VISIBLE);
+//            holder.youLost.setVisibility(View.GONE);
         } else {
-            holder.youLost.setVisibility(View.VISIBLE);
-            holder.youWon.setVisibility(View.GONE);
+//            holder.youLost.setVisibility(View.VISIBLE);
+//            holder.youWon.setVisibility(View.GONE);
         }
         Log.d("Won by : ", heroList.get(position).getFirstname());
 
         try {
-            @SuppressLint("SimpleDateFormat") String dt1 = new SimpleDateFormat("dd MMM yyyy HH:mm").format(new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").parse(heroList.get(position).getEndtime()));
-            holder.bidHistoryStartDate.setText(dt1);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy, h:m a");
+            Date date = simpleDateFormat.parse(heroList.get(position).getDate());
+            Log.d("Time ", date.getTime() + "");
+            holder.subTitle.setText(getDisplayableTime(date.getTime()));
+            Log.d("TIme", getDisplayableTime(date.getTime()) + " ");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -87,6 +92,66 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
 
     }
 
+    public static String getDisplayableTime(long delta)
+    {
+        long difference=0;
+        Long mDate = java.lang.System.currentTimeMillis();
+
+        if(mDate > delta)
+        {
+            difference= mDate - delta;
+            final long seconds = difference/1000;
+            final long minutes = seconds/60;
+            final long hours = minutes/60;
+            final long days = hours/24;
+            final long months = days/31;
+            final long years = days/365;
+
+            if (seconds < 0)
+            {
+                return "not yet";
+            }
+            else if (seconds < 60)
+            {
+                return seconds == 1 ? "1 second ago" : seconds + " seconds ago";
+            }
+            else if (seconds < 120)
+            {
+                return "a minute ago";
+            }
+            else if (seconds < 2700) // 45 * 60
+            {
+                return minutes + " minutes ago";
+            }
+            else if (seconds < 5400) // 90 * 60
+            {
+                return "an hour ago";
+            }
+            else if (seconds < 86400) // 24 * 60 * 60
+            {
+                return hours + " hours ago";
+            }
+            else if (seconds < 172800) // 48 * 60 * 60
+            {
+                return "yesterday";
+            }
+            else if (seconds < 2592000) // 30 * 24 * 60 * 60
+            {
+                return days + " days ago";
+            }
+            else if (seconds < 31104000) // 12 * 30 * 24 * 60 * 60
+            {
+
+                return months <= 1 ? "1 month ago" : months + " months ago";
+            }
+            else
+            {
+
+                return years <= 1 ? "1 year ago" : years + " years ago";
+            }
+        }
+        return null;
+    }
     @Override
     public int getItemCount() {
         Log.d("Size", heroList.size() + "");
@@ -100,6 +165,7 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         TextView bidHistoryAmount;
         TextView bidHistoryRank;
         MaterialCardView youWon, youLost;
+        TextView subTitle;
 
         BidHistoryViewHolder(View itemView) {
             super(itemView);
@@ -108,8 +174,7 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
             bidHistoryTitle = itemView.findViewById(R.id.bidHistoryTitle);
             bidHistoryStartDate = itemView.findViewById(R.id.bidHistoryStartDate);
             bidHistoryRank = itemView.findViewById(R.id.bidHistoryRank);
-            youLost = itemView.findViewById(R.id.cardView2);
-            youWon = itemView.findViewById(R.id.cardView);
+            subTitle = itemView.findViewById(R.id.subtitle);
         }
     }
 }

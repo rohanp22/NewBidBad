@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -61,7 +62,7 @@ public class ProductDescription extends Fragment implements ActionBottomDialogFr
     Date startedAt;
     String imageurl1, imageurl2, imageurl3;
     boolean isBookmarked;
-    MaterialButton bidnowbtn;
+    ConstraintLayout bidnowbtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

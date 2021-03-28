@@ -76,9 +76,10 @@ public class CurrentProductsRepo {
     Api retrofitClient = RetrofitClient.getInstance().getMyApi();
 
     public void getProducts(int position, int userid) {
+        Log.d("position", position + "");
         Call<Current_Products> call = null;
         switch (position) {
-            case 0: {
+            case 1: {
                 call = retrofitClient.getCurrentProducts(userid, "Electronics");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -94,7 +95,7 @@ public class CurrentProductsRepo {
                 });
                 break;
             }
-            case 1:
+            case 2:
                 call = retrofitClient.getCurrentProducts(userid, "Appliances");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -109,7 +110,7 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 2:
+            case 3:
                 call = retrofitClient.getCurrentProducts(userid, "Accessories");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -124,7 +125,7 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 3:
+            case 4:
                 call = retrofitClient.getCurrentProducts(userid, "Personalcare");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -139,7 +140,7 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 4:
+            case 5:
                 call = retrofitClient.getCurrentProducts(userid, "Home");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -154,7 +155,7 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 5:
+            case 6:
                 call = retrofitClient.getCurrentProducts(userid, "Fitness");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -169,7 +170,7 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 6:
+            case 7:
                 call = retrofitClient.getCurrentProducts(userid, "Others");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -184,7 +185,7 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 7:
+            case 8:
                 call = retrofitClient.getCurrentProducts(userid, "Apparel");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
@@ -199,13 +200,13 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 8:
+            case 0:
                 call = retrofitClient.getCurrentProducts(userid, "Freebid");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
                         if(response.body() != null)
-                            apparelProductCategory.setValue(response.body().getCurrentProducts());
+                            freeBids.setValue(response.body().getCurrentProducts());
                     }
 
                     @Override
