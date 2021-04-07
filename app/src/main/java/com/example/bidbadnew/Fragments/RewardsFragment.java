@@ -311,7 +311,7 @@ public class RewardsFragment extends Fragment {
                                     if (visiblePercent > 0.3) {
                                         scratchView.setVisibility(View.GONE);
                                         Log.d("Scratch card id", scratchCardModels.get(getAdapterPosition()).getId());
-                                        String url = "http://easyvela.esy.es/AndroidAPI/redeemscratchcard.php?id=" + scratchCardModels.get(getAdapterPosition()).getId();
+                                        String url = "http://easyvela.esy.es/AndroidAPI/redeemscratchcard.php?id=" + scratchCardModels.get(getAdapterPosition()).getId()+"&userid=" + SharedPrefManager.getInstance(context).getUser().getId();
                                         Log.d("URL", url);
                                         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                                                 new Response.Listener<String>() {
