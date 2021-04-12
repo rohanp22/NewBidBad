@@ -105,7 +105,7 @@ public class ProductsFragment extends Fragment {
 
 
         switch (position) {
-            case 1:
+            case 0:
                 productsViewModel.electronicsProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -190,7 +190,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 8:
+            case 1:
                 productsViewModel.apparelProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -202,7 +202,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 0:
+            case 8:
                 productsViewModel.freeBidsCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override

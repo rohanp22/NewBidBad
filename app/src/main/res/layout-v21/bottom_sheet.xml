@@ -389,6 +389,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:padding="16dp"
         android:backgroundTint="@color/colorSecondary"
         android:fontFamily="@font/bitter"
         android:text="Bid now"

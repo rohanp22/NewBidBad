@@ -57,6 +57,7 @@
             android:layout_marginHorizontal="10dp"
             android:backgroundTint="@color/colorSecondary"
             android:text="Back to Home"
+            android:paddingVertical="16dp"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
