@@ -62,6 +62,7 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         holder.bidHistoryTitle.setText(heroList.get(position).getTitle());
  //       holder.bidHistoryStartDate.setText(heroList.get(position).getEndtime());
         Log.d("Id", heroList.get(position).getId());
+        holder.soldFor.setText(heroList.get(position).getBid_price());
         Log.d("IDs", heroList.get(position).getIds());
         Log.d("Compare" , Integer.parseInt(heroList.get(position).getId()) + "  "+ SharedPrefManager.getInstance(context).getUser().getId());
         if(Integer.parseInt(heroList.get(position).getIds()) == SharedPrefManager.getInstance(context).getUser().getId()) {
@@ -166,6 +167,7 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         TextView bidHistoryRank;
         MaterialCardView youWon, youLost;
         TextView subTitle;
+        TextView soldFor;
 
         BidHistoryViewHolder(View itemView) {
             super(itemView);
@@ -175,6 +177,7 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
             bidHistoryStartDate = itemView.findViewById(R.id.bidHistoryStartDate);
             bidHistoryRank = itemView.findViewById(R.id.bidHistoryRank);
             subTitle = itemView.findViewById(R.id.subtitle);
+            soldFor = itemView.findViewById(R.id.soldtext);
         }
     }
 }

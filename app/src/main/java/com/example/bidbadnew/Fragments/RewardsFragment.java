@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.bidbadnew.Model.ScratchCardModel;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONArray;
@@ -45,6 +47,7 @@ public class RewardsFragment extends Fragment {
 
     Dialog dialog;
     RecyclerView recyclerView;
+    MaterialToolbar materialToolbar;
     int noofbids;
     View view;
 
@@ -59,6 +62,13 @@ public class RewardsFragment extends Fragment {
         getActivity().findViewById(R.id.bar).setVisibility(View.GONE);
         getActivity().findViewById(R.id.fabhome).setVisibility(View.GONE);
         final View view = inflater.inflate(R.layout.fragment_rewards, container, false);
+        materialToolbar = view.findViewById(R.id.materialToolbar);
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
         this.view = view;
         dialog = new Dialog(view.getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/getmyposition.php?id=" + SharedPrefManager.getInstance(view.getContext()).getUser().getId(),
