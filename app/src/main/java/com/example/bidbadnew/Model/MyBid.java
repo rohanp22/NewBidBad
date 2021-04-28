@@ -59,7 +59,14 @@ public class MyBid implements Serializable {
     private String ids;
     @SerializedName("orderplaced")
     @Expose
-    private Object orderplaced;
+    private String orderplaced;
+    @SerializedName("bid_price")
+    @Expose
+    private String bid_price;
+
+    public String getBid_price() {
+        return bid_price;
+    }
 
     public String getPastId() {
         return pastId;
@@ -197,12 +204,9 @@ public class MyBid implements Serializable {
         this.ids = ids;
     }
 
-    public Object getOrderplaced() {
+    public String getOrderplaced() {
         return orderplaced;
     }
 
-    public void setOrderplaced(Object orderplaced) {
-        this.orderplaced = orderplaced;
-    }
 
 }

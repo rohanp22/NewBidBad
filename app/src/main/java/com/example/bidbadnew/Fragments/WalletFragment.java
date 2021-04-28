@@ -1,8 +1,10 @@
 package com.example.bidbadnew.Fragments;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import com.example.bidbadnew.Adapter.WalletAdapter;
 import com.example.bidbadnew.Model.Balance;
 import com.example.bidbadnew.Model.FreeBid;
+import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.Model.Transaction;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
@@ -28,8 +31,12 @@ import com.example.bidbadnew.repositories.RetrofitClient;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -65,10 +72,11 @@ public class WalletFragment extends Fragment {
         recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         mViewModel.getMyWonItems().observe(getViewLifecycleOwner(), new Observer<List<Transaction>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(List<Transaction> transactions) {
                 if(transactions != null) {
-                    Collections.reverse(transactions);
+                    transactions.sort(new sortTime());
                     recyclerview.setAdapter(new WalletAdapter(view.getContext(), transactions, transactions.size() < 4 ? transactions.size() : 4));
                 }
             }
@@ -146,6 +154,22 @@ public class WalletFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // TODO: Use the ViewModel
+    }
+
+    class sortTime implements Comparator<Transaction> {
+        // Used for sorting in ascending order of
+        // roll number
+        public int compare(Transaction a, Transaction b) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM d, yyyy, h:mm a");
+            Date a1 = null, b1 = null;
+            try {
+                a1 = simpleDateFormat.parse(a.getDate());
+                b1 = simpleDateFormat.parse(b.getDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return b1.compareTo(a1);
+        }
     }
 
 }
