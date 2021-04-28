@@ -104,6 +104,8 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/colorSecondary"
         android:text="Sign up"
+        android:padding="16dp"
+        android:fontFamily="@font/bitterbold"
         android:layout_marginTop="10dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

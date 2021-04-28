@@ -56,16 +56,18 @@
                 app:layout_constraintStart_toEndOf="@id/imageview"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/selectAddressButton"
                 android:layout_width="match_parent"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/dm_sans_regular"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:fontFamily="@font/dmsansbold"
                 android:text="Select Address"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:textColor="@color/colorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageview" />
 
@@ -97,7 +99,7 @@
                 android:id="@+id/card1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/orderDeliveryPaymentText"
                 app:layout_constraintTop_toBottomOf="@+id/orderDeliveryPaymentText">
@@ -135,7 +137,7 @@
                         android:id="@+id/balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/dmsansbold"
+                        android:fontFamily="@font/bitterbold"
                         android:textColor="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -319,13 +321,13 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/dm_sans_regular"
+        android:fontFamily="@font/bitterbold"
         android:padding="16dp"
         android:text="Place order"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:textColor="#000"
         android:textStyle="bold"
-        app:backgroundTint="#f9a825" />
+        app:backgroundTint="@color/colorSecondary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

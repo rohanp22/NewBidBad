@@ -1,5 +1,6 @@
 package com.example.bidbadnew.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.example.bidbadnew.Model.MyBid;
 import com.example.bidbadnew.Model.OngoingItems;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.Others.Symbol;
 import com.example.bidbadnew.R;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.io.OutputStream;
 import java.text.ParseException;
@@ -63,7 +60,7 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,18 +102,12 @@ public class OngoingBidsAdapter extends RecyclerView.Adapter<OngoingBidsAdapter.
 
             public void onTick(long millisUntilFinished) {
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
-
+                long different = 0;
                 try {
-                    if (position != 0)
-                        if (cartList.size() != 0) {
-                            startDate1 = simpleDateFormat.parse(cartList.get(position).getEndtime());
-                        }
+                    different = simpleDateFormat.parse(cartList.get(position).getEndtime()).getTime() - System.currentTimeMillis();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                long different = startDate1.getTime() - System.currentTimeMillis();
 
                 if (different > 0) {
 

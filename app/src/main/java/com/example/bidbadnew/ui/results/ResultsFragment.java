@@ -1,7 +1,6 @@
 package com.example.bidbadnew.ui.results;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import com.example.bidbadnew.Model.MyBid;
 import com.example.bidbadnew.Model.OngoingItems;
 import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class ResultsFragment extends Fragment implements AllBidsFragment.AllBidsFragmentListener, MyBidsFragment.MyBidsFragmentListener, OngoingBidsFragment.OnGoingFragmentListener {
@@ -39,7 +37,7 @@ public class ResultsFragment extends Fragment implements AllBidsFragment.AllBids
                              ViewGroup container, Bundle savedInstanceState) {
         getActivity().findViewById(R.id.resultsDot).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.personDot).setVisibility(View.INVISIBLE);
-        ((FloatingActionButton) getActivity().findViewById(R.id.fabhome)).setImageDrawable(getResources().getDrawable(R.drawable.home_indicator));
+        //((FloatingActionButton) getActivity().findViewById(R.id.fabhome)).setImageDrawable(getResources().getDrawable(R.drawable.home_indicator));
 
         dashboardViewModel =
                 new ViewModelProvider(this).get(ResultsViewModel.class);

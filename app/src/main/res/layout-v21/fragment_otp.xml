@@ -17,13 +17,16 @@
 
     <TextView
         android:id="@+id/entercodetext"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Enter Verification code"
+        android:lineSpacingExtra="4dp"
+        android:text="Enter \nVerification code"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="16sp"
+        android:textSize="32sp"
+        android:fontFamily="@font/bitterbold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +37,7 @@
         android:layout_marginTop="24dp"
         android:textSize="16sp"
         android:textColor="#fff"
+        android:fontFamily="@font/bitter"
         android:gravity="center"
         android:text="Please enter the verification code sent to \n+91XXXXXXXX01"
         app:layout_constraintBottom_toTopOf="@+id/otp"
@@ -64,14 +68,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/submit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
         android:text="Submit"
+        android:fontFamily="@font/bitterbold"
+        android:padding="16dp"
         android:backgroundTint="@color/colorSecondary"
-        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@id/otp"
         app:layout_constraintStart_toStartOf="@id/otp"
         app:layout_constraintTop_toBottomOf="@+id/otp" />

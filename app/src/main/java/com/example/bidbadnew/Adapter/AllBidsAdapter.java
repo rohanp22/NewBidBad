@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -52,7 +51,8 @@ public class AllBidsAdapter extends RecyclerView.Adapter<AllBidsAdapter.BidHisto
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.bidHistoryRank.setText("Won by : " + heroList.get(position).getWinner());
+
+        holder.bidHistoryRank.setText(heroList.get(position).getWinner());
         holder.bidHistoryAmount.setText("₹"+ heroList.get(position).getBidamount());
         Glide.with(context)
                 .load(heroList.get(position).getImage_url())

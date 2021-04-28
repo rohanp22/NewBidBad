@@ -1,24 +1,16 @@
 package com.example.bidbadnew.Fragments;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,11 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.bidbadnew.Adapter.AllBidsAdapter;
 import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.R;
-import com.example.bidbadnew.Others.SharedPrefManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,9 +66,9 @@ public class AllBidsFragment extends Fragment implements AllBidsAdapter.AllBidsA
         view = inflater.inflate(R.layout.fragment_all_bids, container, false);
         cartList = view.findViewById(R.id.allbidsRecyclerview);
         cartList.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-        cartList.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
+//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+//        cartList.addItemDecoration(dividerItemDecoration);
         cartItems = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://easyvela.esy.es/AndroidAPI/pastproducts.php",
                 new Response.Listener<String>() {

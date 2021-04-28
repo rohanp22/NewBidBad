@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.res.ColorStateList;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
@@ -28,13 +27,13 @@ import com.example.bidbadnew.Model.Stat;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.repositories.RetrofitClient;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +61,7 @@ public class ProfileFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         getActivity().findViewById(R.id.bar).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.fabhome).setVisibility(View.VISIBLE);
-        ((FloatingActionButton) getActivity().findViewById(R.id.fabhome)).setImageDrawable(getResources().getDrawable(R.drawable.home_indicator));
+        //((FloatingActionButton) getActivity().findViewById(R.id.fabhome)).setImageDrawable(getResources().getDrawable(R.drawable.home_indicator));
         getActivity().findViewById(R.id.resultsDot).setVisibility(View.INVISIBLE);
         getActivity().findViewById(R.id.personDot).setVisibility(View.VISIBLE);
         notificationsViewModel =

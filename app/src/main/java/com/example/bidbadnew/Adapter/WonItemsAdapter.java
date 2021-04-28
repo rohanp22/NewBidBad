@@ -1,25 +1,23 @@
 package com.example.bidbadnew.Adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.bidbadnew.Fragments.PlaceOrderViewModel;
 import com.example.bidbadnew.Fragments.WonBidsFragmentDirections;
 import com.example.bidbadnew.Model.WonItem;
 import com.example.bidbadnew.R;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +42,15 @@ public class WonItemsAdapter extends RecyclerView.Adapter<WonItemsAdapter.BidHis
     @Override
     public void onBindViewHolder(@NonNull BidHistoryViewHolder holder, final int position) {
         holder.bidHistoryTitle.setText(heroList.get(position).getTitle());
+        holder.shareBid.setVisibility(View.VISIBLE);
+        holder.winnerStats.setVisibility(View.GONE);
+        //holder.winnerStats.setText("Stats");
+        holder.shareBid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_navigation_wonbids_to_winnerScreen);
+            }
+        });
         String pattern = "dd MMM yyyy HH:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
@@ -65,6 +72,13 @@ public class WonItemsAdapter extends RecyclerView.Adapter<WonItemsAdapter.BidHis
             holder.bidHistoryRank.setVisibility(View.VISIBLE);
             holder.bidHistoryRank.setText("Place order");
 
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.findNavController(holder.itemView).navigate(WonBidsFragmentDirections.actionNavigationWonbidsToPlaceOrderFragment(null, heroList.get(position)));
+                }
+            });
+
             holder.bidHistoryRank.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -72,7 +86,9 @@ public class WonItemsAdapter extends RecyclerView.Adapter<WonItemsAdapter.BidHis
                 }
             });
         } else {
-            holder.bidHistoryRank.setVisibility(View.GONE);
+            holder.bidHistoryRank.setText("Order placed");
+            holder.bidHistoryRank.setTextColor(ResourcesCompat.getColor(context.getResources(), android.R.color.secondary_text_dark, context.getTheme()));
+            // holder.bidHistoryRank.setVisibility(View.GONE);
         }
     }
 
@@ -88,6 +104,8 @@ public class WonItemsAdapter extends RecyclerView.Adapter<WonItemsAdapter.BidHis
         TextView bidHistoryAmount;
         TextView bidHistoryRank;
         ImageView bidHistoryMedalImage;
+        TextView winnerStats;
+        ImageButton shareBid;
 
         BidHistoryViewHolder(View itemView) {
             super(itemView);
@@ -97,13 +115,8 @@ public class WonItemsAdapter extends RecyclerView.Adapter<WonItemsAdapter.BidHis
             bidHistoryTitle = itemView.findViewById(R.id.bidHistoryTitle);
             bidHistoryStartDate = itemView.findViewById(R.id.bidHistoryStartDate);
             bidHistoryRank = itemView.findViewById(R.id.bidHistoryRank);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Navigation.findNavController(v).navigate(R.id.action_navigation_wonbids_to_winnerScreen);
-                }
-            });
+            winnerStats = itemView.findViewById(R.id.textView9);
+            shareBid = itemView.findViewById(R.id.share_bid);
         }
     }
 }
