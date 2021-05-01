@@ -58,23 +58,22 @@ public class WinnerScreen extends Fragment {
     }
 
     boolean checkStoragePermission() {
-        boolean isGranted = false;
         if (ContextCompat.checkSelfPermission(requireActivity(),
-                Manifest.permission.READ_EXTERNAL_STORAGE)
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(requireActivity(),
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     RC_STORAGE);
             return false;
-        } else
-            return true;
+        }
+        return true;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == RC_STORAGE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 shareBid(winnerRootView);
             else
                 // Permission Denied
