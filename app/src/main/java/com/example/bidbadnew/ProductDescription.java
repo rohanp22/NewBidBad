@@ -1,48 +1,36 @@
 package com.example.bidbadnew;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.CountDownTimer;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.example.bidbadnew.Fragments.AllBidsFragment;
-import com.example.bidbadnew.Fragments.MyBidsFragment;
-import com.example.bidbadnew.Fragments.OngoingBidsFragment;
 import com.example.bidbadnew.Fragments.ProductDetails;
 import com.example.bidbadnew.Model.Current_Product;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.repositories.RetrofitClient;
-import com.example.bidbadnew.ui.home.HomeFragmentDirections;
-import com.example.bidbadnew.ui.results.ResultsFragment;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -62,7 +50,7 @@ public class ProductDescription extends Fragment implements ActionBottomDialogFr
     Date startedAt;
     String imageurl1, imageurl2, imageurl3;
     boolean isBookmarked;
-    ConstraintLayout bidnowbtn;
+    FrameLayout bidnowbtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
+    android:background="?selectableItemBackground"
     android:focusableInTouchMode="true"
     android:padding="16dp">
 
@@ -14,8 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/dm_sans_regular"
+        android:textSize="16sp"
         android:text="Title"
-        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,9 +36,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
-        android:fontFamily="@font/dm_sans_regular"
+        android:textSize="16sp"
+        android:fontFamily="@font/dmsansbold"
         android:text="Rohan"
-        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/editItemImage"
         app:layout_constraintTop_toTopOf="parent" />

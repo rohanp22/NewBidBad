@@ -1,43 +1,29 @@
 package com.example.bidbadnew.Fragments;
 
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.bidbadnew.Adapter.OrderAdapter;
-import com.example.bidbadnew.Model.Current_Product;
 import com.example.bidbadnew.Model.Order;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
 import com.google.android.material.appbar.MaterialToolbar;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -80,9 +66,9 @@ public class OrdersFragment extends Fragment implements OrderAdapter.OrderAdapte
             public void onChanged(List<Order> orders) {
                 if (orders != null) {
                     orders.sort(new sortId());
-                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
-                    dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-                    pastList.addItemDecoration(dividerItemDecoration);
+//                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
+//                    dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+//                    pastList.addItemDecoration(dividerItemDecoration);
                     pastList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
                     pastList.setAdapter(new OrderAdapter(view.getContext(), orders, OrdersFragment.this));
                 }

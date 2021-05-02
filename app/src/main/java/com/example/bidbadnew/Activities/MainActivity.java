@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.android.volley.NoConnectionError;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,13 +29,6 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.DialogFragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 public class MainActivity extends AppCompatActivity implements ActionBottomDialogFragment.ItemClickListener {
     public NavController navController;
@@ -70,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements ActionBottomDialo
 
         BottomAppBar navView = findViewById(R.id.bar);
         FloatingActionButton fab = findViewById(R.id.fabhome);
+        fab.setVisibility(View.VISIBLE);
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_black_24dp));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
