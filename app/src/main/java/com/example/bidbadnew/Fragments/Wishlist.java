@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import com.example.bidbadnew.Adapter.WishListAdapter;
 import com.example.bidbadnew.Model.WishListItem;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 
@@ -42,6 +44,13 @@ public class Wishlist extends Fragment {
         mViewModel.init(SharedPrefManager.getInstance(view.getContext()).getUser().getId());
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerViewPast.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
 
         mViewModel.getMyBids().observe(getViewLifecycleOwner(), new Observer<List<WishListItem>>() {
             @Override

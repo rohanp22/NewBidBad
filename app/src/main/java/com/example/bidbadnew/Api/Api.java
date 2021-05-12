@@ -52,6 +52,9 @@ public interface Api {
     @GET("/AndroidAPI/getrewardpoints.php")
     Call<String> getRewardPoints(@Query("id") int id);
 
+    @GET("/AndroidAPI/getmyrank.php")
+    Call<String> getMyRank(@Query("user_id") int id, @Query("product_id") int product_id);
+
     @GET("/AndroidAPI/forgotpassword.php")
     Call<Void> forgotpassword(@Query("mobile") String phone, @Query("password") String password);
 
