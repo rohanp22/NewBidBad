@@ -3,6 +3,7 @@ package com.example.bidbadnew.Fragments;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +25,17 @@ import com.example.bidbadnew.Model.MyBids;
 import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.Others.SharedPrefManager;
+import com.example.bidbadnew.repositories.RetrofitClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyBidsFragment extends Fragment implements MyBidsAdapter.MyBidsAdapterListener {
 
@@ -61,7 +67,7 @@ public class MyBidsFragment extends Fragment implements MyBidsAdapter.MyBidsAdap
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
+    int i = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,7 +85,7 @@ public class MyBidsFragment extends Fragment implements MyBidsAdapter.MyBidsAdap
 //        cartList.addItemDecoration(dividerItemDecoration);
         cartList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-        Context context;
+        Context context ;
         List<MyBid> heroList;
 
         myBidsViewModel.getMyBids().observe(getViewLifecycleOwner(), new Observer<List<MyBid>>() {

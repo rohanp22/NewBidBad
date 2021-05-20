@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -94,12 +95,19 @@ public class ProductDescriptionHistoryMyBids extends Fragment {
         toolbar.inflateMenu(R.menu.product_description_menu);
         menu = toolbar.getMenu();
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
+
         Call<String> call = RetrofitClient.getInstance().getMyApi().isWishlist(SharedPrefManager.getInstance(view.getContext()).getUser().getId(), Integer.parseInt(current_product.getId()));
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d("Response", response.body());
-                if(response.body().equals("1")){
+                if (response.body().equals("1")) {
                     menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_24));
                 } else {
                     menu.findItem(R.id.navigation_bookmark).setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_border_24));
@@ -118,7 +126,7 @@ public class ProductDescriptionHistoryMyBids extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.navigation_bookmark:
                         isBookmarked = !isBookmarked;
-                        if(isBookmarked) {
+                        if (isBookmarked) {
                             Call<Void> call = RetrofitClient.getInstance().getMyApi().addToWishlist(SharedPrefManager.getInstance(getContext()).getUser().getId(), Integer.parseInt(current_product.getId()));
                             call.enqueue(new Callback<Void>() {
                                 @Override
@@ -176,7 +184,7 @@ public class ProductDescriptionHistoryMyBids extends Fragment {
         }
 
         title.setText(current_product.getTitle());
-        mrp.setText("₹"+current_product.getMrp());
+        mrp.setText("₹" + current_product.getMrp());
         started_at.setText(dateFormat.format(startedAt));
         subtitle.setText(current_product.getTitle());
         entry.setText(current_product.getSp());
@@ -277,23 +285,9 @@ public class ProductDescriptionHistoryMyBids extends Fragment {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // this is for fragment tabs
         @Override
-        public Fragment getItem(int position){
+        public Fragment getItem(int position) {
             Log.d("Current product id : ", current_product.getId());
             switch (position) {
                 case 0:
