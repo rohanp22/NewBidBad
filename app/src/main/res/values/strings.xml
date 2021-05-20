@@ -19,5 +19,6 @@
     <string name="signin_up"><u>Signin Up</u></string>
     <string name="by_continuing_i_hereby_confirm_to_the_terms_of_service_fairplay_policy_amp_privacy_policy"><![CDATA[By continuing I hereby confirm to the Terms of Service. Fairplay Policy & Privacy Policy]]></string>
     <string name="sign_in"><u>Sign In</u></string>
+    <string name="share">Share</string>
 
 </resources>
