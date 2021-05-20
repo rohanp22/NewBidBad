@@ -9,7 +9,19 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.provider.MediaStore;
+=======
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
+
+>>>>>>> 7005cbf666b6c768e127b4373e3e294c1def1829
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -93,6 +105,13 @@ public class ProductDescriptionHistoryMyBids extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.product_description_menu);
         menu = toolbar.getMenu();
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
 
         Call<String> call = RetrofitClient.getInstance().getMyApi().isWishlist(SharedPrefManager.getInstance(view.getContext()).getUser().getId(), Integer.parseInt(current_product.getId()));
         call.enqueue(new Callback<String>() {

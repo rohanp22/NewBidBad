@@ -1,11 +1,32 @@
 package com.example.bidbadnew.Model;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class MyBid implements Serializable {
 
+    @SerializedName("bidid")
+    @Expose
+    private String bidid;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("productid")
+    @Expose
+    private String productid;
+    @SerializedName("bidamount")
+    @Expose
+    private String bidamount;
+    @SerializedName("date")
+    @Expose
+    private String date;
+    @SerializedName("bonuspoints")
+    @Expose
+    private String bonuspoints;
+    @SerializedName("freebid")
+    @Expose
+    private String freebid;
     @SerializedName("past_id")
     @Expose
     private String pastId;
@@ -36,36 +57,88 @@ public class MyBid implements Serializable {
     @SerializedName("start_date")
     @Expose
     private String startDate;
-    @SerializedName("bidid")
+    @SerializedName("subtitle")
     @Expose
-    private String bidid;
-    @SerializedName("id")
+    private String subtitle;
+    @SerializedName("category")
     @Expose
-    private String id;
-    @SerializedName("productid")
+    private String category;
+    @SerializedName("bonus")
     @Expose
-    private String productid;
-    @SerializedName("bidamount")
+    private String bonus;
+    @SerializedName("bidlimit")
     @Expose
-    private String bidamount;
-    @SerializedName("date")
+    private String bidlimit;
+    @SerializedName("userlimit")
     @Expose
-    private String date;
+    private String userlimit;
+    @SerializedName("orderplaced")
+    @Expose
+    private Object orderplaced;
+    @SerializedName("bid_price")
+    @Expose
+    private String bidPrice;
+    @SerializedName("rank")
+    @Expose
+    private Integer rank;
     @SerializedName("firstname")
     @Expose
     private String firstname;
-    @SerializedName("ids")
-    @Expose
-    private String ids;
-    @SerializedName("orderplaced")
-    @Expose
-    private String orderplaced;
-    @SerializedName("bid_price")
-    @Expose
-    private String bid_price;
 
-    public String getBid_price() {
-        return bid_price;
+    public String getBidid() {
+        return bidid;
+    }
+
+    public void setBidid(String bidid) {
+        this.bidid = bidid;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProductid() {
+        return productid;
+    }
+
+    public void setProductid(String productid) {
+        this.productid = productid;
+    }
+
+    public String getBidamount() {
+        return bidamount;
+    }
+
+    public void setBidamount(String bidamount) {
+        this.bidamount = bidamount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getBonuspoints() {
+        return bonuspoints;
+    }
+
+    public void setBonuspoints(String bonuspoints) {
+        this.bonuspoints = bonuspoints;
+    }
+
+    public String getFreebid() {
+        return freebid;
+    }
+
+    public void setFreebid(String freebid) {
+        this.freebid = freebid;
     }
 
     public String getPastId() {
@@ -148,44 +221,68 @@ public class MyBid implements Serializable {
         this.startDate = startDate;
     }
 
-    public String getBidid() {
-        return bidid;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setBidid(String bidid) {
-        this.bidid = bidid;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
-    public String getId() {
-        return id;
+    public String getCategory() {
+        return category;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getProductid() {
-        return productid;
+    public String getBonus() {
+        return bonus;
     }
 
-    public void setProductid(String productid) {
-        this.productid = productid;
+    public void setBonus(String bonus) {
+        this.bonus = bonus;
     }
 
-    public String getBidamount() {
-        return bidamount;
+    public String getBidlimit() {
+        return bidlimit;
     }
 
-    public void setBidamount(String bidamount) {
-        this.bidamount = bidamount;
+    public void setBidlimit(String bidlimit) {
+        this.bidlimit = bidlimit;
     }
 
-    public String getDate() {
-        return date;
+    public String getUserlimit() {
+        return userlimit;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setUserlimit(String userlimit) {
+        this.userlimit = userlimit;
+    }
+
+    public Object getOrderplaced() {
+        return orderplaced;
+    }
+
+    public void setOrderplaced(Object orderplaced) {
+        this.orderplaced = orderplaced;
+    }
+
+    public String getBidPrice() {
+        return bidPrice;
+    }
+
+    public void setBidPrice(String bidPrice) {
+        this.bidPrice = bidPrice;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
     public String getFirstname() {
@@ -195,18 +292,5 @@ public class MyBid implements Serializable {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
-
-    public String getIds() {
-        return ids;
-    }
-
-    public void setIds(String ids) {
-        this.ids = ids;
-    }
-
-    public String getOrderplaced() {
-        return orderplaced;
-    }
-
 
 }

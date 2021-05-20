@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,12 +23,17 @@ import com.example.bidbadnew.Model.MyBid;
 import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.Others.SharedPrefManager;
 import com.example.bidbadnew.R;
+import com.example.bidbadnew.repositories.RetrofitClient;
 import com.google.android.material.card.MaterialCardView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistoryViewHolder> {
 
@@ -62,18 +68,29 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         holder.bidHistoryTitle.setText(heroList.get(position).getTitle());
  //       holder.bidHistoryStartDate.setText(heroList.get(position).getEndtime());
         Log.d("Id", heroList.get(position).getId());
-        holder.soldFor.setText(heroList.get(position).getBid_price());
-        Log.d("IDs", heroList.get(position).getIds());
+        holder.soldFor.setText(heroList.get(position).getBidPrice());
         Log.d("Compare" , Integer.parseInt(heroList.get(position).getId()) + "  "+ SharedPrefManager.getInstance(context).getUser().getId());
-        if(Integer.parseInt(heroList.get(position).getIds()) == SharedPrefManager.getInstance(context).getUser().getId()) {
-
-//            holder.youWon.setVisibility(View.VISIBLE);
-//            holder.youLost.setVisibility(View.GONE);
+        String x = heroList.get(position).getOrderplaced() + "";
+        Log.d("Won by : ", heroList.get(position).getOrderplaced() + "");
+        if(heroList.get(position).getRank() == 1){
+            if(x.equals("1")) {
+                holder.rank.setVisibility(View.GONE);
+                holder.placeOrder.setVisibility(View.GONE);
+                holder.bidHistoryRank.setVisibility(View.GONE);
+                holder.orderPlacedText.setVisibility(View.VISIBLE);
+            } else {
+                holder.bidHistoryRank.setVisibility(View.GONE);
+                holder.orderPlacedText.setVisibility(View.GONE);
+                holder.rank.setVisibility(View.GONE);
+                holder.placeOrder.setVisibility(View.VISIBLE);
+            }
         } else {
-//            holder.youLost.setVisibility(View.VISIBLE);
-//            holder.youWon.setVisibility(View.GONE);
+            holder.placeOrder.setVisibility(View.GONE);
+            holder.bidHistoryRank.setText(heroList.get(position).getRank() + "");
+            holder.bidHistoryRank.setVisibility(View.VISIBLE);
+            holder.rank.setVisibility(View.VISIBLE);
+            holder.orderPlacedText.setVisibility(View.GONE);
         }
-        Log.d("Won by : ", heroList.get(position).getFirstname());
 
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy, h:m a");
@@ -168,14 +185,20 @@ public class MyBidsAdapter extends RecyclerView.Adapter<MyBidsAdapter.BidHistory
         MaterialCardView youWon, youLost;
         TextView subTitle;
         TextView soldFor;
+        TextView rank;
+        Button placeOrder;
+        TextView orderPlacedText;
 
         BidHistoryViewHolder(View itemView) {
             super(itemView);
+            orderPlacedText = itemView.findViewById(R.id.orderPlacedText);
+            placeOrder = itemView.findViewById(R.id.placeOrder);
+            rank = itemView.findViewById(R.id.rankText);
             bidHistoryImage = itemView.findViewById(R.id.bidHistoryImage);
             bidHistoryAmount = itemView.findViewById(R.id.bidHistoryAmount);
             bidHistoryTitle = itemView.findViewById(R.id.bidHistoryTitle);
             bidHistoryStartDate = itemView.findViewById(R.id.bidHistoryStartDate);
-            bidHistoryRank = itemView.findViewById(R.id.bidHistoryRank);
+            bidHistoryRank = itemView.findViewById(R.id.endsin);
             subTitle = itemView.findViewById(R.id.subtitle);
             soldFor = itemView.findViewById(R.id.soldtext);
         }
