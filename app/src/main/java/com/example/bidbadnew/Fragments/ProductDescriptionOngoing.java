@@ -1,10 +1,18 @@
 package com.example.bidbadnew.Fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +23,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -23,22 +33,19 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.example.bidbadnew.ActionBottomDialogFragment;
-import com.example.bidbadnew.Model.Current_Product;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.bidbadnew.Model.OngoingItems;
-import com.example.bidbadnew.Model.PastProducts;
 import com.example.bidbadnew.Others.SharedPrefManager;
-import com.example.bidbadnew.ProductDescription;
-import com.example.bidbadnew.ProductDescriptionArgs;
 import com.example.bidbadnew.R;
 import com.example.bidbadnew.repositories.RetrofitClient;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +55,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductDescriptionOngoing extends Fragment {
+    private static final int RC_STORAGE = 1;
     TextView hr1, hr2, min1, min2, sec1, sec2, title, subtitle, started_at, entry, mrp, note1, note2;
     OngoingItems current_product;
     ImageView imageView1, imageView2, imageView3;
@@ -94,7 +102,7 @@ public class ProductDescriptionOngoing extends Fragment {
         note1 = view.findViewById(R.id.cardItem1);
         note2 = view.findViewById(R.id.cardItem2);
         toolbar = view.findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.product_description_menu);
+        toolbar.inflateMenu(R.menu.product_description_winner_menu);
 
         MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -163,6 +171,10 @@ public class ProductDescriptionOngoing extends Fragment {
                             item.setIcon(getResources().getDrawable(R.drawable.ic_baseline_bookmark_border_24));
                         }
                         return true;
+                    case R.id.menu_item_share:
+                        if (verifyPermissions())
+                            shareBid();
+                        break;
                     default:
                         break;
                 }
@@ -372,5 +384,72 @@ public class ProductDescriptionOngoing extends Fragment {
         public int getCount() {
             return totalTabs;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == RC_STORAGE && grantResults.length > 0 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            shareBid();
+        }
+    }
+
+    private boolean verifyPermissions() {
+        if (!(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, RC_STORAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private void shareBid() {
+        final Bitmap[] icon = new Bitmap[1];
+        Glide.with(requireContext())
+                .asBitmap()
+                .load(current_product.getImageUrl())
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        icon[0] = resource;
+                        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("image/jpeg");
+
+                        ContentValues values = new ContentValues();
+                        values.put(MediaStore.Images.Media.TITLE, "title");
+                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                        Uri uri = requireContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                values);
+
+                        OutputStream outstream;
+                        try {
+                            outstream = requireContext().getContentResolver().openOutputStream(uri);
+                            icon[0].compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                            outstream.close();
+                        } catch (Exception e) {
+                            System.err.println(e.toString());
+                        }
+
+                        intent.putExtra(Intent.EXTRA_STREAM, uri);
+                        //startActivity(Intent.createChooser(share, "Share Image"));
+
+                        /*Create an ACTION_SEND Intent*/
+                        /*This will be the actual content you wish you share.*/
+                        String shareBody = "Hey! Bid using this link to get the bonus points http://easyvela.esy.es/newproduct?id1=" + current_product.getCurrentid() + "&id2=" + SharedPrefManager.getInstance(requireContext()).getUser().getId();
+                        /*The type of the content is text, obviously.*/
+                        intent.setType("text/plain");
+                        /*Applying information Subject and Body.*/
+                        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share bid");
+                        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        /*Fire!*/
+                        requireContext().startActivity(Intent.createChooser(intent, "Share via"));
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
     }
 }

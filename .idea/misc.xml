@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/bg_refer_code.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable-v24/ic_share.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/button_tint.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/product_description_bg.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/layout-v21/fragment_otp.xml" value="0.3098958333333333" />
@@ -53,7 +56,9 @@
         <entry key="app/src/main/res/layout/order_layout.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/order_summary_fragment.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/orders_fragment.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/product_layout_new.xml" value="0.23278985507246377" />
         <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/rank_model.xml" value="0.23278985507246377" />
         <entry key="app/src/main/res/layout/signup_form_fragment.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/ticket_item.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/transaction_layout.xml" value="0.3098958333333333" />
@@ -61,6 +66,7 @@
         <entry key="app/src/main/res/layout/wishlist_fragment.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/product_description_menu.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/product_description_winner_menu.xml" value="0.3098958333333333" />
       </map>
     </option>
   </component>

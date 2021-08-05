@@ -60,12 +60,10 @@
             android:id="@+id/soldfortext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/bitter"
+            android:fontFamily="@font/dm_sans_regular"
             android:text="Sold for"
-            android:textColor="@color/white"
-            android:textSize="5sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/soldtext"
-            app:layout_constraintStart_toStartOf="@+id/soldtext"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
