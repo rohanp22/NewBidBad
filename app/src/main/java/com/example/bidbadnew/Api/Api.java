@@ -43,6 +43,9 @@ public interface Api {
     @GET("currentproducts.php/")
     Call<Current_Products> getCurrentProducts(@Query("id") int id);
 
+    @GET("/AndroidAPI/getproductinfo.php")
+    Call<Current_Products> getProductInfo(@Query("id") int id);
+
     @GET("/AndroidAPI/getproductranking.php")
     Call<List<Ranking>> getProductRanking(@Query("id") int id);
 

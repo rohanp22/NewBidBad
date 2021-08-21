@@ -21,6 +21,7 @@ public class ProductsViewModel extends ViewModel {
     public MutableLiveData<List<Current_Product>> othersCategory = currentProductsRepo.getOthersCategory();
     public MutableLiveData<List<Current_Product>> appliancesCategory = currentProductsRepo.getAppliancesCategory();
     public MutableLiveData<List<Current_Product>> freeBidsCategory = currentProductsRepo.getFreeBids();
+    public MutableLiveData<Current_Product> currentProduct = currentProductsRepo.getCurrentProduct();
 
     public void refreshProduct(int position, int userid){
         currentProductsRepo.getProducts(position, userid);

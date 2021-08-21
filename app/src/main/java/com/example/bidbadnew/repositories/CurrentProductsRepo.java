@@ -10,6 +10,7 @@ import com.example.bidbadnew.Model.Current_Products;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,6 +37,13 @@ public class CurrentProductsRepo {
     public MutableLiveData<List<Current_Product>> othersCategory = new MutableLiveData<>();
     public MutableLiveData<List<Current_Product>> appliancesCategory = new MutableLiveData<>();
     public MutableLiveData<List<Current_Product>> freeBids = new MutableLiveData<>();
+
+    // CurrentProduct item for free bid
+    public MutableLiveData<Current_Product> currentProduct = new MutableLiveData<>();
+
+    public MutableLiveData<Current_Product> getCurrentProduct() {
+        return currentProduct;
+    }
 
     public MutableLiveData<List<Current_Product>> getFreeBids() {
         return freeBids;
@@ -75,17 +83,35 @@ public class CurrentProductsRepo {
 
     Api retrofitClient = RetrofitClient.getInstance().getMyApi();
 
+    public void getProduct(int productId) {
+        Call<Current_Products> call = retrofitClient.getProductInfo(productId);
+        Log.d("URRRRRL", call.request().url().url().toString());
+        call.enqueue(new Callback<Current_Products>() {
+            @Override
+            public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
+                if (response.code() == 200 && response.body() != null)
+                    currentProduct.setValue(response.body().getCurrentProducts().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<Current_Products> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     public void getProducts(int position, int userid) {
         Log.d("position", position + "");
         Call<Current_Products> call = null;
         switch (position) {
-            case 1: {
+            case 0: {
                 call = retrofitClient.getCurrentProducts(userid, "Electronics");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
-                        electronicsProductCategory.setValue(response.body().getCurrentProducts());
+                        if (response.body() != null)
+                            electronicsProductCategory.setValue(response.body().getCurrentProducts());
                     }
 
                     @Override
@@ -95,12 +121,12 @@ public class CurrentProductsRepo {
                 });
                 break;
             }
-            case 2:
+            case 1:
                 call = retrofitClient.getCurrentProducts(userid, "Appliances");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             appliancesCategory.setValue(response.body().getCurrentProducts());
                     }
 
@@ -110,12 +136,12 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 3:
+            case 2:
                 call = retrofitClient.getCurrentProducts(userid, "Accessories");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             accessoriesCategory.setValue(response.body().getCurrentProducts());
                     }
 
@@ -125,12 +151,12 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 4:
-                call = retrofitClient.getCurrentProducts(userid, "Personalcare");
+            case 3:
+                call = retrofitClient.getCurrentProducts(userid, "Personal Care");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             personalcareProductCategory.setValue(response.body().getCurrentProducts());
                     }
 
@@ -140,12 +166,12 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 5:
-                call = retrofitClient.getCurrentProducts(userid, "Home");
+            case 4:
+                call = retrofitClient.getCurrentProducts(userid, "Home and Furniture");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             homeProductCategory.setValue(response.body().getCurrentProducts());
                     }
 
@@ -155,12 +181,12 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 6:
+            case 5:
                 call = retrofitClient.getCurrentProducts(userid, "Fitness");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             fitnessProductCategory.setValue(response.body().getCurrentProducts());
                     }
 
@@ -170,12 +196,12 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 7:
-                call = retrofitClient.getCurrentProducts(userid, "Others");
+            case 6:
+                call = retrofitClient.getCurrentProducts(userid, "Other");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             othersCategory.setValue(response.body().getCurrentProducts());
                     }
 
@@ -185,12 +211,12 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 8:
+            case 7:
                 call = retrofitClient.getCurrentProducts(userid, "Apparel");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             apparelProductCategory.setValue(response.body().getCurrentProducts());
                     }
 
@@ -200,12 +226,12 @@ public class CurrentProductsRepo {
                     }
                 });
                 break;
-            case 0:
-                call = retrofitClient.getCurrentProducts(userid, "Freebid");
+            case 8:
+                call = retrofitClient.getCurrentProducts(userid, "Free Bid");
                 call.enqueue(new Callback<Current_Products>() {
                     @Override
                     public void onResponse(Call<Current_Products> call, Response<Current_Products> response) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             freeBids.setValue(response.body().getCurrentProducts());
                     }
 

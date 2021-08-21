@@ -117,7 +117,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 2:
+            case 1:
                 productsViewModel.appliancesCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -129,7 +129,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 3:
+            case 2:
                 productsViewModel.accessoriesCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -141,7 +141,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 4:
+            case 3:
                 productsViewModel.personalcareProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -153,7 +153,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 5:
+            case 4:
                 productsViewModel.homeProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -166,7 +166,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 6:
+            case 5:
                 productsViewModel.fitnessProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -178,7 +178,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 7:
+            case 6:
                 productsViewModel.othersCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
@@ -190,7 +190,7 @@ public class ProductsFragment extends Fragment {
                     }
                 });
                 break;
-            case 1:
+            case 7:
                 productsViewModel.apparelProductCategory.observe(getViewLifecycleOwner(), new Observer<List<Current_Product>>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
